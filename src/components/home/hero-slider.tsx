@@ -16,6 +16,12 @@ import type { HeroSlide } from "@/data/demo";
  *  - فلش‌ها دوتایی پایین-راست، تراز با شیار · اتوپلی ۶ث (توقف hover، خاموش برای
  *    reduced-motion — زوم هم با همان قاعده غیرفعال می‌شود) · swipe موبایل
  */
+/* ⬅️⬅️ ارتفاع هیرو اینجا تنظیم می‌شود ⬅️⬅️
+   نسبت = عرض/ارتفاع — عدد دوم (مخرج) را کمتر کنی = هیرو کوتاه‌تر؛ بیشتر = بلندتر.
+   دسکتاپ فعلی: 1055/400 (کوته‌تر از 1055/450 قبلی) · موبایل: 16/10 */
+const HERO_ASPECT_DESKTOP = "sm:aspect-[1055/400]";
+const HERO_ASPECT_MOBILE = "aspect-[16/10]";
+
 export function HeroSlider({
   slides,
   className,
@@ -63,7 +69,7 @@ export function HeroSlider({
       onTouchEnd={onTouchEnd}
     >
       {/* کارت — ماسک گردگوشه + شیار قرصی؛ هر اسلاید یک لینک تمام‌تصویر */}
-      <div className="hero-notch-mask relative aspect-[4/3] bg-canvas-dark sm:aspect-[1055/450]">
+      <div className={cn("hero-notch-mask relative bg-canvas-dark", HERO_ASPECT_MOBILE, HERO_ASPECT_DESKTOP)}>
         {slides.map((s, i) => {
           const active = i === index;
           return (

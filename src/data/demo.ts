@@ -315,27 +315,27 @@ export type HeroSlide = {
 };
 
 const heroImg = (seed: string) => `https://picsum.photos/seed/${seed}/1600/686`;
-const heroImgM = (seed: string) => `https://picsum.photos/seed/${seed}/800/1000`;
 
+/** تصاویر هیرو از public/hero — جایگزینی: فقط فایل‌ها را بازنویسی کنید (public/hero/README.md) */
 export const demoHeroSlides: HeroSlide[] = [
   {
     id: "light-fall",
-    image: heroImg("nakh-hero-1"),
-    imageMobile: heroImgM("nakh-hero-1m"),
+    image: "/hero/hero-1.png",
+    imageMobile: "/hero/hero-1.png",
     title: "کالکشن پاییزِ روشن — خرید کالکشن",
     href: "/collections/light-fall",
   },
   {
     id: "eoss",
-    image: heroImg("nakh-hero-2"),
-    imageMobile: heroImgM("nakh-hero-2m"),
+    image: "/hero/hero-2.png",
+    imageMobile: "/hero/hero-2.png",
     title: "فروش ویژه پایان فصل تا ۴۰٪",
     href: "/sale",
   },
   {
     id: "men-basics",
-    image: heroImg("nakh-hero-3"),
-    imageMobile: heroImgM("nakh-hero-3m"),
+    image: "/hero/hero-3.png",
+    imageMobile: "/hero/hero-3.png",
     title: "پایه‌های کمد مردانه",
     href: "/c/men",
   },
