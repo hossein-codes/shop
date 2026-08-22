@@ -2,12 +2,14 @@ import { HeroSlider } from "@/components/home/hero-slider";
 import { CategoryShortcuts } from "@/components/home/category-shortcuts";
 import { ProductSection } from "@/components/home/product-section";
 import { DualBanners } from "@/components/home/dual-banners";
+import { SpotlightSection } from "@/components/home/spotlight-section";
 import {
   demoBestsellers,
   demoGridProducts,
   demoHeroSlides,
   demoHomeCategories,
   demoPromoBanners,
+  demoSpotlightProducts,
 } from "@/data/demo";
 
 /**
@@ -36,6 +38,14 @@ export default function HomePage() {
 
         {/* S4 — بنرهای دوتایی */}
         <DualBanners banners={demoPromoBanners} />
+
+        {/* S4.5 — پیشنهاد ویژه (کارت‌های قهرمان) */}
+        <SpotlightSection
+          id="spotlight"
+          title="پیشنهاد ویژه نَخ"
+          href="/products?tag=special"
+          products={demoSpotlightProducts}
+        />
 
         {/* S5 — پرفروش‌های هفته */}
         <ProductSection

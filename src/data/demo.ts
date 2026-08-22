@@ -521,3 +521,89 @@ export const demoFooter: FooterData = {
     { title: "حریم خصوصی", href: "/privacy" },
   ],
 };
+
+/* ------------------------------------------------------------------ */
+/*  پیشنهاد ویژه — کارت‌های قهرمان (ProductCardRich)                     */
+/* ------------------------------------------------------------------ */
+export type DemoSpotlightProduct = {
+  href: string;
+  brand: string;
+  name: string;
+  code: string;
+  images: { src: string; alt?: string }[];
+  price: { current: number; old?: number };
+  rating?: { value: number; count?: number };
+  isNew?: boolean;
+  colors?: { label: string; hex: string; disabled?: boolean }[];
+  sizes?: string[];
+};
+
+const sp = (seed: string) => `https://picsum.photos/seed/${seed}/900/1100`;
+
+export const demoSpotlightProducts: DemoSpotlightProduct[] = [
+  {
+    href: "/p/101",
+    brand: "چیپ اند دیل",
+    name: "پیراهن لینن مردانه",
+    code: "123456",
+    images: [
+      { src: sp("nakh-sp-1a") },
+      { src: sp("nakh-sp-1b") },
+      { src: sp("nakh-sp-1c") },
+      { src: sp("nakh-sp-1d") },
+      { src: sp("nakh-sp-1e") },
+    ],
+    price: { current: 1_240_000, old: 1_550_000 },
+    rating: { value: 4.7, count: 123 },
+    isNew: true,
+    colors: [
+      { label: "سفید", hex: "#FFFFFF" },
+      { label: "آبی روشن", hex: "#A8CBEA" },
+      { label: "سبز مریمی", hex: "#8A9A8B" },
+      { label: "کرم", hex: "#EDE6D6" },
+      { label: "سرمه‌ای", hex: "#16233A" },
+    ],
+    sizes: ["S", "M", "L", "XL", "XXL"],
+  },
+  {
+    href: "/p/102",
+    brand: "NAVA",
+    name: "مانتو کتان زنانه پاییزه",
+    code: "123982",
+    images: [
+      { src: sp("nakh-sp-2a") },
+      { src: sp("nakh-sp-2b") },
+      { src: sp("nakh-sp-2c") },
+      { src: sp("nakh-sp-2d") },
+    ],
+    price: { current: 2_180_000, old: 2_720_000 },
+    rating: { value: 4.9, count: 214 },
+    colors: [
+      { label: "شتری", hex: "#C9A97C" },
+      { label: "سرمه‌ای", hex: "#16233A" },
+      { label: "زیتونی", hex: "#6F7350" },
+    ],
+    sizes: ["S", "M", "L", "XL"],
+  },
+  {
+    href: "/p/103",
+    brand: "MONO",
+    name: "ست هودی و شلوار اسپرت",
+    code: "124108",
+    images: [
+      { src: sp("nakh-sp-3a") },
+      { src: sp("nakh-sp-3b") },
+      { src: sp("nakh-sp-3c") },
+      { src: sp("nakh-sp-3d") },
+    ],
+    price: { current: 1_690_000 },
+    rating: { value: 4.6, count: 87 },
+    isNew: true,
+    colors: [
+      { label: "طوسی ملانژ", hex: "#B9BFC7" },
+      { label: "مشکی", hex: "#101418" },
+      { label: "آبی آسمانی", hex: "#72C6E8" },
+    ],
+    sizes: ["M", "L", "XL", "XXL"],
+  },
+];

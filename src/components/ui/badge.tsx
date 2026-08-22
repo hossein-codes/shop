@@ -10,8 +10,8 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        new: "bg-brand text-on-brand",
-        sale: "bg-brick-soft text-brick",
+        new: "border border-line bg-surface text-ink shadow-sm",
+        sale: "bg-brand text-on-brand shadow-md",
         bestseller: "bg-accent text-ink",
         editor: "border border-accent-deep bg-transparent text-ink",
         lastItems: "bg-ochre-soft text-ochre",

@@ -28,7 +28,8 @@ export function PriceTag({
       {from && <span className="text-[13px] text-ink-2">از</span>}
       <span
         className={cn(
-          "tnum font-bold leading-snug text-ink",
+          "tnum font-bold leading-snug",
+          old ? "text-brand" : "text-ink",
           size === "lg" ? "text-2xl" : size === "md" ? "text-[17px]" : "text-[15px]",
         )}
       >
@@ -41,7 +42,7 @@ export function PriceTag({
         </span>
       )}
       {percent !== undefined && (
-        <span className="tnum rounded-[6px] bg-brick-soft px-1.5 py-0.5 text-[11px] font-medium leading-4 text-brick">
+        <span className="tnum rounded-full bg-brick-soft px-2 py-0.5 text-[11px] font-bold leading-4 text-brick">
           {formatPercentOff(percent)}
         </span>
       )}
