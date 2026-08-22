@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -23,13 +24,12 @@ import { cn } from "@/lib/utils";
 import { formatToman, toFaDigits } from "@/lib/format";
 import { filterSuggestionProducts, matchCategories, type SuggestionProduct } from "@/lib/search";
 import { SearchBox } from "@/components/ui/search-box";
-import { Drawer, DrawerContent } from "@/components/ui/drawer";
 import { toast } from "@/components/ui/toast";
 import { MegaMenu } from "./mega-menu";
-import { CartDropdown, MiniCartContent } from "./mini-cart";
+import { CartDropdown } from "./mini-cart";
 import { AccountMenu } from "./account-menu";
 import { MobileSearch } from "./mobile-search";
-import { MobileBottomNav, type MobileTabId } from "./mobile-nav";
+import { MobileBottomNav } from "./mobile-nav";
 import type { CartPreview, CartPreviewItem, HeaderCategories, NavItem } from "@/data/demo";
 import {
   demoCart,
@@ -41,31 +41,19 @@ import {
 } from "@/data/demo";
 
 /**
- * هدر فروشگاه نَخ v2 — طبق سند هدر کارفرما + منشور ۱۲ قانونی + بازخورد UX
+ * هدر فروشگاه نَخ v3
  *
- * دسکتاپ: نوار اعلان + [لوگو | سرچ واقعی | علاقه‌مندی/حساب/سبد] + ردیف ناوبری با مگامنو
- * موبایل: لوگو + اینپوت جستجو + ناوبری پایین
+ * دسکتاپ: نوار اعلان + [لوگو | سرچ | علاقه‌مندی/حساب/سبد] + ردیف ناوبری با مگامنو (Portal)
+ *   — اسکرول با هیسترزیس + قفل: بدون لرزش، ردیف ناوبری نرم جمع/باز می‌شود
+ * موبایل: [لوگو | حساب/علاقه‌مندی] + اینپوت جستجو + ناوبری پایین تمام‌مسیری
  */
 
 /* ─────────────────────── کمکی‌ها ─────────────────────── */
-
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = React.useState(true);
-  React.useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
-  return isDesktop;
-}
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return <p className="mb-3 text-xs font-medium text-ink-3">{children}</p>;
 }
 
-/** کاشی دسته‌های پرطرفدار — مشترک بین پنل جستجوی دسکتاپ */
 const categoryTiles = [
   { label: "زنانه", href: "/c/women", icon: Shirt },
   { label: "مردانه", href: "/c/men", icon: PersonStanding },
@@ -108,8 +96,10 @@ function HeaderIconButton({
       onClick={onClick}
       className="relative grid size-11 place-items-center rounded-full text-ink transition-colors hover:bg-surface-alt"
     >
-      {children}
-      <CountBadge count={count ?? 0} />
+      <span className="relative">
+        {children}
+        <CountBadge count={count ?? 0} />
+      </span>
     </button>
   );
 }
@@ -168,35 +158,57 @@ export function Header({
   onLogout?: () => void;
   onSearchSubmit?: (q: string) => void;
 }) {
+  const pathname = usePathname() ?? "/";
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");
+
   const [navVisible, setNavVisible] = React.useState(true);
+  const [scrolled, setScrolled] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
-  const [categoriesOpen, setCategoriesOpen] = React.useState(false);
   const [cartOpen, setCartOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
-  const [mobileTab, setMobileTab] = React.useState<MobileTabId>("home");
   const [cartItems, setCartItems] = React.useState<CartPreviewItem[]>(cart.items);
   const cartBtnRef = React.useRef<HTMLButtonElement>(null);
   const headerRef = React.useRef<HTMLElement>(null);
-  const isDesktop = useIsDesktop();
 
   const freeShipping = cart.freeShippingThreshold ?? 2_000_000;
   const liveCart: CartPreview = { ...cart, items: cartItems };
   const cartCount = cartItems.reduce((s, i) => s + i.qty, 0);
 
-  /* رفتار اسکرول (سند هدر): پایین → جمع‌شدن ناوبری · بالا → برگشتن (۲۰۰ms) */
+  /* اسکرول v3 — هیسترزیس + قفل پس از هر تغییر: دیگر لرزش/نوسان ندارد */
   React.useEffect(() => {
     let lastY = window.scrollY;
+    let locked = false;
+    const unlock = () => {
+      locked = false;
+    };
     const onScroll = () => {
       const y = window.scrollY;
-      if (y > lastY + 4 && y > 96) setNavVisible(false);
-      else if (y < lastY - 4) setNavVisible(true);
+      setScrolled(y > 4);
+      if (locked) {
+        lastY = y;
+        return;
+      }
+      const delta = y - lastY;
+      if (y > 220 && delta > 12) {
+        setNavVisible(false);
+        locked = true;
+        setTimeout(unlock, 280);
+      } else if (delta < -12 || y < 120) {
+        setNavVisible(true);
+        locked = true;
+        setTimeout(unlock, 280);
+      }
       lastY = y;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(undefined);
+    };
   }, []);
 
-  /* میان‌بر کیبورد: «/» فوکوس روی جستجو (دسکتاپ — بخش ۱۲.۲ سند طراحی) */
+  /* میان‌بر کیبورد: «/» فوکوس روی جستجو (دسکتاپ) */
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "/") return;
@@ -213,7 +225,7 @@ export function Header({
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  /* حذف از سبد + واگرد (قانون ۷.۴: دکمه «واگرد» در Toast) */
+  /* حذف از سبد + واگرد (قانون ۷.۴) */
   const removeItem = (item: CartPreviewItem) => {
     setCartItems((items) => items.filter((i) => i.id !== item.id));
     toast("از سبد حذف شد", {
@@ -228,23 +240,19 @@ export function Header({
   const results = query.trim() ? filterSuggestionProducts(query, searchProducts) : [];
   const matched = query.trim() ? matchCategories(query, categories) : [];
 
-  const handleMobileTab = (id: MobileTabId) => {
-    if (id === "search") return setSearchOpen(true);
-    if (id === "categories") return setCategoriesOpen(true);
-    if (id === "cart") return setCartOpen(true);
-    setMobileTab(id);
-  };
-
   return (
     <>
       <AnnouncementBar freeShipping={freeShipping} />
 
       <header
         ref={headerRef}
-        className="sticky top-0 z-[var(--z-header)] border-b border-line bg-bg/95 backdrop-blur"
+        className={cn(
+          "sticky top-0 z-[var(--z-header)] border-b border-line bg-bg/95 backdrop-blur transition-shadow duration-200",
+          scrolled && "shadow-sm",
+        )}
       >
-        {/* ── ردیف بالا: لوگو | سرچ | علاقه‌مندی/حساب/سبد ── */}
-        <div className="container flex h-16 items-center gap-4 lg:h-20">
+        {/* ── ردیف بالا ── */}
+        <div className="container flex h-14 items-center gap-3 lg:h-20 lg:gap-4">
           <Link
             href="/"
             aria-label="نَخ — بازگشت به صفحه اصلی"
@@ -265,7 +273,7 @@ export function Header({
             >
               {query.trim() ? (
                 <>
-                  {/* ── حالت تایپ: نتایج + دسته‌های مرتبط، کنار هم ── */}
+                  {/* حالت تایپ: نتایج + دسته‌های مرتبط، کنار هم */}
                   <div className="grid grid-cols-[1.55fr_1fr]">
                     <div className="p-4">
                       <SectionTitle>
@@ -346,7 +354,7 @@ export function Header({
                   </div>
                 </>
               ) : (
-                /* ── حالت خالی: اخیر + محبوب (راست) و کاشی دسته‌ها (چپ)، کنار هم ── */
+                /* حالت خالی: اخیر + محبوب (راست) و کاشی دسته‌ها (چپ) */
                 <div className="grid grid-cols-[1.15fr_1fr]">
                   <div className="space-y-6 p-5">
                     {recentSearches.length > 0 && (
@@ -411,26 +419,43 @@ export function Header({
             </SearchBox>
           </div>
 
-          {/* علاقه‌مندی/حساب/سبد — دسکتاپ */}
-          <div className="ms-auto flex items-center gap-0.5">
-            <div className="hidden lg:block">
-              <Link
-                href="/account/wishlist"
-                aria-label={
-                  wishlistCount
-                    ? `علاقه‌مندی‌ها (${wishlistCount.toLocaleString("fa-IR")} کالا)`
-                    : "علاقه‌مندی‌ها"
-                }
-                className="relative grid size-11 place-items-center rounded-full text-ink transition-colors hover:bg-surface-alt"
-              >
+          {/* خوشه موبایل: حساب (دکمه ورود / آیکون) + علاقه‌مندی */}
+          <div className="ms-auto flex items-center gap-1 lg:hidden">
+            <AccountMenu user={user} clubPoints={clubPoints} onLogout={onLogout} />
+            <Link
+              href="/account/wishlist"
+              aria-label={
+                wishlistCount
+                  ? `علاقه‌مندی‌ها (${wishlistCount.toLocaleString("fa-IR")} کالا)`
+                  : "علاقه‌مندی‌ها"
+              }
+              className="grid size-10 place-items-center rounded-full text-ink transition-colors hover:bg-surface-alt"
+            >
+              <span className="relative">
                 <Heart className="size-5" aria-hidden="true" />
                 <CountBadge count={wishlistCount} />
-              </Link>
-            </div>
-            <div className="hidden lg:block">
-              <AccountMenu user={user} clubPoints={clubPoints} onLogout={onLogout} />
-            </div>
-            <div className="relative hidden lg:block">
+              </span>
+            </Link>
+          </div>
+
+          {/* خوشه دسکتاپ: علاقه‌مندی + حساب + سبد (دراپ‌داون) */}
+          <div className="ms-auto hidden items-center gap-0.5 lg:flex">
+            <Link
+              href="/account/wishlist"
+              aria-label={
+                wishlistCount
+                  ? `علاقه‌مندی‌ها (${wishlistCount.toLocaleString("fa-IR")} کالا)`
+                  : "علاقه‌مندی‌ها"
+              }
+              className="grid size-11 place-items-center rounded-full text-ink transition-colors hover:bg-surface-alt"
+            >
+              <span className="relative">
+                <Heart className="size-5" aria-hidden="true" />
+                <CountBadge count={wishlistCount} />
+              </span>
+            </Link>
+            <AccountMenu user={user} clubPoints={clubPoints} onLogout={onLogout} />
+            <div className="relative">
               <HeaderIconButton
                 label="سبد خرید"
                 count={cartCount}
@@ -439,7 +464,7 @@ export function Header({
               >
                 <ShoppingBag className="size-5" aria-hidden="true" />
               </HeaderIconButton>
-              {cartOpen && isDesktop && (
+              {cartOpen && (
                 <CartDropdown
                   cart={liveCart}
                   onClose={() => setCartOpen(false)}
@@ -465,45 +490,53 @@ export function Header({
           </button>
         </div>
 
-        {/* ── ردیف ناوبری دسکتاپ — با اسکرول جمع می‌شود ── */}
-        <nav
-          aria-label="ناوبری اصلی"
+        {/* ── ردیف ناوبری دسکتاپ — جمع‌شدن نرم با height (بدون کلیپ مگامنو: پنل Portal است) ── */}
+        <div
+          aria-hidden={!navVisible}
           className={cn(
-            "hidden transition-[max-height,opacity] duration-200 ease-[var(--ease-out-expo)] lg:block",
-            navVisible
-              ? "max-h-12 overflow-visible border-t border-line opacity-100"
-              : "pointer-events-none max-h-0 overflow-hidden opacity-0",
+            "hidden overflow-hidden transition-[height,opacity] duration-200 ease-[var(--ease-out-expo)] lg:block",
+            navVisible ? "h-12 opacity-100" : "h-0 opacity-0",
           )}
         >
-          <ul className="container flex h-12 items-center gap-7 text-[15px]">
-            {nav.map((item) =>
-              item.mega ? (
-                <MegaMenu
-                  key={item.href}
-                  label={item.title}
-                  href={item.href}
-                  categories={categories}
-                />
-              ) : (
-                <li key={item.href}>
-                  <Link
+          <nav aria-label="ناوبری اصلی" aria-hidden={!navVisible}>
+            <ul className="container flex h-12 items-center gap-7 border-t border-line text-[15px]">
+              {nav.map((item) =>
+                item.mega ? (
+                  <MegaMenu
+                    key={item.href}
+                    label={item.title}
                     href={item.href}
-                    className="group relative flex h-12 items-center text-ink-2 transition-colors hover:text-ink"
-                  >
-                    {item.title}
-                    <span
-                      aria-hidden="true"
-                      className="absolute inset-x-0 -bottom-px h-0.5 origin-center scale-x-0 bg-ink transition-transform duration-200 ease-[var(--ease-out-expo)] group-hover:scale-x-100"
-                    />
-                  </Link>
-                </li>
-              ),
-            )}
-          </ul>
-        </nav>
+                    categories={categories}
+                    active={isActive(item.href)}
+                  />
+                ) : (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      aria-current={isActive(item.href) ? "page" : undefined}
+                      className={cn(
+                        "group relative flex h-12 items-center transition-colors",
+                        isActive(item.href) ? "text-ink" : "text-ink-2 hover:text-ink",
+                      )}
+                    >
+                      {item.title}
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          "absolute inset-x-0 -bottom-px h-0.5 origin-center bg-ink transition-transform duration-200 ease-[var(--ease-out-expo)]",
+                          isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
+                        )}
+                      />
+                    </Link>
+                  </li>
+                ),
+              )}
+            </ul>
+          </nav>
+        </div>
       </header>
 
-      {/* ── لایه‌های موبایل ── */}
+      {/* جستجوی تمام‌صفحه موبایل */}
       <MobileSearch
         key={searchOpen ? "search-open" : "search-closed"}
         open={searchOpen}
@@ -515,68 +548,8 @@ export function Header({
         onSubmit={onSearchSubmit}
       />
 
-      <Drawer open={categoriesOpen} onOpenChange={setCategoriesOpen}>
-        <DrawerContent
-          side="right"
-          title="دسته‌بندی‌ها"
-          onClose={() => setCategoriesOpen(false)}
-        >
-          <div className="space-y-7">
-            {categories.groups.map((g) => (
-              <section key={g.title}>
-                <Link
-                  href={g.href}
-                  className="mb-1.5 flex items-center justify-between text-[15px] font-bold text-ink"
-                >
-                  {g.title}
-                  <ChevronLeft className="size-4 text-ink-3" aria-hidden="true" />
-                </Link>
-                <ul className="grid grid-cols-2 gap-x-4">
-                  {g.links.map((l) => (
-                    <li key={l.href}>
-                      <Link
-                        href={l.href}
-                        className="flex h-10 items-center text-[13px] text-ink-2 transition-colors hover:text-ink"
-                      >
-                        {l.title}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            ))}
-            {categories.campaign && (
-              <Link
-                href={categories.campaign.href}
-                className="block rounded-md bg-surface-alt p-4 text-[13px] leading-6 text-ink-2 transition-colors hover:bg-line/60"
-              >
-                <span className="font-medium text-ink">{categories.campaign.title}</span>
-                {" — "}
-                {categories.campaign.subtitle}
-              </Link>
-            )}
-          </div>
-        </DrawerContent>
-      </Drawer>
-
-      {!isDesktop && (
-        <Drawer open={cartOpen} onOpenChange={setCartOpen}>
-          <DrawerContent side="bottom" title="سبد خرید" onClose={() => setCartOpen(false)}>
-            <MiniCartContent
-              cart={liveCart}
-              onGoToCart={() => setCartOpen(false)}
-              onRemoveItem={removeItem}
-            />
-          </DrawerContent>
-        </Drawer>
-      )}
-
-      <MobileBottomNav
-        active={mobileTab}
-        cartCount={cartCount}
-        wishlistCount={wishlistCount}
-        onSelect={handleMobileTab}
-      />
+      {/* ناوبری پایین موبایل — همه لینک واقعی */}
+      <MobileBottomNav cartCount={cartCount} wishlistCount={wishlistCount} />
       {/* فضای لازم برای ناوبری پایین در صفحات: pb-14 lg:pb-0 */}
     </>
   );

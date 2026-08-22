@@ -61,7 +61,7 @@ export function AccountMenu({
 
   if (!user) {
     return (
-      <Button variant="ghost" size="s" asChild>
+      <Button variant="secondary" size="s" asChild>
         <Link href="/login">
           <User aria-hidden="true" />
           ورود / ثبت‌نام
