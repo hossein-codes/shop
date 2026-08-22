@@ -31,9 +31,9 @@ src/
 │   │   ├── product-card (+ skeleton) · category-card · price
 │   │   ├── rating · color-swatch · size-chip
 │   │   └── wishlist-button · quantity-stepper · free-shipping-progress
-│   └── layout/           # هدر و زیرکامپوننت‌ها (سند هدر کارفرما)
+│   └── layout/           # اسکلت سایت
 │       ├── header · mega-menu · mini-cart · account-menu
-│       └── mobile-search · mobile-nav (Bottom Nav)
+│       └── mobile-search · mobile-nav · footer (+ newsletter-form)
 │       ├── product-card (+ skeleton) · category-card · price
 │       ├── rating · color-swatch · size-chip
 │       └── wishlist-button · quantity-stepper · free-shipping-progress

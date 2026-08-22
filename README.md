@@ -41,8 +41,8 @@ shop/
 │   │   ├── ecommerce/           کامپوننت‌های فروشگاهی — ProductCard, CategoryCard,
 │   │   │                        Price, Rating, ColorSwatch, SizeChip, Wishlist,
 │   │   │                        QuantityStepper, FreeShippingProgress
-│   │   └── layout/              اسکلت سایت — Header, MegaMenu, MiniCart,
-│   │                            AccountMenu, MobileSearch, MobileNav (Bottom Bar)
+│   │   └── layout/              اسکلت سایت — Header, MegaMenu, MiniCart, AccountMenu,
+│                                MobileSearch, MobileNav, Footer (+ NewsletterForm)
 │   │
 │   ├── lib/                     منطق و ابزار
 │   │   ├── format.ts            ارقام فارسی، تومان، درصد تخفیف، نرمال‌سازی
@@ -82,4 +82,5 @@ shop/
 - ✅ فاز ۰ — سند محصول + Design System v1.3 (تأییدشده)
 - ✅ فاز ۱ — پایه‌گذاری + ۳۲ کامپوننت (بدون هیچ صفحه‌ای)
 - ✅ هدر — دسکتاپ/موبایل، مگامنو، مینی‌کارت، جستجو، ناوبری پایین
-- ⏳ بعدی — فوتر → صفحه اصلی → صفحات دسته/محصول/خرید
+- ✅ فوتر — بوم تیره، کلاب پیامکی، آکاردئون موبایل، نمادها
+- ⏳ بعدی — صفحه اصلی → صفحات دسته/محصول/خرید

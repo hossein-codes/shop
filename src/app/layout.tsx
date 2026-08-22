@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
 import { demoUser } from "@/data/demo";
 import { Toaster } from "@/components/ui/toast";
 import "./globals.css";
@@ -28,6 +29,7 @@ export default function RootLayout({
         {/* هدر سایت — در همه‌ی صفحات (داده‌ها فعلاً دمو؛ در فاز صفحات به API وصل می‌شود) */}
         <Header user={demoUser} wishlistCount={2} clubPoints={240} />
         {children}
+        <Footer />
         <Toaster />
       </body>
     </html>

@@ -248,3 +248,57 @@ export const demoGridProducts: DemoGridProduct[] = [
     soldOut: true,
   },
 ];
+
+/** داده فوتر — در فاز صفحات با داده واقعی جایگزین می‌شود */
+export type FooterLinkGroup = { title: string; links: NavLink[] };
+export type FooterData = {
+  about: string;
+  phoneDisplay: string;
+  phoneHref: string;
+  hours: string;
+  email?: string;
+  socials: { label: string; href: string; icon: "instagram" | "telegram" | "whatsapp" }[];
+  groups: FooterLinkGroup[];
+  legalLinks: NavLink[];
+};
+
+export const demoFooter: FooterData = {
+  about:
+    "نَخ فروشگاه اینترنتی پوشاک است — سلیقه‌محور، صادق و سریع. پوشاکی که با تو تن می‌شود، نه فقط پوشیدنی.",
+  phoneDisplay: "۰۲۱-۹۱۰۱۲۳۴۵",
+  phoneHref: "tel:+982191012345",
+  hours: "پاسخگویی: ۹ صبح تا ۹ شب",
+  email: "hello@nakh.example",
+  socials: [
+    { label: "اینستاگرام نَخ", href: "https://instagram.com/", icon: "instagram" },
+    { label: "تلگرام نَخ", href: "https://t.me/", icon: "telegram" },
+    { label: "واتساپ نَخ", href: "https://wa.me/", icon: "whatsapp" },
+  ],
+  groups: [
+    {
+      title: "راهنمای خرید",
+      links: [
+        { title: "راهنمای سایز", href: "/size-guide" },
+        { title: "نحوه ثبت سفارش", href: "/how-to-order" },
+        { title: "شیوه‌های پرداخت", href: "/payment-methods" },
+        { title: "شرایط مرجوعی", href: "/returns-policy" },
+        { title: "پیگیری سفارش", href: "/track-order" },
+        { title: "سوالات متداول", href: "/faq" },
+      ],
+    },
+    {
+      title: "با نَخ",
+      links: [
+        { title: "درباره ما", href: "/about" },
+        { title: "تماس با ما", href: "/contact" },
+        { title: "فرصت‌های شغلی", href: "/careers" },
+        { title: "مجله استایل", href: "/style" },
+        { title: "باشگاه مشتریان", href: "/account/club" },
+      ],
+    },
+  ],
+  legalLinks: [
+    { title: "قوانین و مقررات", href: "/terms" },
+    { title: "حریم خصوصی", href: "/privacy" },
+  ],
+};
