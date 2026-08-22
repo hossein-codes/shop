@@ -53,10 +53,10 @@ export function Rating({
             href={href}
             className="tnum text-xs text-ink-3 underline-offset-4 hover:text-ink hover:underline"
           >
-            ({formatNumber(count)} نظر)
+            ({formatNumber(count)})
           </a>
         ) : (
-          <span className="tnum text-xs text-ink-3">({formatNumber(count)} نظر)</span>
+          <span className="tnum text-xs text-ink-3">({formatNumber(count)})</span>
         ))}
     </span>
   );

@@ -1,9 +1,7 @@
 "use client";
 
 import { ProductCard } from "@/components/ecommerce/product-card";
-import { Badge } from "@/components/ui/badge";
 import { toast } from "@/components/ui/toast";
-import { discountPercent, formatPercentOff } from "@/lib/format";
 import type { DemoGridProduct } from "@/data/demo";
 import { SectionHeader } from "./section-header";
 import { ProductCarousel } from "./product-carousel";
@@ -14,30 +12,17 @@ import { ProductCarousel } from "./product-carousel";
  * افزودن سریع روی هاور کارت → Toast با «مشاهده سبد» (قانون ۲: بدون ترک صفحه)
  */
 function toCardProps(p: DemoGridProduct, defaultBadge?: "bestseller") {
-  let badges: React.ReactNode;
-  const explicitBadge = p.soldOut ? undefined : p.badge ?? defaultBadge;
-  if (explicitBadge === "sale") {
-    const percent = discountPercent(p.current, p.old);
-    badges =
-      percent !== undefined ? (
-        <Badge variant="sale">{formatPercentOff(percent)}</Badge>
-      ) : undefined;
-  } else if (explicitBadge === "new") {
-    badges = <Badge variant="new">جدید</Badge>;
-  } else if (explicitBadge === "bestseller") {
-    badges = <Badge variant="bestseller">پرفروش</Badge>;
-  } else if (explicitBadge === "lastItems") {
-    badges = <Badge variant="lastItems">آخرین موجودی</Badge>;
-  }
-
   return {
     href: p.href,
+    brand: p.brand,
     name: p.name,
     price: { current: p.current, old: p.old },
     image: { src: p.image, alt: p.name, hoverSrc: p.hoverImage },
     colors: p.colors,
     rating: p.rating,
-    badges,
+    // spec کارت: فقط ۳ نوع برچسب — new / bestseller / sale
+    badge:
+      p.soldOut || p.badge === "lastItems" ? undefined : p.badge ?? defaultBadge,
     soldOut: p.soldOut,
     quickAdd: p.soldOut
       ? undefined

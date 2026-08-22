@@ -134,6 +134,7 @@ export const demoUser = { firstName: "حسین" };
 /** محصولات گرید پیش‌نمایش (فاز هدر) — داده ساختگی؛ در فاز صفحات حذف می‌شود */
 export type DemoGridProduct = {
   href: string;
+  brand: string;
   name: string;
   /** سایزهای موجود برای «افزودن سریع» روی هاور کارت */
   sizes?: string[];
@@ -148,169 +149,249 @@ export type DemoGridProduct = {
 };
 
 const g = (i: number) => `https://picsum.photos/seed/nakh-grid-${i}/600/800`;
+const g2 = (i: number) => `https://picsum.photos/seed/nakh-best-${i}/600/800`;
 
+/** جدیدترین‌ها — داده واقع‌نما با برند */
 export const demoGridProducts: DemoGridProduct[] = [
   {
-    href: "/p/13",
-    name: "هودی مشکی اورسایز",
+    href: "/p/11",
+    brand: "NAVA",
+    name: "کت پاییزی زنانه مدل کلاسیک",
     sizes: ["S", "M", "L", "XL"],
-    current: 940_000,
-    old: 1_180_000,
+    current: 1_990_000,
+    old: 2_900_000,
     image: g(1),
     hoverImage: g(9),
     colors: [
-      { label: "مشکی", hex: "#1A1917" },
       { label: "شنی", hex: "#C8B49A" },
-      { label: "خاکستری", hex: "#8A8781", disabled: true },
-    ],
-    rating: { value: 4.5, count: 18 },
-    badge: "sale",
-  },
-  {
-    href: "/p/11",
-    name: "پیراهن مردانه سفید یقه‌ای",
-    sizes: ["M", "L", "XL", "XXL"],
-    current: 890_000,
-    image: g(2),
-    hoverImage: g(10),
-    colors: [
-      { label: "سفید صدفی", hex: "#F2EDE4" },
-      { label: "سرمه‌ای", hex: "#2C3A4E" },
-    ],
-    rating: { value: 4.7, count: 24 },
-    badge: "bestseller",
-  },
-  {
-    href: "/p/15",
-    name: "مانتو کتان بلند شنی",
-    sizes: ["S", "M", "L"],
-    current: 1_890_000,
-    old: 2_400_000,
-    image: g(3),
-    colors: [
-      { label: "شنی", hex: "#C8B49A" },
-      { label: "کتانی", hex: "#B8A98C" },
-      { label: "زیتونی", hex: "#6B6B4A" },
       { label: "سرمه‌ای", hex: "#2C3A4E" },
       { label: "مشکی", hex: "#1A1917" },
     ],
+    rating: { value: 4.8, count: 124 },
     badge: "sale",
   },
   {
     href: "/p/12",
-    name: "شومیز لینن کرم",
-    sizes: ["S", "M", "L"],
-    current: 1_200_000,
-    image: g(4),
-    hoverImage: g(12),
+    brand: "MONO",
+    name: "ژاکت مردانه یقه اسکی پشمی",
+    sizes: ["M", "L", "XL", "XXL"],
+    current: 1_850_000,
+    image: g(2),
+    hoverImage: g(10),
+    colors: [
+      { label: "خاکستری", hex: "#8A8781" },
+      { label: "زغالی", hex: "#3A3835" },
+    ],
+    rating: { value: 4.6, count: 89 },
+  },
+  {
+    href: "/p/13",
+    brand: "پیلو",
+    name: "هودی بچگانه اورسایز با کلاه",
+    sizes: ["۲ سال", "۴ سال", "۶ سال", "۸ سال"],
+    current: 640_000,
+    old: 790_000,
+    image: g(3),
+    hoverImage: g(11),
     colors: [
       { label: "کرم", hex: "#EFE9DE" },
-      { label: "سفید صدفی", hex: "#F2EDE4" },
+      { label: "زیتونی", hex: "#6B6B4A" },
+      { label: "مرجانی", hex: "#C97A6B" },
     ],
-    rating: { value: 4.3, count: 9 },
-    badge: "new",
+    rating: { value: 4.9, count: 203 },
+    badge: "sale",
   },
   {
     href: "/p/14",
-    name: "شلوار جین راسته آبی",
-    sizes: ["30", "32", "34", "36"],
-    current: 1_240_000,
-    image: g(5),
+    brand: "سپید",
+    name: "ست ورودی اسپرت زنانه — تاپ و شلوار",
+    sizes: ["S", "M", "L"],
+    current: 1_290_000,
+    image: g(4),
+    hoverImage: g(12),
     colors: [
-      { label: "آبی روشن", hex: "#5B7A9D" },
-      { label: "آبی تیره", hex: "#33475C" },
-      { label: "مشکی", hex: "#1A1917" },
+      { label: "سفید صدفی", hex: "#F2EDE4" },
+      { label: "خاکستری روشن", hex: "#B9B6B0" },
     ],
+    rating: { value: 4.5, count: 67 },
+    badge: "new",
+  },
+  {
+    href: "/p/15",
+    brand: "NAVA",
+    name: "شومیز اورسایز کتان",
+    sizes: ["S", "M", "L"],
+    current: 980_000,
+    image: g(5),
+    hoverImage: g(13),
+    colors: [
+      { label: "صدفی", hex: "#F2EDE4" },
+      { label: "شنی", hex: "#C8B49A" },
+      { label: "سرمه‌ای", hex: "#2C3A4E" },
+    ],
+    rating: { value: 4.7, count: 94 },
   },
   {
     href: "/p/16",
-    name: "کت زنانه ساتن سرمه‌ای",
-    sizes: ["S", "M"],
-    current: 2_450_000,
+    brand: "MONO",
+    name: "شلوار جین راسته آبی روشن",
+    sizes: ["30", "32", "34", "36"],
+    current: 1_390_000,
+    old: 1_750_000,
     image: g(6),
-    hoverImage: g(16),
-    colors: [{ label: "سرمه‌ای", hex: "#2C3A4E" }],
-    rating: { value: 4.8, count: 31 },
-    badge: "lastItems",
+    hoverImage: g(14),
+    colors: [
+      { label: "آبی روشن", hex: "#5B7A9D" },
+      { label: "آبی تیره", hex: "#33475C" },
+    ],
+    rating: { value: 4.4, count: 58 },
+    badge: "sale",
   },
   {
     href: "/p/17",
-    name: "تی‌شرت اسلش سفید",
+    brand: "ارس",
+    name: "مانتو کتان بلند شنی",
+    sizes: ["S", "M", "L"],
+    current: 1_890_000,
+    image: g(7),
+    hoverImage: g(15),
+    colors: [
+      { label: "شنی", hex: "#C8B49A" },
+      { label: "کتانی", hex: "#B8A98C" },
+      { label: "زیتونی", hex: "#6B6B4A" },
+    ],
+    rating: { value: 4.4, count: 38 },
+  },
+  {
+    href: "/p/18",
+    brand: "مانا",
+    name: "تی‌شرت اسلش سفید یقه گرد",
     sizes: ["S", "M", "L", "XL", "XXL"],
     current: 490_000,
     old: 620_000,
-    image: g(7),
+    image: g(8),
+    hoverImage: g(16),
     colors: [
       { label: "سفید", hex: "#FAFAF8" },
       { label: "مشکی", hex: "#1A1917" },
       { label: "خاکستری", hex: "#8A8781" },
       { label: "زیتونی", hex: "#6B6B4A" },
     ],
+    rating: { value: 4.3, count: 76 },
     badge: "sale",
-  },
-  {
-    href: "/p/18",
-    name: "سویشرت گردنبافت زیتونی",
-    current: 980_000,
-    image: g(8),
-    colors: [{ label: "زیتونی", hex: "#6B6B4A" }],
-    soldOut: true,
   },
 ];
 
-/** داده فوتر — در فاز صفحات با داده واقعی جایگزین می‌شود */
-export type FooterLinkGroup = { title: string; links: NavLink[] };
-export type FooterData = {
-  about: string;
-  phoneDisplay: string;
-  phoneHref: string;
-  hours: string;
-  email?: string;
-  socials: { label: string; href: string; icon: "instagram" | "telegram" | "whatsapp" }[];
-  groups: FooterLinkGroup[];
-  legalLinks: NavLink[];
-};
-
-export const demoFooter: FooterData = {
-  about:
-    "نَخ فروشگاه اینترنتی پوشاک است — سلیقه‌محور، صادق و سریع. پوشاکی که با تو تن می‌شود، نه فقط پوشیدنی.",
-  phoneDisplay: "۰۲۱-۹۱۰۱۲۳۴۵",
-  phoneHref: "tel:+982191012345",
-  hours: "پاسخگویی: ۹ صبح تا ۹ شب",
-  email: "hello@nakh.example",
-  socials: [
-    { label: "اینستاگرام نَخ", href: "https://instagram.com/", icon: "instagram" },
-    { label: "تلگرام نَخ", href: "https://t.me/", icon: "telegram" },
-    { label: "واتساپ نَخ", href: "https://wa.me/", icon: "whatsapp" },
-  ],
-  groups: [
-    {
-      title: "راهنمای خرید",
-      links: [
-        { title: "راهنمای سایز", href: "/size-guide" },
-        { title: "نحوه ثبت سفارش", href: "/how-to-order" },
-        { title: "شیوه‌های پرداخت", href: "/payment-methods" },
-        { title: "شرایط مرجوعی", href: "/returns-policy" },
-        { title: "پیگیری سفارش", href: "/track-order" },
-        { title: "سوالات متداول", href: "/faq" },
-      ],
-    },
-    {
-      title: "با نَخ",
-      links: [
-        { title: "درباره ما", href: "/about" },
-        { title: "تماس با ما", href: "/contact" },
-        { title: "فرصت‌های شغلی", href: "/careers" },
-        { title: "مجله استایل", href: "/style" },
-        { title: "باشگاه مشتریان", href: "/account/club" },
-      ],
-    },
-  ],
-  legalLinks: [
-    { title: "قوانین و مقررات", href: "/terms" },
-    { title: "حریم خصوصی", href: "/privacy" },
-  ],
-};
+/** پرفروش‌های هفته */
+export const demoBestsellers: DemoGridProduct[] = [
+  {
+    href: "/p/21",
+    brand: "مانا",
+    name: "تی‌شرت اسلش مشکی",
+    sizes: ["S", "M", "L", "XL"],
+    current: 540_000,
+    old: 680_000,
+    image: g2(1),
+    hoverImage: g2(9),
+    colors: [
+      { label: "مشکی", hex: "#1A1917" },
+      { label: "سفید", hex: "#FAFAF8" },
+    ],
+    rating: { value: 4.6, count: 412 },
+    badge: "sale",
+  },
+  {
+    href: "/p/22",
+    brand: "NAVA",
+    name: "شومیز کتان صدفی",
+    sizes: ["S", "M", "L"],
+    current: 980_000,
+    image: g2(2),
+    hoverImage: g2(10),
+    colors: [
+      { label: "صدفی", hex: "#F2EDE4" },
+      { label: "شنی", hex: "#C8B49A" },
+    ],
+    rating: { value: 4.8, count: 270 },
+  },
+  {
+    href: "/p/23",
+    brand: "MONO",
+    name: "شلوار جین بوت‌کات",
+    sizes: ["30", "32", "34"],
+    current: 1_390_000,
+    old: 1_750_000,
+    image: g2(3),
+    hoverImage: g2(11),
+    colors: [
+      { label: "آبی روشن", hex: "#5B7A9D" },
+      { label: "آبی تیره", hex: "#33475C" },
+    ],
+    rating: { value: 4.4, count: 190 },
+    badge: "sale",
+  },
+  {
+    href: "/p/24",
+    brand: "MONO",
+    name: "پیراهن مردانه آبی یقه‌ای",
+    sizes: ["M", "L", "XL"],
+    current: 1_120_000,
+    image: g2(4),
+    hoverImage: g2(12),
+    colors: [{ label: "آبی", hex: "#4A6785" }],
+    rating: { value: 4.7, count: 330 },
+  },
+  {
+    href: "/p/25",
+    brand: "ارس",
+    name: "مانتو کوتاه توتیه",
+    sizes: ["S", "M"],
+    current: 2_150_000,
+    image: g2(5),
+    hoverImage: g2(13),
+    colors: [{ label: "توتیه", hex: "#8C7B6B" }],
+    rating: { value: 4.9, count: 120 },
+    badge: "lastItems",
+  },
+  {
+    href: "/p/26",
+    brand: "سپید",
+    name: "هودی خاکستری اسلش",
+    sizes: ["M", "L", "XL"],
+    current: 890_000,
+    old: 1_050_000,
+    image: g2(6),
+    hoverImage: g2(14),
+    colors: [
+      { label: "خاکستری", hex: "#8A8781" },
+      { label: "مشکی", hex: "#1A1917" },
+    ],
+    rating: { value: 4.5, count: 510 },
+    badge: "sale",
+  },
+  {
+    href: "/p/27",
+    brand: "NAVA",
+    name: "دامن پلیسه شنی",
+    sizes: ["S", "M"],
+    current: 1_050_000,
+    image: g2(7),
+    hoverImage: g2(15),
+    colors: [{ label: "شنی", hex: "#C8B49A" }],
+    rating: { value: 4.3, count: 80 },
+  },
+  {
+    href: "/p/28",
+    brand: "ارس",
+    name: "سویشرت گردوبافت زیتونی",
+    current: 980_000,
+    image: g2(8),
+    hoverImage: g2(16),
+    colors: [{ label: "زیتونی", hex: "#6B6B4A" }],
+    rating: { value: 4.9, count: 150 },
+    soldOut: true,
+  },
+];
 
 /* ─────────────── داده‌های صفحه اصلی (S1-S5) — ساخت S8/S9 طبق سند، فعلاً حذف ─────────────── */
 
@@ -387,100 +468,56 @@ export const demoPromoBanners: PromoBanner[] = [
   },
 ];
 
-const g2 = (i: number) => `https://picsum.photos/seed/nakh-best-${i}/600/800`;
+/** داده فوتر — در فاز صفحات با داده واقعی جایگزین می‌شود */
+export type FooterLinkGroup = { title: string; links: NavLink[] };
+export type FooterData = {
+  about: string;
+  phoneDisplay: string;
+  phoneHref: string;
+  hours: string;
+  email?: string;
+  socials: { label: string; href: string; icon: "instagram" | "telegram" | "whatsapp" }[];
+  groups: FooterLinkGroup[];
+  legalLinks: NavLink[];
+};
 
-export const demoBestsellers: DemoGridProduct[] = [
-  {
-    href: "/p/21",
-    name: "تی‌شرت اسلش مشکی",
-    sizes: ["S", "M", "L", "XL"],
-    current: 540_000,
-    old: 680_000,
-    image: g2(1),
-    hoverImage: g2(9),
-    colors: [
-      { label: "مشکی", hex: "#1A1917" },
-      { label: "سفید", hex: "#FAFAF8" },
-    ],
-    rating: { value: 4.6, count: 42 },
-    badge: "sale",
-  },
-  {
-    href: "/p/22",
-    name: "شومیز کتان صدفی",
-    sizes: ["S", "M", "L"],
-    current: 980_000,
-    image: g2(2),
-    colors: [
-      { label: "صدفی", hex: "#F2EDE4" },
-      { label: "شنی", hex: "#C8B49A" },
-    ],
-    rating: { value: 4.8, count: 27 },
-  },
-  {
-    href: "/p/23",
-    name: "شلوار جین بوت‌کات",
-    sizes: ["30", "32", "34"],
-    current: 1_390_000,
-    old: 1_750_000,
-    image: g2(3),
-    colors: [
-      { label: "آبی روشن", hex: "#5B7A9D" },
-      { label: "آبی تیره", hex: "#33475C" },
-    ],
-    rating: { value: 4.4, count: 19 },
-    badge: "sale",
-  },
-  {
-    href: "/p/24",
-    name: "پیراهن مردانه آبی یقه‌ای",
-    sizes: ["M", "L", "XL"],
-    current: 1_120_000,
-    image: g2(4),
-    hoverImage: g2(12),
-    colors: [{ label: "آبی", hex: "#4A6785" }],
-    rating: { value: 4.7, count: 33 },
-  },
-  {
-    href: "/p/25",
-    name: "مانتو کوتاه توتیه",
-    sizes: ["S", "M"],
-    current: 2_150_000,
-    image: g2(5),
-    colors: [{ label: "توتیه", hex: "#8C7B6B" }],
-    rating: { value: 4.9, count: 12 },
-    badge: "lastItems",
-  },
-  {
-    href: "/p/26",
-    name: "هودی خاکستری اسلش",
-    sizes: ["M", "L", "XL"],
-    current: 890_000,
-    old: 1_050_000,
-    image: g2(6),
-    colors: [
-      { label: "خاکستری", hex: "#8A8781" },
-      { label: "مشکی", hex: "#1A1917" },
-    ],
-    rating: { value: 4.5, count: 51 },
-    badge: "sale",
-  },
-  {
-    href: "/p/27",
-    name: "دامن پلیسه شنی",
-    sizes: ["S", "M"],
-    current: 1_050_000,
-    image: g2(7),
-    colors: [{ label: "شنی", hex: "#C8B49A" }],
-    rating: { value: 4.3, count: 8 },
-  },
-  {
-    href: "/p/28",
-    name: "کت تک لینن صدفی",
-    sizes: ["M", "L"],
-    current: 2_890_000,
-    image: g2(8),
-    colors: [{ label: "صدفی", hex: "#EFE9DE" }],
-    rating: { value: 4.9, count: 15 },
-  },
-];
+export const demoFooter: FooterData = {
+  about:
+    "نَخ فروشگاه اینترنتی پوشاک است — سلیقه‌محور، صادق و سریع. پوشاکی که با تو تن می‌شود، نه فقط پوشیدنی.",
+  phoneDisplay: "۰۲۱-۹۱۰۱۲۳۴۵",
+  phoneHref: "tel:+982191012345",
+  hours: "پاسخگویی: ۹ صبح تا ۹ شب",
+  email: "hello@nakh.example",
+  socials: [
+    { label: "اینستاگرام نَخ", href: "https://instagram.com/", icon: "instagram" },
+    { label: "تلگرام نَخ", href: "https://t.me/", icon: "telegram" },
+    { label: "واتساپ نَخ", href: "https://wa.me/", icon: "whatsapp" },
+  ],
+  groups: [
+    {
+      title: "راهنمای خرید",
+      links: [
+        { title: "راهنمای سایز", href: "/size-guide" },
+        { title: "نحوه ثبت سفارش", href: "/how-to-order" },
+        { title: "شیوه‌های پرداخت", href: "/payment-methods" },
+        { title: "شرایط مرجوعی", href: "/returns-policy" },
+        { title: "پیگیری سفارش", href: "/track-order" },
+        { title: "سوالات متداول", href: "/faq" },
+      ],
+    },
+    {
+      title: "با نَخ",
+      links: [
+        { title: "درباره ما", href: "/about" },
+        { title: "تماس با ما", href: "/contact" },
+        { title: "فرصت‌های شغلی", href: "/careers" },
+        { title: "مجله استایل", href: "/style" },
+        { title: "باشگاه مشتریان", href: "/account/club" },
+      ],
+    },
+  ],
+  legalLinks: [
+    { title: "قوانین و مقررات", href: "/terms" },
+    { title: "حریم خصوصی", href: "/privacy" },
+  ],
+};
