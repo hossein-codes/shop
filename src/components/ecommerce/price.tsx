@@ -12,6 +12,7 @@ export function PriceTag({
   size = "md",
   from,
   unitHidden,
+  stacked,
   className,
 }: {
   current: number;
@@ -20,9 +21,38 @@ export function PriceTag({
   /** برای محصولات واریانت‌دار با قیمت متفاوت: «از ۶۹۰٬۰۰۰ تومان» */
   from?: boolean;
   unitHidden?: boolean;
+  /** چیدمان ستونی: قیمت اصلی بالا (راست)، قدیم + درصد زیرش — مخصوص کارت محصول */
+  stacked?: boolean;
   className?: string;
 }) {
   const percent = discountPercent(current, old);
+
+  if (stacked) {
+    return (
+      <div className={cn("flex flex-col items-start gap-0.5", className)} dir="rtl">
+        <span className="tnum text-[20px] font-bold leading-tight text-ink lg:text-[22px]">
+          {from && <span className="text-[13px] font-normal text-ink-2">از </span>}
+          {formatNumber(current)}{" "}
+          {!unitHidden && <span className="text-xs font-normal text-ink-3">تومان</span>}
+        </span>
+        {(old !== undefined || percent !== undefined) && (
+          <span className="flex items-center gap-2">
+            {old !== undefined && (
+              <span className="tnum text-[13px] leading-snug text-ink-3 line-through">
+                {formatNumber(old)}
+              </span>
+            )}
+            {percent !== undefined && (
+              <span className="tnum rounded-[2px] bg-brick-soft px-1.5 py-0.5 text-[11px] font-medium leading-4 text-brick">
+                {formatPercentOff(percent)}
+              </span>
+            )}
+          </span>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className={cn("flex flex-wrap items-baseline gap-x-2 gap-y-0.5", className)} dir="rtl">
       {from && <span className="text-[13px] text-ink-2">از</span>}

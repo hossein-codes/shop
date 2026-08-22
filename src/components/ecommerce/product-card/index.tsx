@@ -1,11 +1,10 @@
 import * as React from "react";
 import Link from "next/link";
-import { RefreshCcw, ShieldCheck, ShoppingBag, Truck } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ProductImage } from "./product-image";
 import { FavoriteButton } from "./favorite-button";
 import { ProductBadge } from "./product-badge";
-import { SizeQuickAddPanel } from "./size-quick-add";
 import { PriceTag } from "../price";
 import { Rating } from "../rating";
 import type { ColorOption } from "../color-swatch";
@@ -19,10 +18,9 @@ import { Skeleton } from "@/components/ui/skeleton";
  *             (هاور: بالا آمدن + سایه بیشتر — ۲۵۰ms)
  *  ├── ProductImage (5:6) … قلب بالا-راست · بج بالا-چپ
  *  │     نقاط تعداد تصویر (پایین وسط) · قرص رنگ‌ها (پایین راست، روی عکس)
- *  │     پنل «افزودن سریع» با سایز (هاور دسکتاپ)
  *  └── ProductInfo (padding 24px):
  *        برند کم‌رنگ → نام ۱۸px بولد → کد محصول → امتیاز (۱۲۳ نظر)
- *        → قیمت (قدیم خط‌خورته کم‌رنگ + جدید درشت) → اعتماد (دسکتاپ)
+ *        → قیمت ستونی راست‌چین (اصلی بالا · قدیم خط‌خورته + درصد زیرش)
  *        → دکمه «افزودن به سبد خرید» همیشه‌نمایان، تمام‌عرض
  *
  * Mapping رنگ تصویر مرجع → توکن برند: آبی #006B9F→آجری · آبی روشن #72C6E8→شنی ·
@@ -92,7 +90,7 @@ export function ProductCard({
         {image.hoverSrc && !soldOut && (
           <div
             aria-hidden="true"
-            className="absolute bottom-2.5 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 transition-opacity duration-200 group-hover/card:opacity-0"
+            className="absolute bottom-2.5 left-1/2 z-10 flex -translate-x-1/2 gap-1.5"
           >
             <span className="size-1.5 rounded-full bg-ink/60 ring-1 ring-white/60" />
             <span className="size-1.5 rounded-full bg-ink/25 ring-1 ring-white/50" />
@@ -103,7 +101,7 @@ export function ProductCard({
         {shownColors.length > 0 && (
           <div
             aria-hidden="true"
-            className="absolute bottom-2.5 start-2.5 z-10 flex items-center gap-1.5 rounded-full border border-white/50 bg-white/70 p-1.5 shadow-sm backdrop-blur transition-opacity duration-200 group-hover/card:opacity-0"
+            className="absolute bottom-2.5 start-2.5 z-10 flex items-center gap-1.5 rounded-full border border-white/50 bg-white/70 p-1.5 shadow-sm backdrop-blur"
           >
             {shownColors.map((c) => (
               <span
@@ -121,7 +119,6 @@ export function ProductCard({
           </div>
         )}
 
-        {hasQuickAdd && quickAdd && <SizeQuickAddPanel sizes={quickAdd.sizes} onAdd={quickAdd.onAdd} />}
       </ProductImage>
 
       {/* ── اطلاعات ── */}
@@ -155,24 +152,9 @@ export function ProductCard({
             old={price.old}
             from={price.from}
             size="xl"
+            stacked
           />
         )}
-
-        {/* اعتماد — ظریف، فقط دسکتاپ */}
-        <div className="mt-3 hidden items-center justify-between gap-2 border-t border-line/70 pt-2.5 text-[10px] leading-4 text-ink-3 lg:flex">
-          <span className="flex items-center gap-1">
-            <ShieldCheck className="size-3.5 shrink-0 text-pine" aria-hidden="true" />
-            ضمانت اصالت
-          </span>
-          <span className="flex items-center gap-1">
-            <RefreshCcw className="size-3 shrink-0 text-slate" aria-hidden="true" />
-            تعویض سایز
-          </span>
-          <span className="flex items-center gap-1">
-            <Truck className="size-3.5 shrink-0 text-ochre" aria-hidden="true" />
-            ارسال سریع
-          </span>
-        </div>
 
         {/* دکمه همیشه‌نمایان — تمام‌عرض (spec) */}
         <div className="mt-auto pt-4">
