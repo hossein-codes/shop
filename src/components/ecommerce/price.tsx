@@ -30,7 +30,7 @@ export function PriceTag({
   if (stacked) {
     return (
       <div className={cn("flex flex-col items-start gap-0.5", className)} dir="rtl">
-        <span className="tnum text-[20px] font-bold leading-tight text-ink lg:text-[22px]">
+        <span className="tnum text-[17px] font-bold leading-tight text-ink lg:text-[19px]">
           {from && <span className="text-[13px] font-normal text-ink-2">از </span>}
           {formatNumber(current)}{" "}
           {!unitHidden && <span className="text-xs font-normal text-ink-3">تومان</span>}
@@ -38,7 +38,7 @@ export function PriceTag({
         {(old !== undefined || percent !== undefined) && (
           <span className="flex items-center gap-2">
             {old !== undefined && (
-              <span className="tnum text-[13px] leading-snug text-ink-3 line-through">
+              <span className="tnum text-[12px] leading-snug text-ink-3 line-through">
                 {formatNumber(old)}
               </span>
             )}

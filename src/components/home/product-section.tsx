@@ -58,7 +58,7 @@ export function ProductSection({
       <SectionHeader id={id} title={title} href={href} viewAllText={viewAllText} />
       <ProductCarousel ariaLabel={title}>
         {products.map((p) => (
-          <div key={p.href} className="w-full shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-1/3">
+          <div key={p.href} className="w-[calc(50%-0.375rem)] shrink-0 snap-start lg:w-1/4">
             <ProductCard {...toCardProps(p, defaultBadge)} />
           </div>
         ))}

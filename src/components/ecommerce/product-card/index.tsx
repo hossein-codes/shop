@@ -122,32 +122,32 @@ export function ProductCard({
       </ProductImage>
 
       {/* ── اطلاعات ── */}
-      <div className="flex flex-1 flex-col p-4 sm:p-5 lg:p-6">
+      <div className="flex flex-1 flex-col p-4 lg:p-5">
         {brand && (
           <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-ink-3" dir="auto">
             {brand}
           </p>
         )}
 
-        <h3 className="mt-0.5 line-clamp-2 text-[16px] font-bold leading-7 text-ink lg:text-[18px] lg:leading-8">
+        <h3 className="mt-0.5 line-clamp-2 text-[14.5px] font-bold leading-6 text-ink lg:text-[15.5px] lg:leading-7">
           <Link href={href} className="decoration-line-strong underline-offset-4 hover:underline">
             {name}
           </Link>
         </h3>
 
         {code !== undefined && (
-          <p className="mt-0.5 text-[11px] leading-5 text-ink-3">
+          <p className="mt-0.5 text-[10px] leading-4 text-ink-3">
             کد محصول: <bdi className="tnum">{code}</bdi>
           </p>
         )}
 
-        {rating && <Rating className="mt-1.5" value={rating.value} count={rating.count} size="sm" />}
+        {rating && <Rating className="mt-1" value={rating.value} count={rating.count} size="sm" />}
 
         {soldOut ? (
           <p className="mt-2 text-[13px] leading-6 text-ink-3">فعلاً ناموجود است</p>
         ) : (
           <PriceTag
-            className="mt-2"
+            className="mt-1.5"
             current={price.current}
             old={price.old}
             from={price.from}
@@ -157,15 +157,16 @@ export function ProductCard({
         )}
 
         {/* دکمه همیشه‌نمایان — تمام‌عرض (spec) */}
-        <div className="mt-auto pt-4">
+        <div className="mt-auto pt-3">
           {soldOut ? (
-            <Button variant="secondary" block disabled className="h-12 rounded-lg">
+            <Button variant="secondary" block disabled className="h-11 rounded-lg">
               فعلاً ناموجود
             </Button>
           ) : hasQuickAdd && quickAdd ? (
             <Button
+              variant="secondary"
               block
-              className="h-12 rounded-lg"
+              className="h-11 rounded-lg"
               onClick={(e) => {
                 e.preventDefault();
                 quickAdd.onAdd(quickAdd.sizes?.[0]);
