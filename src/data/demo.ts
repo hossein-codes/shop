@@ -309,10 +309,8 @@ export type HeroSlide = {
   id: string;
   image: string;
   imageMobile: string;
-  eyebrow?: string;
+  /** متن تصویر — فقط برای alt و دسترس‌پذیری؛ تصویر خودش متن دارد */
   title: string;
-  subtitle?: string;
-  ctaText: string;
   href: string;
 };
 
@@ -324,30 +322,21 @@ export const demoHeroSlides: HeroSlide[] = [
     id: "light-fall",
     image: heroImg("nakh-hero-1"),
     imageMobile: heroImgM("nakh-hero-1m"),
-    eyebrow: "کالکشن جدید",
-    title: "پاییزِ روشن",
-    subtitle: "کتان، شنی و صدفی — ۲۴ قطعه جدید رسید",
-    ctaText: "خرید کالکشن",
+    title: "کالکشن پاییزِ روشن — خرید کالکشن",
     href: "/collections/light-fall",
   },
   {
     id: "eoss",
     image: heroImg("nakh-hero-2"),
     imageMobile: heroImgM("nakh-hero-2m"),
-    eyebrow: "فروش ویژه",
-    title: "تا ٪۴۰ پایان فصل",
-    subtitle: "آخرین تخفیف‌های تابستان، تا اتمام موجودی",
-    ctaText: "دیدن تخفیف‌ها",
+    title: "فروش ویژه پایان فصل تا ۴۰٪",
     href: "/sale",
   },
   {
     id: "men-basics",
     image: heroImg("nakh-hero-3"),
     imageMobile: heroImgM("nakh-hero-3m"),
-    eyebrow: "مردانه",
-    title: "پایه‌های کمد",
-    subtitle: "تی‌شرت و پیراهن‌های همیشگی، از ۴۹۰ هزار تومان",
-    ctaText: "خرید مردانه",
+    title: "پایه‌های کمد مردانه",
     href: "/c/men",
   },
 ];

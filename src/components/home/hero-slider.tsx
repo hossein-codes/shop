@@ -6,15 +6,15 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toFaDigits } from "@/lib/format";
-import { Button } from "@/components/ui/button";
 import type { HeroSlide } from "@/data/demo";
 
 /**
- * هیرو کمپین v2 — طبق طرح SVG کارفرما:
- *  - کارت داخل کانتینر (نه تمام‌عرض)، گردگوشه، نسبت ۱۰۵۵×۴۵۰ (کوتاه‌تر)
- *  - شیار پایینِ وسط (ماسک SVG) = جای نقطه‌های شمارش
- *  - فلش‌های قبلی/بعدی دوتایی، پایینِ سمت راست کارت، کنار هم
- *  - اتوپلی ۶ث (توقف hover، خاموش برای reduced-motion) · swipe موبایل · preload LCP
+ * هیرو کمپین v3 — تصویرمحور خالص (بازخورد کارفرما):
+ *  - تصاویر خودشان متن دارند → بدون متن/دکمه روی اسلاید؛ کل اسلاید = لینک
+ *  - ترنزیشن نرم کراس‌فید (۷۰۰ms expo-out) + زوم آرام Ken Burns روی اسلاید فعال
+ *  - ماسک بازطراحی‌شده: کارت گرد + شیار قرصی شناور پایین وسط = جای نقطه‌ها
+ *  - فلش‌ها دوتایی پایین-راست، تراز با شیار · اتوپلی ۶ث (توقف hover، خاموش برای
+ *    reduced-motion — زوم هم با همان قاعده غیرفعال می‌شود) · swipe موبایل
  */
 export function HeroSlider({
   slides,
@@ -62,69 +62,61 @@ export function HeroSlider({
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {/* کارت اسلایدها — با ماسک طرح‌داده‌شده (شامل شیار پایین) */}
+      {/* کارت — ماسک گردگوشه + شیار قرصی؛ هر اسلاید یک لینک تمام‌تصویر */}
       <div className="hero-notch-mask relative aspect-[4/3] bg-canvas-dark sm:aspect-[1055/450]">
-        <div
-          className="flex h-full transition-transform duration-500 ease-[var(--ease-in-out-soft)]"
-          style={{ transform: `translateX(-${index * 100}%)` }}
-        >
-          {slides.map((s, i) => (
+        {slides.map((s, i) => {
+          const active = i === index;
+          return (
             <div
               key={s.id}
               role="group"
               aria-roledescription="slide"
               aria-label={`اسلاید ${toFaDigits(i + 1)} از ${toFaDigits(count)}: ${s.title}`}
-              aria-hidden={i !== index}
-              className="relative w-full shrink-0"
+              aria-hidden={!active}
+              className={cn(
+                "absolute inset-0 transition-opacity duration-700 ease-[var(--ease-out-expo)]",
+                active ? "z-10 opacity-100" : "pointer-events-none opacity-0",
+              )}
             >
-              <Image
-                src={s.image}
-                alt={s.title}
-                fill
-                priority={i === 0}
-                sizes="(min-width: 1280px) 1216px, 100vw"
-                className="hidden object-cover sm:block"
-              />
-              <Image
-                src={s.imageMobile}
-                alt={s.title}
-                fill
-                priority={i === 0}
-                sizes="100vw"
-                className="object-cover sm:hidden"
-              />
-
-              {/* محتوا روی گرادیان — پایینِ ابتدای خواندن، خالی‌گذاشتن شیار وسط */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-gradient-to-t from-[rgba(20,20,20,0.65)] via-[rgba(20,20,20,0.18)] to-transparent"
-              />
-              <div className="absolute inset-0 flex items-end">
-                <div className="flex w-full flex-col items-start gap-1.5 p-5 pb-[18%] sm:p-8 sm:pb-[16%] lg:p-10 lg:pb-[15%]">
-                  {s.eyebrow && (
-                    <p className="text-[11px] font-medium leading-4 text-accent">{s.eyebrow}</p>
+              <Link
+                href={s.href}
+                tabIndex={active ? 0 : -1}
+                aria-label={s.title}
+                className="group block h-full w-full focus-visible:outline-2 focus-visible:-outline-offset-8 focus-visible:outline-surface"
+              >
+                <Image
+                  src={s.image}
+                  alt={s.title}
+                  fill
+                  priority={i === 0}
+                  sizes="(min-width: 1280px) 1216px, 100vw"
+                  className={cn(
+                    "hidden object-cover sm:block",
+                    active &&
+                      "animate-[kenburns_6000ms_var(--ease-in-out-soft)_both]",
                   )}
-                  <h2 className="max-w-lg text-2xl font-black leading-[1.25] text-on-brand sm:text-3xl">
-                    {s.title}
-                  </h2>
-                  {s.subtitle && (
-                    <p className="max-w-md text-[13px] leading-6 text-on-brand/85">
-                      {s.subtitle}
-                    </p>
+                />
+                <Image
+                  src={s.imageMobile}
+                  alt={s.title}
+                  fill
+                  priority={i === 0}
+                  sizes="100vw"
+                  className={cn(
+                    "object-cover sm:hidden",
+                    active &&
+                      "animate-[kenburns_6000ms_var(--ease-in-out-soft)_both]",
                   )}
-                  <Button asChild size="m" className="mt-2">
-                    <Link href={s.href}>{s.ctaText}</Link>
-                  </Button>
-                </div>
-              </div>
+                />
+              </Link>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
 
-      {/* نقطه‌های شمارش — داخل شیار پایینِ وسط (روی پس‌زمینه صفحه) */}
+      {/* نقطه‌های شمارش — داخل شیار قرصی پایین وسط (مرکز شیار ≈ ۹۴٪ ارتفاع) */}
       {count > 1 && (
-        <div className="absolute left-1/2 top-[94%] flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5">
+        <div className="absolute left-1/2 top-[93.8%] flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5">
           {slides.map((s, i) => (
             <button
               key={s.id}
@@ -141,24 +133,27 @@ export function HeroSlider({
         </div>
       )}
 
-      {/* فلش‌ها — دوتایی، پایینِ سمت راست کارت (در RTL: سمت ابتدای خواندن) */}
+      {/* فلش‌ها — دوتایی، پایین سمت راست کارت (در RTL: ابتدای خواندن)، تراز با شیار */}
       {count > 1 && (
-        <div className="absolute top-[94%] flex -translate-y-1/2 gap-2" style={{ insetInlineStart: "1rem" }}>
+        <div
+          className="absolute top-[93.8%] flex -translate-y-1/2 gap-2"
+          style={{ insetInlineStart: "1rem" }}
+        >
           <button
             type="button"
             onClick={prev}
             aria-label="اسلاید قبلی"
-            className="grid size-9 place-items-center rounded-full bg-surface/90 text-ink shadow-md backdrop-blur transition-colors hover:bg-surface sm:size-10"
+            className="grid size-9 place-items-center rounded-full bg-surface/90 text-ink shadow-md backdrop-blur transition-all duration-200 hover:bg-surface hover:shadow-lg active:scale-95 sm:size-10"
           >
-            <ChevronRight className="size-4.5" aria-hidden="true" />
+            <ChevronRight className="size-4" aria-hidden="true" />
           </button>
           <button
             type="button"
             onClick={next}
             aria-label="اسلاید بعدی"
-            className="grid size-9 place-items-center rounded-full bg-surface/90 text-ink shadow-md backdrop-blur transition-colors hover:bg-surface sm:size-10"
+            className="grid size-9 place-items-center rounded-full bg-surface/90 text-ink shadow-md backdrop-blur transition-all duration-200 hover:bg-surface hover:shadow-lg active:scale-95 sm:size-10"
           >
-            <ChevronLeft className="size-4.5" aria-hidden="true" />
+            <ChevronLeft className="size-4" aria-hidden="true" />
           </button>
         </div>
       )}
