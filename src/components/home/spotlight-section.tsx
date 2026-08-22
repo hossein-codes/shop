@@ -32,9 +32,8 @@ export function SpotlightSection({
             name={p.name}
             price={p.price}
             images={p.images}
-            colors={p.colors}
             rating={p.rating}
-            badge={p.price.old ? "sale" : p.isNew ? "new" : undefined}
+            badge={p.isNew ? "new" : undefined}
             className={i === 2 ? "max-xl:hidden" : undefined}
             onAdd={() =>
               toast.success(p.name, {

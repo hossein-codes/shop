@@ -12,18 +12,17 @@ import { ProductImage } from "./product-image";
 import { FavoriteButton } from "./favorite-button";
 import { ProductBadge } from "./product-badge";
 import { PriceTag } from "../price";
-import { ColorDots, type ColorOption } from "../color-swatch";
 import { Skeleton } from "@/components/ui/skeleton";
 
 /**
  * ProductCard v4 — کارت واحد و استاندارد کل سایت (بازخورد کارفرما):
  *
- * ساده و مرتب: گالری با نقطه · یک بج (تخفیف آبی/جدید سفید/پرفروش طلایی)
+ * ساده و مرتب: گالری با نقطه · یک بج (جدید سفید / پرفروش طلایی)
  * · قلب = افزودن به علاقه‌مندی (استور واقعی، بدون ناوبری)
- * · برند، نام، امتیاز فشرده · قیمت (تخفیف‌خورده = آبی برند؛ درصد فقط روی بج تصویر)
- * · رنگ‌ها: نقطه‌های ریز و کم‌رنگ (فقط اطلاع‌رسانی) · CTA واحد: «افزودن به سبد خرید»
+ * · برند، نام، امتیاز فشرده · قیمت سمت چپ: فقط قیمت قابل پرداخت (تخفیف = آبی برند)
+ *   + مربع کوچک قرمز ملایم با درصد تخفیف · CTA واحد: «افزودن به سبد خرید»
  *
- * حذف‌شده‌ها طبق بازخورد: انتخاب سایز، خرید سریع، چیپ درصد دوم، ردیف اعتماد.
+ * حذف‌شده‌ها طبق بازخورد: سایز، خرید سریع، سواچ رنگ، قیمت خط‌خورده، بج تخفیف روی تصویر.
  */
 export function ProductCard({
   href,
@@ -31,8 +30,6 @@ export function ProductCard({
   name,
   price,
   images,
-  colors,
-  maxColors = 4,
   rating,
   badge,
   onAdd,
@@ -45,8 +42,6 @@ export function ProductCard({
   name: string;
   price: { current: number; old?: number; from?: boolean };
   images: { src: string; alt?: string }[];
-  colors?: ColorOption[];
-  maxColors?: number;
   rating?: { value: number; count?: number };
   /** فقط یکی: تخفیف (درصد خودکار از قیمت) / جدید / پرفروش */
   badge?: "new" | "bestseller" | "sale";
@@ -116,15 +111,12 @@ export function ProductCard({
           </p>
         )}
 
-        {/* قیمت + رنگ‌های ریز (کم‌تودید، فقط اطلاع‌رسانی) */}
-        <div className="mt-auto flex items-end justify-between gap-2 pt-1.5">
+        {/* قیمت — سمت چپ کارت (بازخورد کارفرما)؛ فقط یک قیمت + مربع درصد */}
+        <div className="mt-auto flex justify-end pt-1.5">
           {soldOut ? (
             <p className="text-[13px] leading-6 text-ink-3">فعلاً ناموجود است</p>
           ) : (
             <PriceTag current={price.current} old={price.old} from={price.from} />
-          )}
-          {colors && colors.length > 1 && (
-            <ColorDots colors={colors} max={maxColors} className="shrink-0 pb-0.5 opacity-70" />
           )}
         </div>
 

@@ -21,11 +21,12 @@ function toCardProps(p: DemoGridProduct, defaultBadge?: "bestseller") {
       { src: p.image, alt: p.name },
       ...(p.hoverImage ? [{ src: p.hoverImage }] : []),
     ],
-    colors: p.colors,
     rating: p.rating,
-    // spec کارت: فقط ۳ نوع برچسب — new / bestseller / sale
+    // بج تصویر فقط جدید/پرفروش — درصد تخفیف کنار قیمت نمایش داده می‌شود (نه دوبار)
     badge:
-      p.soldOut || p.badge === "lastItems" ? undefined : p.badge ?? defaultBadge,
+      p.soldOut || p.badge === "lastItems" || p.badge === "sale"
+        ? undefined
+        : p.badge ?? defaultBadge,
     soldOut: p.soldOut,
     onAdd: () =>
       toast.success(p.name, {

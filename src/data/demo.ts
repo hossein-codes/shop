@@ -31,8 +31,23 @@ export type CartPreview = {
   freeShippingThreshold?: number;
 };
 
-const img = (seed: string, w = 120, h = 160) =>
-  `https://picsum.photos/seed/${seed}/${w}/${h}`;
+/** استخر تصاویر محلی محصولات — جایگزین picsum (پیش‌نمایش آفلاین) */
+const productPool = [
+  "/products/sp-linen-shirt-1.jpg",
+  "/products/sp-coat-1.jpg",
+  "/products/sp-hoodie-1.jpg",
+  "/products/p-knit-1.jpg",
+  "/products/p-kids-1.jpg",
+  "/products/p-sport-1.jpg",
+  "/products/p-classic-coat-1.jpg",
+  "/products/sp-linen-shirt-2.jpg",
+  "/products/sp-coat-2.jpg",
+  "/products/sp-hoodie-2.jpg",
+];
+const poolPick = (n: number) => productPool[((n % productPool.length) + productPool.length) % productPool.length];
+const seedNum = (seed: string) => [...seed].reduce((a, c) => a + c.charCodeAt(0), 0);
+
+const img = (seed: string) => poolPick(seedNum(seed));
 
 export const demoNav: NavItem[] = [
   { title: "خانه", href: "/" },
@@ -82,7 +97,7 @@ export const demoCategories: HeaderCategories = {
     title: "کالکشن پاییزِ روشن",
     subtitle: "کتان، شنی، صدفی — رسید",
     href: "/collections/light-fall",
-    image: img("nakh-mega-campaign", 480, 640),
+    image: img("nakh-mega-campaign"),
   },
 };
 
@@ -114,7 +129,7 @@ export const demoCart: CartPreview = {
       variant: "سایز L · مشکی",
       price: 890_000,
       qty: 1,
-      image: img("nakh-s3", 112, 144),
+      image: img("nakh-s3"),
       href: "/p/13",
     },
     {
@@ -123,7 +138,7 @@ export const demoCart: CartPreview = {
       variant: "سایز ۳۲ · آبی",
       price: 1_200_000,
       qty: 1,
-      image: img("nakh-s4", 112, 144),
+      image: img("nakh-s4"),
       href: "/p/14",
     },
   ],
@@ -148,8 +163,8 @@ export type DemoGridProduct = {
   soldOut?: boolean;
 };
 
-const g = (i: number) => `https://picsum.photos/seed/nakh-grid-${i}/600/800`;
-const g2 = (i: number) => `https://picsum.photos/seed/nakh-best-${i}/600/800`;
+const g = (i: number) => poolPick(i);
+const g2 = (i: number) => poolPick(i + 5);
 
 /** جدیدترین‌ها — داده واقع‌نما با برند */
 export const demoGridProducts: DemoGridProduct[] = [
@@ -404,7 +419,6 @@ export type HeroSlide = {
   href: string;
 };
 
-const heroImg = (seed: string) => `https://picsum.photos/seed/${seed}/1600/686`;
 
 /** تصاویر هیرو از public/hero — جایگزینی: فقط فایل‌ها را بازنویسی کنید (public/hero/README.md) */
 export const demoHeroSlides: HeroSlide[] = [
@@ -457,14 +471,14 @@ export const demoPromoBanners: PromoBanner[] = [
     title: "تا ٪۴۰ پایان فصل",
     ctaText: "دیدن تخفیف‌ها",
     href: "/sale",
-    image: heroImg("nakh-banner-sale"),
+    image: "/banners/banner-sale.jpg",
   },
   {
     eyebrow: "کالکشن",
     title: "پاییزِ روشن رسید",
     ctaText: "دیدن کالکشن",
     href: "/collections/light-fall",
-    image: heroImg("nakh-banner-collection"),
+    image: "/banners/banner-collection.jpg",
   },
 ];
 

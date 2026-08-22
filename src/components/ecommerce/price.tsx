@@ -1,11 +1,10 @@
 import { cn } from "@/lib/utils";
-import { formatNumber } from "@/lib/format";
+import { discountPercent, formatNumber, toFaDigits } from "@/lib/format";
 
 /**
- * نمایش قیمت — سیستم طراحی نَخ (بخش ۶.۲ — v2)
- * ترتیب: قیمت فعلی (Bold؛ تخفیف‌خورده = آبی برند) → قدیم خط‌خورده
- * درصد تخفیف فقط یک‌جا نمایش داده می‌شود: بج روی تصویر کارت (نه اینجا)
- * همیشه tnum · واحد «تومان» · «از» برای واریانت‌های با قیمت متفاوت
+ * نمایش قیمت — سیستم طراحی نَخ (بخش ۶.۲ — v3، بازخورد کارفرما)
+ * فقط «یک» قیمت: قیمت قابل پرداخت (تخفیف‌خورده = آبی برند) + مربع کوچک
+ * قرمزِ ملایم با درصد تخفیف. قیمت خط‌خورده حذف شد — شلوغی کمتر، تصمیم سریع‌تر.
  */
 export function PriceTag({
   current,
@@ -23,8 +22,9 @@ export function PriceTag({
   unitHidden?: boolean;
   className?: string;
 }) {
+  const percent = discountPercent(current, old);
   return (
-    <div className={cn("flex flex-wrap items-baseline gap-x-2 gap-y-0.5", className)} dir="rtl">
+    <div className={cn("flex items-center gap-2", className)} dir="rtl">
       {from && <span className="text-[13px] text-ink-2">از</span>}
       <span
         className={cn(
@@ -34,11 +34,13 @@ export function PriceTag({
         )}
       >
         {formatNumber(current)}
+        {!unitHidden && (
+          <span className="text-xs font-normal text-ink-3"> تومان</span>
+        )}
       </span>
-      {!unitHidden && <span className="text-xs text-ink-3">تومان</span>}
-      {old && (
-        <span className="tnum text-[13px] leading-snug text-ink-3 line-through">
-          {formatNumber(old)}
+      {percent !== undefined && (
+        <span className="tnum rounded-[6px] bg-brick-soft px-1.5 py-1 text-[11px] font-bold leading-none text-brick">
+          {toFaDigits(percent)}٪
         </span>
       )}
     </div>
