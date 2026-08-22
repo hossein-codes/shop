@@ -49,8 +49,8 @@ export function ColorSwatch({
       <span
         aria-hidden="true"
         className={cn(
-          "rounded-full border border-black/10 bg-cover bg-center",
-          interactive ? "size-10" : "size-3",
+          "rounded-full border border-black/10 bg-cover bg-center shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)]",
+          interactive ? "size-10" : "size-3.5",
           color.disabled && interactive && "swatch-diagonal",
         )}
         style={
@@ -82,12 +82,14 @@ export function ColorDots({
   const shown = colors.slice(0, max);
   const rest = colors.length - shown.length;
   return (
-    <div className={cn("flex items-center gap-1.5", className)} aria-hidden="true">
+    <div className={cn("flex items-center gap-2", className)} aria-hidden="true">
       {shown.map((c) => (
         <ColorSwatch key={c.label} color={c} size="card" />
       ))}
       {rest > 0 && (
-        <span className="tnum text-[11px] leading-none text-ink-3">+{rest.toLocaleString("fa-IR")}</span>
+        <span className="tnum rounded-full bg-surface-alt px-1.5 py-0.5 text-[10px] font-medium leading-4 text-ink-3">
+          +{rest.toLocaleString("fa-IR")}
+        </span>
       )}
     </div>
   );

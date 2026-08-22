@@ -1,5 +1,8 @@
+"use client";
+
 import { ProductCard } from "@/components/ecommerce/product-card";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "@/components/ui/toast";
 import { discountPercent, formatPercentOff } from "@/lib/format";
 import type { DemoGridProduct } from "@/data/demo";
 import { SectionHeader } from "./section-header";
@@ -8,14 +11,17 @@ import { ProductCarousel } from "./product-carousel";
 /**
  * بخش محصول استاندارد صفحه اصلی (S3/S5):
  * سربرگ «عنوان + مشاهده همه» + کاروسل کارت محصول
- * defaultBadge: بج پیش‌فرض وقتی محصول بج اختصاصی ندارد (مثلاً «پرفروش» در S5)
+ * افزودن سریع روی هاور کارت → Toast با «مشاهده سبد» (قانون ۲: بدون ترک صفحه)
  */
 function toCardProps(p: DemoGridProduct, defaultBadge?: "bestseller") {
   let badges: React.ReactNode;
   const explicitBadge = p.soldOut ? undefined : p.badge ?? defaultBadge;
   if (explicitBadge === "sale") {
     const percent = discountPercent(p.current, p.old);
-    badges = percent !== undefined ? <Badge variant="sale">{formatPercentOff(percent)}</Badge> : undefined;
+    badges =
+      percent !== undefined ? (
+        <Badge variant="sale">{formatPercentOff(percent)}</Badge>
+      ) : undefined;
   } else if (explicitBadge === "new") {
     badges = <Badge variant="new">جدید</Badge>;
   } else if (explicitBadge === "bestseller") {
@@ -23,9 +29,9 @@ function toCardProps(p: DemoGridProduct, defaultBadge?: "bestseller") {
   } else if (explicitBadge === "lastItems") {
     badges = <Badge variant="lastItems">آخرین موجودی</Badge>;
   }
+
   return {
     href: p.href,
-    brand: "نَخ",
     name: p.name,
     price: { current: p.current, old: p.old },
     image: { src: p.image, alt: p.name, hoverSrc: p.hoverImage },
@@ -33,6 +39,16 @@ function toCardProps(p: DemoGridProduct, defaultBadge?: "bestseller") {
     rating: p.rating,
     badges,
     soldOut: p.soldOut,
+    quickAdd: p.soldOut
+      ? undefined
+      : {
+          sizes: p.sizes,
+          onAdd: (size?: string) =>
+            toast.success(p.name, {
+              description: size ? `سایز ${size} به سبد اضافه شد` : "به سبد اضافه شد",
+              action: { label: "مشاهده سبد", onClick: () => {} },
+            }),
+        },
   };
 }
 

@@ -135,6 +135,8 @@ export const demoUser = { firstName: "حسین" };
 export type DemoGridProduct = {
   href: string;
   name: string;
+  /** سایزهای موجود برای «افزودن سریع» روی هاور کارت */
+  sizes?: string[];
   current: number;
   old?: number;
   image: string;
@@ -151,6 +153,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/13",
     name: "هودی مشکی اورسایز",
+    sizes: ["S", "M", "L", "XL"],
     current: 940_000,
     old: 1_180_000,
     image: g(1),
@@ -166,6 +169,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/11",
     name: "پیراهن مردانه سفید یقه‌ای",
+    sizes: ["M", "L", "XL", "XXL"],
     current: 890_000,
     image: g(2),
     hoverImage: g(10),
@@ -179,6 +183,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/15",
     name: "مانتو کتان بلند شنی",
+    sizes: ["S", "M", "L"],
     current: 1_890_000,
     old: 2_400_000,
     image: g(3),
@@ -194,6 +199,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/12",
     name: "شومیز لینن کرم",
+    sizes: ["S", "M", "L"],
     current: 1_200_000,
     image: g(4),
     hoverImage: g(12),
@@ -207,6 +213,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/14",
     name: "شلوار جین راسته آبی",
+    sizes: ["30", "32", "34", "36"],
     current: 1_240_000,
     image: g(5),
     colors: [
@@ -218,6 +225,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/16",
     name: "کت زنانه ساتن سرمه‌ای",
+    sizes: ["S", "M"],
     current: 2_450_000,
     image: g(6),
     hoverImage: g(16),
@@ -228,6 +236,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/17",
     name: "تی‌شرت اسلش سفید",
+    sizes: ["S", "M", "L", "XL", "XXL"],
     current: 490_000,
     old: 620_000,
     image: g(7),
@@ -384,6 +393,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/21",
     name: "تی‌شرت اسلش مشکی",
+    sizes: ["S", "M", "L", "XL"],
     current: 540_000,
     old: 680_000,
     image: g2(1),
@@ -398,6 +408,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/22",
     name: "شومیز کتان صدفی",
+    sizes: ["S", "M", "L"],
     current: 980_000,
     image: g2(2),
     colors: [
@@ -409,6 +420,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/23",
     name: "شلوار جین بوت‌کات",
+    sizes: ["30", "32", "34"],
     current: 1_390_000,
     old: 1_750_000,
     image: g2(3),
@@ -422,6 +434,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/24",
     name: "پیراهن مردانه آبی یقه‌ای",
+    sizes: ["M", "L", "XL"],
     current: 1_120_000,
     image: g2(4),
     hoverImage: g2(12),
@@ -431,6 +444,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/25",
     name: "مانتو کوتاه توتیه",
+    sizes: ["S", "M"],
     current: 2_150_000,
     image: g2(5),
     colors: [{ label: "توتیه", hex: "#8C7B6B" }],
@@ -440,6 +454,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/26",
     name: "هودی خاکستری اسلش",
+    sizes: ["M", "L", "XL"],
     current: 890_000,
     old: 1_050_000,
     image: g2(6),
@@ -453,6 +468,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/27",
     name: "دامن پلیسه شنی",
+    sizes: ["S", "M"],
     current: 1_050_000,
     image: g2(7),
     colors: [{ label: "شنی", hex: "#C8B49A" }],
@@ -461,6 +477,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/28",
     name: "کت تک لینن صدفی",
+    sizes: ["M", "L"],
     current: 2_890_000,
     image: g2(8),
     colors: [{ label: "صدفی", hex: "#EFE9DE" }],

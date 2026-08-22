@@ -27,7 +27,7 @@ export function WishlistButton({
         onToggle?.();
       }}
       className={cn(
-        "grid size-11 place-items-center rounded-full border border-line bg-surface/90 shadow-sm backdrop-blur transition-colors hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
+        "grid size-11 place-items-center rounded-full border border-line/80 bg-surface/80 shadow-sm backdrop-blur transition-all duration-200 hover:border-ink hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
         className,
       )}
     >
