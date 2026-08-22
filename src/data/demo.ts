@@ -327,14 +327,14 @@ export const demoHeroSlides: HeroSlide[] = [
   },
   {
     id: "eoss",
-    image: "/hero/hero-2.png",
+    image: "/hero/hero-2.webp",
     imageMobile: "/hero/hero-2.png",
     title: "فروش ویژه پایان فصل تا ۴۰٪",
     href: "/sale",
   },
   {
     id: "men-basics",
-    image: "/hero/hero-3.png",
+    image: "/hero/hero-3.webp",
     imageMobile: "/hero/hero-3.png",
     title: "پایه‌های کمد مردانه",
     href: "/c/men",
