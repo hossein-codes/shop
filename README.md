@@ -41,7 +41,9 @@ shop/
 │   │   ├── ecommerce/           کامپوننت‌های فروشگاهی — ProductCard, CategoryCard,
 │   │   │                        Price, Rating, ColorSwatch, SizeChip, Wishlist,
 │   │   │                        QuantityStepper, FreeShippingProgress
-│   │   └── layout/              اسکلت سایت — Header, MegaMenu, MiniCart, AccountMenu,
+│   │   ├── home/                # بخش‌های صفحه اصلی — HeroSlider, CategoryShortcuts,
+│   │                            ProductCarousel/Section, DualBanners, SectionHeader
+│   └── layout/              اسکلت سایت — Header, MegaMenu, MiniCart, AccountMenu,
 │                                MobileSearch, MobileNav, Footer (+ NewsletterForm)
 │   │
 │   ├── lib/                     منطق و ابزار
@@ -83,4 +85,5 @@ shop/
 - ✅ فاز ۱ — پایه‌گذاری + ۳۲ کامپوننت (بدون هیچ صفحه‌ای)
 - ✅ هدر — دسکتاپ/موبایل، مگامنو، مینی‌کارت، جستجو، ناوبری پایین
 - ✅ فوتر — بوم تیره، کلاب پیامکی، آکاردئون موبایل، نمادها
-- ⏳ بعدی — صفحه اصلی → صفحات دسته/محصول/خرید
+- ✅ صفحه اصلی — بسته P0 (هیرو، دسته‌ها، جدیدترین‌ها، بنرها، پرفروش‌ها)
+- ⏳ بعدی — P1 صفحه اصلی (فروش ویژه/کالکشن/سئو) → صفحه دسته‌بندی → PDP

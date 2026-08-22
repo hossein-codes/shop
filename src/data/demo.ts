@@ -302,3 +302,180 @@ export const demoFooter: FooterData = {
     { title: "حریم خصوصی", href: "/privacy" },
   ],
 };
+
+/* ─────────────── داده‌های صفحه اصلی (S1-S5) — ساخت S8/S9 طبق سند، فعلاً حذف ─────────────── */
+
+export type HeroSlide = {
+  id: string;
+  image: string;
+  imageMobile: string;
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  ctaText: string;
+  href: string;
+};
+
+const heroImg = (seed: string) => `https://picsum.photos/seed/${seed}/1600/686`;
+const heroImgM = (seed: string) => `https://picsum.photos/seed/${seed}/800/1000`;
+
+export const demoHeroSlides: HeroSlide[] = [
+  {
+    id: "light-fall",
+    image: heroImg("nakh-hero-1"),
+    imageMobile: heroImgM("nakh-hero-1m"),
+    eyebrow: "کالکشن جدید",
+    title: "پاییزِ روشن",
+    subtitle: "کتان، شنی و صدفی — ۲۴ قطعه جدید رسید",
+    ctaText: "خرید کالکشن",
+    href: "/collections/light-fall",
+  },
+  {
+    id: "eoss",
+    image: heroImg("nakh-hero-2"),
+    imageMobile: heroImgM("nakh-hero-2m"),
+    eyebrow: "فروش ویژه",
+    title: "تا ٪۴۰ پایان فصل",
+    subtitle: "آخرین تخفیف‌های تابستان، تا اتمام موجودی",
+    ctaText: "دیدن تخفیف‌ها",
+    href: "/sale",
+  },
+  {
+    id: "men-basics",
+    image: heroImg("nakh-hero-3"),
+    imageMobile: heroImgM("nakh-hero-3m"),
+    eyebrow: "مردانه",
+    title: "پایه‌های کمد",
+    subtitle: "تی‌شرت و پیراهن‌های همیشگی، از ۴۹۰ هزار تومان",
+    ctaText: "خرید مردانه",
+    href: "/c/men",
+  },
+];
+
+export type HomeCategory = { title: string; href: string; image: string; badge?: string };
+
+const catImg = (seed: string) => `https://picsum.photos/seed/${seed}/240/240`;
+
+export const demoHomeCategories: HomeCategory[] = [
+  { title: "زنانه", href: "/c/women", image: catImg("nakh-cat-women") },
+  { title: "مردانه", href: "/c/men", image: catImg("nakh-cat-men") },
+  { title: "بچگانه", href: "/c/kids", image: catImg("nakh-cat-kids") },
+  { title: "کفش", href: "/c/shoes", image: catImg("nakh-cat-shoes") },
+  { title: "اکسسوری", href: "/c/accessories", image: catImg("nakh-cat-acc") },
+  { title: "فروش ویژه", href: "/sale", image: catImg("nakh-cat-sale"), badge: "تا ٪۴۰" },
+];
+
+export type PromoBanner = {
+  eyebrow?: string;
+  title: string;
+  ctaText: string;
+  href: string;
+  image: string;
+};
+
+export const demoPromoBanners: PromoBanner[] = [
+  {
+    eyebrow: "فروش ویژه",
+    title: "تا ٪۴۰ پایان فصل",
+    ctaText: "دیدن تخفیف‌ها",
+    href: "/sale",
+    image: heroImg("nakh-banner-sale"),
+  },
+  {
+    eyebrow: "کالکشن",
+    title: "پاییزِ روشن رسید",
+    ctaText: "دیدن کالکشن",
+    href: "/collections/light-fall",
+    image: heroImg("nakh-banner-collection"),
+  },
+];
+
+const g2 = (i: number) => `https://picsum.photos/seed/nakh-best-${i}/600/800`;
+
+export const demoBestsellers: DemoGridProduct[] = [
+  {
+    href: "/p/21",
+    name: "تی‌شرت اسلش مشکی",
+    current: 540_000,
+    old: 680_000,
+    image: g2(1),
+    hoverImage: g2(9),
+    colors: [
+      { label: "مشکی", hex: "#1A1917" },
+      { label: "سفید", hex: "#FAFAF8" },
+    ],
+    rating: { value: 4.6, count: 42 },
+    badge: "sale",
+  },
+  {
+    href: "/p/22",
+    name: "شومیز کتان صدفی",
+    current: 980_000,
+    image: g2(2),
+    colors: [
+      { label: "صدفی", hex: "#F2EDE4" },
+      { label: "شنی", hex: "#C8B49A" },
+    ],
+    rating: { value: 4.8, count: 27 },
+  },
+  {
+    href: "/p/23",
+    name: "شلوار جین بوت‌کات",
+    current: 1_390_000,
+    old: 1_750_000,
+    image: g2(3),
+    colors: [
+      { label: "آبی روشن", hex: "#5B7A9D" },
+      { label: "آبی تیره", hex: "#33475C" },
+    ],
+    rating: { value: 4.4, count: 19 },
+    badge: "sale",
+  },
+  {
+    href: "/p/24",
+    name: "پیراهن مردانه آبی یقه‌ای",
+    current: 1_120_000,
+    image: g2(4),
+    hoverImage: g2(12),
+    colors: [{ label: "آبی", hex: "#4A6785" }],
+    rating: { value: 4.7, count: 33 },
+  },
+  {
+    href: "/p/25",
+    name: "مانتو کوتاه توتیه",
+    current: 2_150_000,
+    image: g2(5),
+    colors: [{ label: "توتیه", hex: "#8C7B6B" }],
+    rating: { value: 4.9, count: 12 },
+    badge: "lastItems",
+  },
+  {
+    href: "/p/26",
+    name: "هودی خاکستری اسلش",
+    current: 890_000,
+    old: 1_050_000,
+    image: g2(6),
+    colors: [
+      { label: "خاکستری", hex: "#8A8781" },
+      { label: "مشکی", hex: "#1A1917" },
+    ],
+    rating: { value: 4.5, count: 51 },
+    badge: "sale",
+  },
+  {
+    href: "/p/27",
+    name: "دامن پلیسه شنی",
+    current: 1_050_000,
+    image: g2(7),
+    colors: [{ label: "شنی", hex: "#C8B49A" }],
+    rating: { value: 4.3, count: 8 },
+  },
+  {
+    href: "/p/28",
+    name: "کت تک لینن صدفی",
+    current: 2_890_000,
+    image: g2(8),
+    colors: [{ label: "صدفی", hex: "#EFE9DE" }],
+    rating: { value: 4.9, count: 15 },
+  },
+];
