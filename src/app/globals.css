@@ -1,0 +1,262 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  فونت‌ها                                                            */
+/*  IRANSansX: تجاری (fontiran.com) — فایل را در public/fonts بگذارید  */
+/*  Vazirmatn: فالبک متن‌باز — همیشه داخل پروژه موجود است              */
+/* ------------------------------------------------------------------ */
+@font-face {
+  font-family: "IRANSansX";
+  src: url("/fonts/IRANSansX.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ------------------------------------------------------------------ */
+/*  توکن‌های سیستم طراحی نَخ — Design System v1.1 (پیوست الف)            */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* فونت */
+  --font-sans: "IRANSansX", "IRANSans", "Vazirmatn", -apple-system, "Segoe UI",
+    Tahoma, sans-serif;
+
+  /* مبانی */
+  --color-bg: #fafaf8;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f3f0ea;
+  --color-canvas-dark: #1a1917;
+
+  /* متن و خطوط */
+  --color-ink: #141414;
+  --color-ink-2: #5c5a56;
+  --color-ink-3: #8a8781;
+  --color-line: #e6e2db;
+  --color-line-strong: #d4cfc6;
+
+  /* برند */
+  --color-accent: #c8b49a;
+  --color-accent-deep: #a98f6f;
+  --color-star: #b08a3e;
+
+  /* معنایی */
+  --color-brick: #b4433a;
+  --color-pine: #2f7a4c;
+  --color-ochre: #9a6b2f;
+  --color-slate: #3f5b6b;
+  --color-brick-soft: #f7e9e7;
+  --color-pine-soft: #e8f3ec;
+  --color-ochre-soft: #f7efdf;
+  --color-slate-soft: #e9eff3;
+
+  /* حالت‌های CTA */
+  --color-brand-hover: #2e2c29;
+  --color-brand-active: #000000;
+  --color-on-brand: #fafaf8;
+
+  /* شعاع — امضای لوکس: گوشه‌های تقریباً تیز */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+
+  /* سایه‌ها — همیشه با ته‌رنگ گرم-مشکی */
+  --shadow-sm: 0 1px 2px rgba(20, 20, 20, 0.05);
+  --shadow-md: 0 8px 24px rgba(20, 20, 20, 0.08);
+  --shadow-lg: 0 16px 48px rgba(20, 20, 20, 0.16);
+
+  /* منحنی‌های موشن */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.6, 0, 0.4, 1);
+}
+
+:root {
+  /* لایه‌های عمقی — z-index (بخش ۴.۴ سند) */
+  --z-sticky: 10;
+  --z-header: 20;
+  --z-dropdown: 30;
+  --z-drawer: 40;
+  --z-modal: 50;
+  --z-toast: 60;
+  --z-tooltip: 70;
+
+  /* مدت‌های موشن (بخش ۷.۱ سند) */
+  --dur-1: 100ms;
+  --dur-2: 200ms;
+  --dur-3: 300ms;
+  --dur-4: 400ms;
+  --dur-5: 550ms;
+}
+
+/* ------------------------------------------------------------------ */
+/*  پایه                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  body {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.7; /* فارسی: line-height بالاتر از لاتین */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+
+  /* حلقه فوکوس — هرگز حذف نمی‌شود (بخش ۹.۴ سند) */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  کامپوننت‌های پایه CSS                                               */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* کانتینر اصلی — حداکثر ۱۲۸۰px با گتر ۱۶/۲۴/۳۲ (بخش ۴.۲ سند) */
+  .container {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 1280px;
+    padding-inline: 16px;
+  }
+  @media (min-width: 640px) {
+    .container {
+      padding-inline: 24px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .container {
+      padding-inline: 32px;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  ابزارهای سیستمی                                                    */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  /* اعداد جدولی — قیمت‌ها همیشه تراز می‌مانند (بخش ۳.۳ سند) */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* مخفی‌کردن اسکرول‌بار (تب‌های موبایل) */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* خط اریب روی سواچ رنگِ ناموجود (بخش ۶.۴ سند) */
+  .swatch-diagonal {
+    position: relative;
+  }
+  .swatch-diagonal::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to top left,
+      transparent calc(50% - 1px),
+      var(--color-brick) 50%,
+      transparent calc(50% + 1px)
+    );
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  کی‌فریم‌های موشن (بخش ۷ سند) — فقط opacity و transform              */
+/* ------------------------------------------------------------------ */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.98) translateY(4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes scale-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.98); }
+}
+@keyframes slide-up-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-down-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(8px); }
+}
+@keyframes drawer-right-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes drawer-right-out {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+@keyframes drawer-left-in {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes drawer-left-out {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+@keyframes sheet-in {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes sheet-out {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+/* میکروتعامل‌های امضادار (بخش ۷.۴ سند) */
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+@keyframes count-bump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* احترام به prefers-reduced-motion (بخش ۷.۵ سند) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
