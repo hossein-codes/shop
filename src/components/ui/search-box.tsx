@@ -18,6 +18,8 @@ export function SearchBox({
   children,
   className,
   autoFocus,
+  showHotkey,
+  panelClassName,
 }: {
   value: string;
   onChange: (v: string) => void;
@@ -28,6 +30,9 @@ export function SearchBox({
   children?: React.ReactNode;
   className?: string;
   autoFocus?: boolean;
+  /** نمایش راهنمای میان‌بر «/» برای فوکوس (دسکتاپ) */
+  showHotkey?: boolean;
+  panelClassName?: string;
 }) {
   const rootRef = React.useRef<HTMLDivElement>(null);
   const [open, setOpen] = React.useState(false);
@@ -91,7 +96,15 @@ export function SearchBox({
             aria-label="جستجو در فروشگاه"
             className="flex h-11 w-full rounded-md border border-transparent bg-surface-alt ps-10 pe-10 text-[15px] text-ink transition-colors placeholder:text-ink-3 focus:border-ink focus:bg-surface focus:outline-none"
           />
-          <div className="absolute end-3 top-1/2 flex -translate-y-1/2 items-center gap-1">
+          <div className="absolute end-3 top-1/2 flex -translate-y-1/2 items-center gap-2">
+            {showHotkey && !value && !loading && (
+              <kbd
+                dir="ltr"
+                className="pointer-events-none hidden rounded-[4px] border border-line-strong bg-surface px-1.5 py-0.5 text-[11px] leading-4 text-ink-3 lg:block"
+              >
+                /
+              </kbd>
+            )}
             {loading && <Loader2 className="size-4 animate-spin text-ink-3" aria-hidden="true" />}
             {value && (
               <button
@@ -112,7 +125,8 @@ export function SearchBox({
 
       {showPanel && (
         <div
-          className="absolute inset-x-0 top-full z-[var(--z-dropdown)] mt-2 overflow-hidden rounded-md border border-line bg-surface shadow-md animate-[slide-up-in_200ms_var(--ease-out-expo)]"
+          onMouseDown={(e) => e.preventDefault()}
+          className={cn("absolute inset-x-0 top-full z-[var(--z-dropdown)] mt-2 max-h-[calc(100dvh-8rem)] overflow-y-auto rounded-md border border-line bg-surface shadow-lg animate-[slide-up-in_200ms_var(--ease-out-expo)]", panelClassName)}
           onKeyDown={handleKeyDown}
         >
           {children}

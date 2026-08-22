@@ -31,3 +31,22 @@ export function filterSuggestionProducts(
     })
     .slice(0, limit);
 }
+
+type CategoryLike = {
+  groups: { title: string; href: string; links: { title: string; href: string }[] }[];
+};
+
+/** دسته‌هایی که با کوئری جستجو مرتبط‌اند (نمایش در ستون کنار نتایج) */
+export function matchCategories(
+  q: string,
+  categories: CategoryLike,
+): { title: string; href: string }[] {
+  const words = normalizeQuery(q).split(/\s+/).filter(Boolean);
+  if (!words.length) return [];
+  return categories.groups
+    .filter((g) => {
+      const hay = normalizeQuery([g.title, ...g.links.map((l) => l.title)].join(" "));
+      return words.every((w) => hay.includes(w));
+    })
+    .map((g) => ({ title: g.title, href: g.href }));
+}
