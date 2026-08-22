@@ -343,15 +343,14 @@ export const demoHeroSlides: HeroSlide[] = [
 
 export type HomeCategory = { title: string; href: string; image: string; badge?: string };
 
-const catImg = (seed: string) => `https://picsum.photos/seed/${seed}/240/240`;
-
+/** تصاویر شورتکات دسته‌ها از public/categories — جایگزینی: فقط بازنویسی فایل‌ها */
 export const demoHomeCategories: HomeCategory[] = [
-  { title: "زنانه", href: "/c/women", image: catImg("nakh-cat-women") },
-  { title: "مردانه", href: "/c/men", image: catImg("nakh-cat-men") },
-  { title: "بچگانه", href: "/c/kids", image: catImg("nakh-cat-kids") },
-  { title: "کفش", href: "/c/shoes", image: catImg("nakh-cat-shoes") },
-  { title: "اکسسوری", href: "/c/accessories", image: catImg("nakh-cat-acc") },
-  { title: "فروش ویژه", href: "/sale", image: catImg("nakh-cat-sale"), badge: "تا ٪۴۰" },
+  { title: "زنانه", href: "/c/women", image: "/categories/women.png" },
+  { title: "مردانه", href: "/c/men", image: "/categories/men.png" },
+  { title: "بچگانه", href: "/c/kids", image: "/categories/kids.png" },
+  { title: "کفش", href: "/c/shoes", image: "/categories/shoes.png" },
+  { title: "اکسسوری", href: "/c/accessories", image: "/categories/accessories.png" },
+  { title: "فروش ویژه", href: "/sale", image: "/categories/sale.png", badge: "تا ٪۴۰" },
 ];
 
 export type PromoBanner = {
