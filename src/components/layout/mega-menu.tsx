@@ -10,9 +10,13 @@ import { useDismiss } from "@/lib/hooks/use-dismiss";
 import type { HeaderCategories } from "@/data/demo";
 
 /**
- * مگامنوی دسته‌بندی v3 — بازشدن با Hover + پنل با Portal به body
- * (پنل دیگر داخل عنصر جمع‌شونده‌ی ناوبری نیست → بدون کلیپ‌شدن و بدون لرزش هنگام اسکرول)
- * با اسکرول/تغییر اندازه پنل بسته می‌شود (الگوی استاندارد منوهای hover)
+ * مگامنوی دسته‌بندی v4 — طبق بازخورد کارفرما:
+ *  - تریگر «دسته‌بندی» دیگر لینک نیست؛ فقط منو را کنترل می‌کند
+ *  - Hover: باز (موقت) · خروج موس: بسته
+ *  - کلیک روی تریگر: «سنجاق» — حتی با خروج موس باز می‌ماند
+ *  - کلیک بیرون کادر یا کلیک دوباره روی تریگرِ سنجاق‌شده: بسته
+ *  - باز شدن، بقیه سرفیس‌های هدر (جستجو/سبد) را می‌بندد (open کنترل‌شده از هدر)
+ *  - پنل با Portal به body؛ اسکرول: اگر سنجاق شده جابه‌جا می‌شود، وگرنه بسته
  */
 const suggested = [
   { label: "پرفروش‌ها", href: "/products?sort=bestseller", icon: Flame },
@@ -29,29 +33,43 @@ const footerLinks = [
 
 export function MegaMenu({
   label,
-  href,
   categories,
   active,
+  open,
+  onOpenChange,
 }: {
   label: string;
-  href: string;
   categories: HeaderCategories;
   active?: boolean;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }) {
-  const [open, setOpen] = React.useState(false);
+  const pinnedRef = React.useRef(false);
   const [coords, setCoords] = React.useState<{ top: number; right: number } | null>(null);
   const rootRef = React.useRef<HTMLDivElement>(null);
-  const triggerRef = React.useRef<HTMLAnchorElement>(null);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
   const panelRef = React.useRef<HTMLDivElement>(null);
   const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  useDismiss(rootRef, () => setOpen(false), open);
+  /* اگر والد بست (مثلاً سرفیس دیگر باز شد) سنجاق ریست شود */
+  React.useEffect(() => {
+    if (!open) pinnedRef.current = false;
+  }, [open]);
 
+  const close = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+    pinnedRef.current = false;
+    onOpenChange(false);
+  };
   const cancelClose = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
     closeTimer.current = null;
   };
   React.useEffect(() => cancelClose, []);
+
+  /* کلیک بیرونِ (تریگر + پنل) → بسته + برداشتن سنجاق */
+  useDismiss(rootRef, close, open, panelRef);
 
   const place = () => {
     const el = triggerRef.current;
@@ -60,57 +78,90 @@ export function MegaMenu({
     setCoords({ top: r.bottom, right: window.innerWidth - r.right });
   };
 
-  const openNow = () => {
+  const openHover = () => {
     cancelClose();
     place();
-    setOpen(true);
+    onOpenChange(true);
   };
-  const closeSoon = () => {
+  const closeHover = () => {
     cancelClose();
-    closeTimer.current = setTimeout(() => setOpen(false), 150);
+    if (!pinnedRef.current) onOpenChange(false);
   };
 
-  /* بستن با اسکرول/ریسایز — پنل fixed است و لنگرش با اسکرول جابه‌جا می‌شود */
+  /* کلیک تریجر: بسته → باز+سنجاق · بازِ موقت → سنجاق · بازِ سنجاق‌شده → بسته */
+  const triggerClick = () => {
+    if (open && pinnedRef.current) {
+      close();
+    } else if (open) {
+      pinnedRef.current = true; // سنجاق
+    } else {
+      cancelClose();
+      pinnedRef.current = true;
+      place();
+      onOpenChange(true);
+    }
+  };
+
+  /* اسکرول: سنجاق‌شده جابه‌جا، موقت بسته · ریسایز: بسته */
   React.useEffect(() => {
     if (!open) return;
-    const close = () => setOpen(false);
-    window.addEventListener("scroll", close, true);
-    window.addEventListener("resize", close);
-    return () => {
-      window.removeEventListener("scroll", close, true);
-      window.removeEventListener("resize", close);
+    const onScroll = () => {
+      if (!pinnedRef.current) {
+        onOpenChange(false);
+        return;
+      }
+      const el = triggerRef.current;
+      if (el) {
+        const r = el.getBoundingClientRect();
+        setCoords({ top: r.bottom, right: window.innerWidth - r.right });
+      }
     };
-  }, [open]);
+    const onResize = () => onOpenChange(false);
+    window.addEventListener("scroll", onScroll, true);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("scroll", onScroll, true);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [open, onOpenChange]);
 
   return (
     <div
       ref={rootRef}
       className="relative"
-      onMouseEnter={openNow}
-      onMouseLeave={closeSoon}
-      onFocus={openNow}
+      onMouseEnter={openHover}
+      onMouseLeave={closeHover}
+      onFocus={openHover}
       onBlur={(e) => {
         const rt = e.relatedTarget;
-        if (rt && !rootRef.current?.contains(rt) && !panelRef.current?.contains(rt)) setOpen(false);
+        if (rt && !rootRef.current?.contains(rt) && !panelRef.current?.contains(rt)) close();
       }}
     >
-      <Link
+      <button
         ref={triggerRef}
-        href={href}
+        type="button"
         aria-expanded={open}
         aria-haspopup="true"
+        onClick={triggerClick}
         onKeyDown={(e) => {
-          if (e.key === "Escape") setOpen(false);
+          if (e.key === "Escape") {
+            close();
+            return;
+          }
           if (e.key === "ArrowDown") {
             e.preventDefault();
-            openNow();
+            if (!open) {
+              pinnedRef.current = true;
+              place();
+              onOpenChange(true);
+            }
             requestAnimationFrame(() =>
               panelRef.current?.querySelector<HTMLElement>("a")?.focus(),
             );
           }
         }}
         className={cn(
-          "group relative flex h-12 items-center gap-1.5 transition-colors",
+          "group relative flex h-12 cursor-pointer items-center gap-1.5 bg-transparent transition-colors",
           open || active ? "text-ink" : "text-ink-2 hover:text-ink",
         )}
       >
@@ -126,7 +177,7 @@ export function MegaMenu({
             open || active ? "scale-x-100" : "scale-x-0",
           )}
         />
-      </Link>
+      </button>
 
       {open &&
         coords &&
@@ -135,10 +186,10 @@ export function MegaMenu({
             ref={panelRef}
             onMouseDown={(e) => e.preventDefault()}
             onMouseEnter={cancelClose}
-            onMouseLeave={closeSoon}
+            onMouseLeave={closeHover}
             onKeyDown={(e) => {
               if (e.key === "Escape") {
-                setOpen(false);
+                close();
                 triggerRef.current?.focus();
               }
             }}

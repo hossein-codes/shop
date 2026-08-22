@@ -20,6 +20,8 @@ export function SearchBox({
   autoFocus,
   showHotkey,
   panelClassName,
+  panelOpen,
+  onPanelOpenChange,
 }: {
   value: string;
   onChange: (v: string) => void;
@@ -33,9 +35,19 @@ export function SearchBox({
   /** نمایش راهنمای میان‌بر «/» برای فوکوس (دسکتاپ) */
   showHotkey?: boolean;
   panelClassName?: string;
+  /** کنترل بیرونی باز/بسته بودن پنل (اختیاری) */
+  panelOpen?: boolean;
+  onPanelOpenChange?: (open: boolean) => void;
 }) {
   const rootRef = React.useRef<HTMLDivElement>(null);
-  const [open, setOpen] = React.useState(false);
+  const [internalOpen, setInternalOpen] = React.useState(false);
+  /** حالت کنترل‌شده: اگر panelOpen داده شود از آن استفاده می‌شود (انحصار متقابل سرفیس‌های هدر) */
+  const open = panelOpen ?? internalOpen;
+  const changeOpen = (v: boolean) => {
+    setInternalOpen(v);
+    onPanelOpenChange?.(v);
+  };
+  const setOpen = changeOpen;
 
   const moveFocus = (dir: 1 | -1) => {
     const root = rootRef.current;

@@ -182,9 +182,9 @@ export function MobileSearch({
                         />
                         <span className="min-w-0 flex-1">
                           <span className="line-clamp-1 text-[14px] leading-6 text-ink">{p.title}</span>
-                          <span className="tnum block text-xs leading-5 text-ink-3">
-                            {formatToman(p.price)}
-                          </span>
+                        </span>
+                        <span className="tnum shrink-0 text-[13px] leading-6 text-ink-2">
+                          {formatToman(p.price)}
                         </span>
                         <ChevronLeft className="size-4 shrink-0 text-ink-3" aria-hidden="true" />
                       </button>

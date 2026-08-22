@@ -165,8 +165,18 @@ export function Header({
   const [navVisible, setNavVisible] = React.useState(true);
   const [scrolled, setScrolled] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
-  const [cartOpen, setCartOpen] = React.useState(false);
   const [query, setQuery] = React.useState("");
+
+  /* سرفیس باز هدر — انحصار متقابل: جستجو / مگامنو / سبد، فقط یکی باز */
+  const [surface, setSurface] = React.useState<"search" | "mega" | "cart" | null>(null);
+  const cartOpen = surface === "cart";
+  const blurSearch = () => {
+    headerRef.current?.querySelector<HTMLInputElement>("input[type='search']")?.blur();
+  };
+  const handleMegaOpen = (o: boolean) => {
+    if (o) blurSearch();
+    setSurface((prev) => (o ? "mega" : prev === "mega" ? null : prev));
+  };
   const [cartItems, setCartItems] = React.useState<CartPreviewItem[]>(cart.items);
   const cartBtnRef = React.useRef<HTMLButtonElement>(null);
   const headerRef = React.useRef<HTMLElement>(null);
@@ -270,6 +280,10 @@ export function Header({
               onSubmit={onSearchSubmit}
               placeholder="جستجوی لباس، برند، دسته‌بندی…"
               showHotkey
+              panelOpen={surface === "search"}
+              onPanelOpenChange={(o) =>
+                setSurface((prev) => (o ? "search" : prev === "search" ? null : prev))
+              }
             >
               {query.trim() ? (
                 <>
@@ -280,33 +294,34 @@ export function Header({
                         نتایج محصولات {results.length > 0 && `(${toFaDigits(results.length)})`}
                       </SectionTitle>
                       {results.length ? (
-                        <div className="grid grid-cols-2 gap-1.5">
+                        <ul className="space-y-1">
                           {results.map((p) => (
-                            <button
-                              key={p.href}
-                              type="button"
-                              data-search-item
-                              onClick={() => onSearchSubmit?.(p.title)}
-                              className="flex items-center gap-2.5 rounded-md border border-transparent p-2 text-start transition-colors hover:border-line hover:bg-surface-alt"
-                            >
-                              <Image
-                                src={p.image}
-                                alt=""
-                                width={44}
-                                height={58}
-                                className="shrink-0 rounded-[2px] object-cover"
-                              />
-                              <span className="min-w-0 flex-1">
-                                <span className="line-clamp-2 text-[13px] leading-5 text-ink">
-                                  {p.title}
+                            <li key={p.href}>
+                              <button
+                                type="button"
+                                data-search-item
+                                onClick={() => onSearchSubmit?.(p.title)}
+                                className="flex w-full items-center gap-3 rounded-md border border-transparent p-2 text-start transition-colors hover:border-line hover:bg-surface-alt"
+                              >
+                                <Image
+                                  src={p.image}
+                                  alt=""
+                                  width={44}
+                                  height={58}
+                                  className="shrink-0 rounded-[2px] object-cover"
+                                />
+                                <span className="min-w-0 flex-1">
+                                  <span className="line-clamp-1 text-[13px] leading-6 text-ink">
+                                    {p.title}
+                                  </span>
                                 </span>
-                                <span className="tnum mt-0.5 block text-xs leading-5 text-ink-3">
+                                <span className="tnum shrink-0 text-[13px] leading-6 text-ink-2">
                                   {formatToman(p.price)}
                                 </span>
-                              </span>
-                            </button>
+                              </button>
+                            </li>
                           ))}
-                        </div>
+                        </ul>
                       ) : (
                         <div className="rounded-md bg-surface-alt/60 px-4 py-6 text-center">
                           <p className="text-[13px] leading-6 text-ink-2">چیزی پیدا نشد</p>
@@ -459,7 +474,10 @@ export function Header({
               <HeaderIconButton
                 label="سبد خرید"
                 count={cartCount}
-                onClick={() => setCartOpen((v) => !v)}
+                onClick={() => {
+                  blurSearch();
+                  setSurface((prev) => (prev === "cart" ? null : "cart"));
+                }}
                 buttonRef={cartBtnRef}
               >
                 <ShoppingBag className="size-5" aria-hidden="true" />
@@ -467,8 +485,8 @@ export function Header({
               {cartOpen && (
                 <CartDropdown
                   cart={liveCart}
-                  onClose={() => setCartOpen(false)}
-                  onGoToCart={() => setCartOpen(false)}
+                  onClose={() => setSurface((prev) => (prev === "cart" ? null : prev))}
+                  onGoToCart={() => setSurface(null)}
                   onRemoveItem={removeItem}
                   triggerRef={cartBtnRef}
                 />
@@ -505,9 +523,10 @@ export function Header({
                   <MegaMenu
                     key={item.href}
                     label={item.title}
-                    href={item.href}
                     categories={categories}
                     active={isActive(item.href)}
+                    open={surface === "mega"}
+                    onOpenChange={handleMegaOpen}
                   />
                 ) : (
                   <li key={item.href}>
