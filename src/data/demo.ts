@@ -538,8 +538,6 @@ export type DemoSpotlightProduct = {
   sizes?: string[];
 };
 
-const sp = (seed: string) => `https://picsum.photos/seed/${seed}/900/1100`;
-
 export const demoSpotlightProducts: DemoSpotlightProduct[] = [
   {
     href: "/p/101",
@@ -547,11 +545,8 @@ export const demoSpotlightProducts: DemoSpotlightProduct[] = [
     name: "پیراهن لینن مردانه",
     code: "123456",
     images: [
-      { src: sp("nakh-sp-1a") },
-      { src: sp("nakh-sp-1b") },
-      { src: sp("nakh-sp-1c") },
-      { src: sp("nakh-sp-1d") },
-      { src: sp("nakh-sp-1e") },
+      { src: "/products/sp-linen-shirt-1.jpg" },
+      { src: "/products/sp-linen-shirt-2.jpg" },
     ],
     price: { current: 1_240_000, old: 1_550_000 },
     rating: { value: 4.7, count: 123 },
@@ -571,10 +566,8 @@ export const demoSpotlightProducts: DemoSpotlightProduct[] = [
     name: "مانتو کتان زنانه پاییزه",
     code: "123982",
     images: [
-      { src: sp("nakh-sp-2a") },
-      { src: sp("nakh-sp-2b") },
-      { src: sp("nakh-sp-2c") },
-      { src: sp("nakh-sp-2d") },
+      { src: "/products/sp-coat-1.jpg" },
+      { src: "/products/sp-coat-2.jpg" },
     ],
     price: { current: 2_180_000, old: 2_720_000 },
     rating: { value: 4.9, count: 214 },
@@ -591,10 +584,8 @@ export const demoSpotlightProducts: DemoSpotlightProduct[] = [
     name: "ست هودی و شلوار اسپرت",
     code: "124108",
     images: [
-      { src: sp("nakh-sp-3a") },
-      { src: sp("nakh-sp-3b") },
-      { src: sp("nakh-sp-3c") },
-      { src: sp("nakh-sp-3d") },
+      { src: "/products/sp-hoodie-1.jpg" },
+      { src: "/products/sp-hoodie-2.jpg" },
     ],
     price: { current: 1_690_000 },
     rating: { value: 4.6, count: 87 },
