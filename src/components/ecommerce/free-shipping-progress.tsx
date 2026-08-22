@@ -45,7 +45,7 @@ export function FreeShippingProgress({
         <div
           className={cn(
             "h-full rounded-full transition-[width] duration-300",
-            reached ? "bg-pine" : "bg-accent",
+            reached ? "bg-pine" : "bg-brand",
           )}
           style={{ width: `${pct}%` }}
         />

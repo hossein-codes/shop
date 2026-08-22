@@ -38,7 +38,7 @@ export function Select({
       <SelectPrimitive.Trigger
         id={id}
         className={cn(
-          "flex w-full items-center justify-between gap-2 rounded-md border border-line-strong bg-surface px-4 text-[15px] text-ink transition-colors hover:border-ink focus:border-ink focus:outline-none data-[placeholder]:text-ink-3",
+          "flex w-full items-center justify-between gap-2 rounded-md border border-line-strong bg-surface px-4 text-[15px] text-ink transition-colors hover:border-brand focus:border-brand focus:outline-none data-[placeholder]:text-ink-3",
           size === "m" ? "h-12" : "h-10 text-[13px]",
           className,
         )}
@@ -60,7 +60,7 @@ export function Select({
                 key={item.value}
                 value={item.value}
                 disabled={item.disabled}
-                className="flex h-10 cursor-pointer select-none items-center justify-between rounded-[4px] px-3 text-[15px] text-ink outline-none data-[highlighted]:bg-surface-alt data-[state=checked]:font-medium data-[disabled]:pointer-events-none data-[disabled]:text-ink-3"
+                className="flex h-10 cursor-pointer select-none items-center justify-between rounded-sm px-3 text-[15px] text-ink outline-none data-[highlighted]:bg-surface-alt data-[state=checked]:font-medium data-[disabled]:pointer-events-none data-[disabled]:text-ink-3"
               >
                 <SelectPrimitive.ItemText>{item.label}</SelectPrimitive.ItemText>
                 <SelectPrimitive.ItemIndicator>

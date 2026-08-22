@@ -308,7 +308,7 @@ export function Header({
                                   alt=""
                                   width={44}
                                   height={58}
-                                  className="shrink-0 rounded-[2px] object-cover"
+                                  className="shrink-0 rounded-[6px] object-cover"
                                 />
                                 <span className="min-w-0 flex-1">
                                   <span className="line-clamp-1 text-[13px] leading-6 text-ink">
@@ -382,7 +382,7 @@ export function Header({
                               type="button"
                               data-search-item
                               onClick={() => setQuery(s)}
-                              className="flex h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-3 text-[13px] text-ink-2 transition-colors hover:border-ink hover:text-ink"
+                              className="flex h-8 items-center gap-1.5 rounded-full border border-line bg-surface px-3 text-[13px] text-ink-2 transition-colors hover:border-brand hover:text-brand"
                             >
                               <Clock className="size-3.5 text-ink-3" aria-hidden="true" />
                               {s}
@@ -400,7 +400,7 @@ export function Header({
                               type="button"
                               data-search-item
                               onClick={() => setQuery(s)}
-                              className="flex w-full items-center gap-3 rounded-[4px] px-2 py-2 text-[13px] text-ink transition-colors hover:bg-surface-alt"
+                              className="flex w-full items-center gap-3 rounded-sm px-2 py-2 text-[13px] text-ink transition-colors hover:bg-surface-alt"
                             >
                               <span className="tnum w-4 text-center text-xs font-medium text-ink-3">
                                 {toFaDigits(i + 1)}
@@ -542,7 +542,7 @@ export function Header({
                       <span
                         aria-hidden="true"
                         className={cn(
-                          "absolute inset-x-0 -bottom-px h-0.5 origin-center bg-ink transition-transform duration-200 ease-[var(--ease-out-expo)]",
+                          "absolute inset-x-0 -bottom-px h-0.5 origin-center bg-brand transition-transform duration-200 ease-[var(--ease-out-expo)]",
                           isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
                         )}
                       />

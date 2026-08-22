@@ -30,8 +30,8 @@ export function FilterChip({
       className={cn(
         "inline-flex h-9 items-center gap-1.5 rounded-full px-4 text-[13px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink md:h-8",
         selected
-          ? "bg-ink text-on-brand"
-          : "border border-line-strong bg-transparent text-ink-2 hover:border-ink hover:text-ink",
+          ? "bg-brand text-on-brand"
+          : "border border-line-strong bg-transparent text-ink-2 hover:border-brand hover:text-brand",
         className,
       )}
     >

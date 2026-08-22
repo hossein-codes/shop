@@ -124,7 +124,7 @@ export function AccountMenu({
                     href={l.href}
                     role="menuitem"
                     onClick={() => setOpen(false)}
-                    className="flex h-10 items-center gap-2.5 rounded-[4px] px-3 text-[13px] text-ink-2 transition-colors hover:bg-surface-alt hover:text-ink"
+                    className="flex h-10 items-center gap-2.5 rounded-sm px-3 text-[13px] text-ink-2 transition-colors hover:bg-surface-alt hover:text-ink"
                   >
                     <l.icon className="size-4 shrink-0 text-ink-3" aria-hidden="true" />
                     {l.title}
@@ -142,7 +142,7 @@ export function AccountMenu({
                 setOpen(false);
                 onLogout?.();
               }}
-              className="flex h-10 w-full items-center gap-2.5 rounded-[4px] px-3 text-[13px] text-brick transition-colors hover:bg-brick-soft"
+              className="flex h-10 w-full items-center gap-2.5 rounded-sm px-3 text-[13px] text-brick transition-colors hover:bg-brick-soft"
             >
               <LogOut className="size-4" aria-hidden="true" />
               خروج از حساب

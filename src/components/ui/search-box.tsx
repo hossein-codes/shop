@@ -106,13 +106,13 @@ export function SearchBox({
             }}
             onKeyDown={handleKeyDown}
             aria-label="جستجو در فروشگاه"
-            className="flex h-11 w-full rounded-md border border-transparent bg-surface-alt ps-10 pe-10 text-[15px] text-ink transition-colors placeholder:text-ink-3 focus:border-ink focus:bg-surface focus:outline-none"
+            className="flex h-11 w-full rounded-md border border-transparent bg-surface-alt ps-10 pe-10 text-[15px] text-ink transition-colors placeholder:text-ink-3 focus:border-brand focus:bg-surface focus:outline-none"
           />
           <div className="absolute end-3 top-1/2 flex -translate-y-1/2 items-center gap-2">
             {showHotkey && !value && !loading && (
               <kbd
                 dir="ltr"
-                className="pointer-events-none hidden rounded-[4px] border border-line-strong bg-surface px-1.5 py-0.5 text-[11px] leading-4 text-ink-3 lg:block"
+                className="pointer-events-none hidden rounded-sm border border-line-strong bg-surface px-1.5 py-0.5 text-[11px] leading-4 text-ink-3 lg:block"
               >
                 /
               </kbd>

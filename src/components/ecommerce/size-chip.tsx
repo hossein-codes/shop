@@ -28,9 +28,9 @@ export function SizeChip({
       onClick={() => onClick?.(label, state)}
       className={cn(
         "inline-flex h-12 min-w-12 items-center justify-center rounded-full px-4 text-[15px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
-        state === "selected" && "bg-ink text-on-brand",
-        state === "available" && "border border-line-strong text-ink hover:border-ink",
-        unavailable && "border border-dashed border-line text-ink-3 hover:border-ink-3",
+        state === "selected" && "bg-brand text-on-brand",
+        state === "available" && "border border-line-strong text-ink hover:border-brand",
+        unavailable && "border border-dashed border-line text-ink-3 hover:border-brand-3",
         className,
       )}
     >

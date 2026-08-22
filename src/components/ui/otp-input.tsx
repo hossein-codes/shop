@@ -94,7 +94,7 @@ export function OtpInput({
           onPaste={handlePaste}
           onFocus={(e) => e.target.select()}
           className={cn(
-            "h-14 w-12 rounded-md border border-line-strong bg-surface text-center text-xl font-bold text-ink transition-colors focus:border-ink focus:outline-none disabled:bg-surface-alt disabled:text-ink-3",
+            "h-14 w-12 rounded-md border border-line-strong bg-surface text-center text-xl font-bold text-ink transition-colors focus:border-brand focus:outline-none disabled:bg-surface-alt disabled:text-ink-3",
             invalid && "border-brick",
           )}
         />

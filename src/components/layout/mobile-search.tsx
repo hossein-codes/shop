@@ -114,7 +114,7 @@ export function MobileSearch({
                       key={s}
                       type="button"
                       onClick={() => setQ(s)}
-                      className="flex h-9 items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 text-[13px] text-ink-2 transition-colors hover:border-ink hover:text-ink"
+                      className="flex h-9 items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 text-[13px] text-ink-2 transition-colors hover:border-brand hover:text-brand"
                     >
                       <Clock className="size-3.5 text-ink-3" aria-hidden="true" />
                       {s}
@@ -178,7 +178,7 @@ export function MobileSearch({
                           alt=""
                           width={44}
                           height={58}
-                          className="shrink-0 rounded-[2px] object-cover"
+                          className="shrink-0 rounded-[6px] object-cover"
                         />
                         <span className="min-w-0 flex-1">
                           <span className="line-clamp-1 text-[14px] leading-6 text-ink">{p.title}</span>
@@ -207,7 +207,7 @@ export function MobileSearch({
                       key={m.href}
                       href={m.href}
                       onClick={close}
-                      className="flex h-9 items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 text-[13px] text-ink-2 transition-colors hover:border-ink hover:text-ink"
+                      className="flex h-9 items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 text-[13px] text-ink-2 transition-colors hover:border-brand hover:text-brand"
                     >
                       <Search className="size-3.5 text-ink-3" aria-hidden="true" />
                       {m.title}

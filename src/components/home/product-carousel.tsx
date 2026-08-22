@@ -39,7 +39,7 @@ export function ProductCarousel({
         type="button"
         aria-label={`${ariaLabel} — قبلی`}
         onClick={() => scrollBy(1)}
-        className="absolute -start-5 top-[35%] z-10 hidden size-10 place-items-center rounded-full border border-line bg-surface text-ink shadow-md transition-colors hover:border-ink lg:grid"
+        className="absolute -start-5 top-[35%] z-10 hidden size-10 place-items-center rounded-full border border-line bg-surface text-ink shadow-md transition-colors hover:border-brand lg:grid"
       >
         <ChevronRight className="size-5" aria-hidden="true" />
       </button>
@@ -47,7 +47,7 @@ export function ProductCarousel({
         type="button"
         aria-label={`${ariaLabel} — بعدی`}
         onClick={() => scrollBy(-1)}
-        className="absolute -end-5 top-[35%] z-10 hidden size-10 place-items-center rounded-full border border-line bg-surface text-ink shadow-md transition-colors hover:border-ink lg:grid"
+        className="absolute -end-5 top-[35%] z-10 hidden size-10 place-items-center rounded-full border border-line bg-surface text-ink shadow-md transition-colors hover:border-brand lg:grid"
       >
         <ChevronLeft className="size-5" aria-hidden="true" />
       </button>

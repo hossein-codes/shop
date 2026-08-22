@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils";
  * حداکثر ۲ بج روی هر کارت: تخفیف > آخرین موجودی > جدید > پرفروش
  */
 const badgeVariants = cva(
-  "inline-flex items-center rounded-[2px] px-2 py-1 text-[11px] font-medium leading-none",
+  "inline-flex items-center rounded-[6px] px-2 py-1 text-[11px] font-medium leading-none",
   {
     variants: {
       variant: {
-        new: "bg-ink text-on-brand",
+        new: "bg-brand text-on-brand",
         sale: "bg-brick-soft text-brick",
         bestseller: "bg-accent text-ink",
         editor: "border border-accent-deep bg-transparent text-ink",

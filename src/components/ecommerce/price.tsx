@@ -41,7 +41,7 @@ export function PriceTag({
         </span>
       )}
       {percent !== undefined && (
-        <span className="tnum rounded-[2px] bg-brick-soft px-1.5 py-0.5 text-[11px] font-medium leading-4 text-brick">
+        <span className="tnum rounded-[6px] bg-brick-soft px-1.5 py-0.5 text-[11px] font-medium leading-4 text-brick">
           {formatPercentOff(percent)}
         </span>
       )}

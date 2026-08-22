@@ -27,7 +27,7 @@ export function FavoriteButton({
         onToggle?.();
       }}
       className={cn(
-        "grid size-11 place-items-center rounded-full border border-white/40 bg-white/70 shadow-sm backdrop-blur transition-all duration-200 hover:border-ink hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
+        "grid size-11 place-items-center rounded-full border border-white/40 bg-white/70 shadow-sm backdrop-blur transition-all duration-200 hover:border-brand hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
         className,
       )}
     >

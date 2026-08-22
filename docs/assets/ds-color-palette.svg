@@ -1,8 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1210" viewBox="0 0 1080 1210" font-family="Vazirmatn, 'Segoe UI', Tahoma, sans-serif">
   <defs>
     <style>
-      .t { fill: #141414; }
-      .m { fill: #8A8781; }
+      .t { fill: #102A43; }
+      .m { fill: #829AB1; }
+      .card { stroke: #D9E4EC; stroke-width: 1; }
+      .hex { font-size: 12px; fill: #52667A; font-family: monospace; }
+      .name { font-size: 14px; font-weight: 700; fill: #102A43; }
     </style>
   </defs>
 
@@ -11,151 +14,105 @@
 
   <!-- عنوان -->
   <text x="1056" y="52" text-anchor="end" font-size="24" font-weight="800" class="t">پالت رنگی نَخ — NAKH Color Tokens</text>
-  <text x="1056" y="76" text-anchor="end" font-size="13" class="m">Design System v1.0 — Direction A: Gallery Minimal (تمام هگزها قطعی و پیاده‌سازی‌شده‌اند)</text>
-  <line x1="24" y1="92" x2="1056" y2="92" stroke="#E6E2DB" stroke-width="1"/>
+  <text x="1056" y="76" text-anchor="end" font-size="13" class="m">Design System v3.0 — Ocean Palette (sRGB)</text>
 
-  <!-- ============ ردیف ۱: مبانی ============ -->
-  <text x="1056" y="124" text-anchor="end" font-size="14" font-weight="700" class="t">۱ — مبانی (Foundation)</text>
+  <!-- ردیف ۱: برند -->
+  <text x="1056" y="120" text-anchor="end" font-size="16" font-weight="700" class="t">برند — Brand</text>
+  <g>
+    <rect x="824" y="136" width="232" height="120" rx="16" fill="#006B9F" class="card"/>
+    <text x="1040" y="286" text-anchor="end" class="name">brand</text>
+    <text x="1040" y="304" text-anchor="end" class="hex">#006B9F</text>
 
-  <g transform="translate(816,136)">
-    <rect width="240" height="110" fill="#FAFAF8" stroke="#D4CFC6" stroke-width="1"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">صدفی — پس‌زمینه اصلی</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">bg / #FAFAF8</text>
-  </g>
-  <g transform="translate(552,136)">
-    <rect width="240" height="110" fill="#FFFFFF" stroke="#D4CFC6" stroke-width="1"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">سفید — سطح کارت‌ها</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">surface / #FFFFFF</text>
-  </g>
-  <g transform="translate(288,136)">
-    <rect width="240" height="110" fill="#F3F0EA" stroke="#D4CFC6" stroke-width="1"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">کتان — بلوک ثانویه</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">surface-alt / #F3F0EA</text>
-  </g>
-  <g transform="translate(24,136)">
-    <rect width="240" height="110" fill="#1A1917"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">بوم تیره — فوتر/هیرو</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">canvas-dark / #1A1917</text>
+    <rect x="576" y="136" width="232" height="120" rx="16" fill="#00577F" class="card"/>
+    <text x="792" y="286" text-anchor="end" class="name">brand-hover</text>
+    <text x="792" y="304" text-anchor="end" class="hex">#00577F</text>
+
+    <rect x="328" y="136" width="232" height="120" rx="16" fill="#72C6E8" class="card"/>
+    <text x="544" y="286" text-anchor="end" class="name">brand-2</text>
+    <text x="544" y="304" text-anchor="end" class="hex">#72C6E8</text>
+
+    <rect x="80" y="136" width="232" height="120" rx="16" fill="#082F49" class="card"/>
+    <text x="296" y="286" text-anchor="end" class="name">canvas-dark</text>
+    <text x="296" y="304" text-anchor="end" class="hex">#082F49</text>
   </g>
 
-  <!-- ============ ردیف ۲: متن و خطوط ============ -->
-  <text x="1056" y="324" text-anchor="end" font-size="14" font-weight="700" class="t">۲ — متن و خطوط (Ink &amp; Line)</text>
+  <!-- ردیف ۲: مبانی -->
+  <text x="1056" y="360" text-anchor="end" font-size="16" font-weight="700" class="t">مبانی — Neutrals</text>
+  <g>
+    <rect x="824" y="376" width="232" height="100" rx="16" fill="#FAF9F6" class="card"/>
+    <text x="1040" y="506" text-anchor="end" class="name">bg</text>
+    <text x="1040" y="524" text-anchor="end" class="hex">#FAF9F6</text>
 
-  <g transform="translate(816,336)">
-    <rect width="240" height="110" fill="#141414"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">مرکب ۹۰۰ — متن اصلی</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">ink / #141414</text>
-  </g>
-  <g transform="translate(552,336)">
-    <rect width="240" height="110" fill="#5C5A56"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">مرکب ۶۰۰ — متن ثانویه</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">ink-2 / #5C5A56</text>
-  </g>
-  <g transform="translate(288,336)">
-    <rect width="240" height="110" fill="#8A8781"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">مرکب ۴۰۰ — متا/جانشین</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">ink-3 / #8A8781</text>
-  </g>
-  <g transform="translate(24,336)">
-    <rect width="240" height="110" fill="#E6E2DB" stroke="#D4CFC6" stroke-width="1"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">خط — حاشیه و جداکننده</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">line / #E6E2DB</text>
+    <rect x="576" y="376" width="232" height="100" rx="16" fill="#FFFFFF" class="card"/>
+    <text x="792" y="506" text-anchor="end" class="name">surface</text>
+    <text x="792" y="524" text-anchor="end" class="hex">#FFFFFF</text>
+
+    <rect x="328" y="376" width="232" height="100" rx="16" fill="#F3F7FA" class="card"/>
+    <text x="544" y="506" text-anchor="end" class="name">surface-alt</text>
+    <text x="544" y="524" text-anchor="end" class="hex">#F3F7FA</text>
+
+    <rect x="80" y="376" width="232" height="100" rx="16" fill="#D9E4EC" class="card"/>
+    <text x="296" y="506" text-anchor="end" class="name">line</text>
+    <text x="296" y="524" text-anchor="end" class="hex">#D9E4EC</text>
   </g>
 
-  <!-- ============ ردیف ۳: برند ============ -->
-  <text x="1056" y="524" text-anchor="end" font-size="14" font-weight="700" class="t">۳ — برند (Primary &amp; Accent)</text>
+  <!-- ردیف ۳: متن -->
+  <text x="1056" y="580" text-anchor="end" font-size="16" font-weight="700" class="t">متن — Text</text>
+  <g>
+    <rect x="824" y="596" width="232" height="100" rx="16" fill="#102A43" class="card"/>
+    <text x="1040" y="726" text-anchor="end" class="name">ink</text>
+    <text x="1040" y="744" text-anchor="end" class="hex">#102A43</text>
 
-  <g transform="translate(816,536)">
-    <rect width="240" height="110" fill="#141414"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">مرکب — رنگ اصلی برند و CTA</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">brand / #141414</text>
-  </g>
-  <g transform="translate(552,536)">
-    <rect width="240" height="110" fill="#C8B49A"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">شنی — لهجه برند</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">accent / #C8B49A</text>
-  </g>
-  <g transform="translate(288,536)">
-    <rect width="240" height="110" fill="#A98F6F"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">شنی پررنگ — لهجه قوی</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">accent-deep / #A98F6F</text>
-  </g>
-  <g transform="translate(24,536)">
-    <rect width="240" height="110" fill="#B08A3E"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">کهربایی — ستاره امتیاز</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">star / #B08A3E</text>
+    <rect x="576" y="596" width="232" height="100" rx="16" fill="#52667A" class="card"/>
+    <text x="792" y="726" text-anchor="end" class="name">ink-2</text>
+    <text x="792" y="744" text-anchor="end" class="hex">#52667A</text>
+
+    <rect x="328" y="596" width="232" height="100" rx="16" fill="#829AB1" class="card"/>
+    <text x="544" y="726" text-anchor="end" class="name">ink-3</text>
+    <text x="544" y="744" text-anchor="end" class="hex">#829AB1</text>
+
+    <rect x="80" y="596" width="232" height="100" rx="16" fill="#BCCCDC" class="card"/>
+    <text x="296" y="726" text-anchor="end" class="name">line-strong</text>
+    <text x="296" y="744" text-anchor="end" class="hex">#BCCCDC</text>
   </g>
 
-  <!-- ============ ردیف ۴: معنایی ============ -->
-  <text x="1056" y="724" text-anchor="end" font-size="14" font-weight="700" class="t">۴ — معنایی (Semantic)</text>
+  <!-- ردیف ۴: لهجه طلایی -->
+  <text x="1056" y="800" text-anchor="end" font-size="16" font-weight="700" class="t">لهجه Premium — Gold (استفاده محدود)</text>
+  <g>
+    <rect x="824" y="816" width="232" height="100" rx="16" fill="#C8A951" class="card"/>
+    <text x="1040" y="946" text-anchor="end" class="name">accent</text>
+    <text x="1040" y="964" text-anchor="end" class="hex">#C8A951</text>
 
-  <g transform="translate(816,736)">
-    <rect width="240" height="110" fill="#B4433A"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">آجری — تخفیف / خطا</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">brick / #B4433A</text>
-  </g>
-  <g transform="translate(552,736)">
-    <rect width="240" height="110" fill="#2F7A4C"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">کاج — موفقیت</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">pine / #2F7A4C</text>
-  </g>
-  <g transform="translate(288,736)">
-    <rect width="240" height="110" fill="#9A6B2F"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">اخرایی — هشدار / موجودی کم</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">ochre / #9A6B2F</text>
-  </g>
-  <g transform="translate(24,736)">
-    <rect width="240" height="110" fill="#3F5B6B"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">لایی — اطلاعات</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">slate / #3F5B6B</text>
+    <rect x="576" y="816" width="232" height="100" rx="16" fill="#A98937" class="card"/>
+    <text x="792" y="946" text-anchor="end" class="name">accent-deep</text>
+    <text x="792" y="964" text-anchor="end" class="hex">#A98937</text>
+
+    <rect x="328" y="816" width="232" height="100" rx="16" fill="#EAF5FB" class="card"/>
+    <text x="544" y="946" text-anchor="end" class="name">brand-soft</text>
+    <text x="544" y="964" text-anchor="end" class="hex">#EAF5FB</text>
+
+    <rect x="80" y="816" width="232" height="100" rx="16" fill="#064466" class="card"/>
+    <text x="296" y="946" text-anchor="end" class="name">brand-active</text>
+    <text x="296" y="964" text-anchor="end" class="hex">#064466</text>
   </g>
 
-  <!-- ============ ردیف ۵: تینت‌های نرم ============ -->
-  <text x="1056" y="924" text-anchor="end" font-size="14" font-weight="700" class="t">۵ — تینت‌های نرم (Soft Backgrounds)</text>
+  <!-- ردیف ۵: معنایی -->
+  <text x="1056" y="1020" text-anchor="end" font-size="16" font-weight="700" class="t">معنایی — Semantic</text>
+  <g>
+    <rect x="824" y="1036" width="232" height="100" rx="16" fill="#2D8A68" class="card"/>
+    <text x="1040" y="1166" text-anchor="end" class="name">pine · Success</text>
+    <text x="1040" y="1184" text-anchor="end" class="hex">#2D8A68</text>
 
-  <g transform="translate(816,936)">
-    <rect width="240" height="110" fill="#F7E9E7" stroke="#D4CFC6" stroke-width="1"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">آجری نرم — پس‌زمینه تخفیف</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">brick-soft / #F7E9E7</text>
-  </g>
-  <g transform="translate(552,936)">
-    <rect width="240" height="110" fill="#E8F3EC" stroke="#D4CFC6" stroke-width="1"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">کاج نرم — پیام موفقیت</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">pine-soft / #E8F3EC</text>
-  </g>
-  <g transform="translate(288,936)">
-    <rect width="240" height="110" fill="#F7EFDF" stroke="#D4CFC6" stroke-width="1"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">اخرایی نرم — هشدار ملایم</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">ochre-soft / #F7EFDF</text>
-  </g>
-  <g transform="translate(24,936)">
-    <rect width="240" height="110" fill="#E9EFF3" stroke="#D4CFC6" stroke-width="1"/>
-    <rect y="110" width="240" height="40" fill="#FFFFFF"/>
-    <text x="228" y="128" text-anchor="end" font-size="13" font-weight="600" class="t">لایی نرم — اطلاع‌رسانی</text>
-    <text x="228" y="144" text-anchor="end" font-size="11" font-family="monospace" class="m">slate-soft / #E9EFF3</text>
-  </g>
+    <rect x="576" y="1036" width="232" height="100" rx="16" fill="#D9822B" class="card"/>
+    <text x="792" y="1166" text-anchor="end" class="name">ochre · Warning</text>
+    <text x="792" y="1184" text-anchor="end" class="hex">#D9822B</text>
 
-  <!-- پانویس -->
-  <line x1="24" y1="1112" x2="1056" y2="1112" stroke="#E6E2DB" stroke-width="1"/>
-  <text x="1056" y="1140" text-anchor="end" font-size="12" class="m">قاعده ۶۰/۳۰/۱۰ — ۶۰٪ صدفی و سفید · ۳۰٪ مرکب (متن/تصویر) · ۱۰٪ لهجه (شنی + آجری به‌ندرت)</text>
-  <text x="1056" y="1162" text-anchor="end" font-size="12" class="m">شنی و شنی‌پررنگ هرگز برای متن بدنه استفاده نمی‌شوند — فقط سطح و المان تزئینی با متن مرکب</text>
+    <rect x="328" y="1036" width="232" height="100" rx="16" fill="#C0392B" class="card"/>
+    <text x="544" y="1166" text-anchor="end" class="name">brick · Error</text>
+    <text x="544" y="1184" text-anchor="end" class="hex">#C0392B</text>
+
+    <rect x="80" y="1036" width="232" height="100" rx="16" fill="#247BA0" class="card"/>
+    <text x="296" y="1166" text-anchor="end" class="name">slate · Info</text>
+    <text x="296" y="1184" text-anchor="end" class="hex">#247BA0</text>
+  </g>
 </svg>

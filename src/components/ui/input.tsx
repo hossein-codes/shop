@@ -17,7 +17,7 @@ const Input = React.forwardRef<
       ref={ref}
       aria-invalid={invalid || undefined}
       className={cn(
-        "flex h-12 w-full rounded-md border border-line-strong bg-surface px-4 text-[15px] text-ink transition-colors placeholder:text-ink-3 focus:border-ink focus:outline-none disabled:bg-surface-alt disabled:text-ink-3 aria-[invalid=true]:border-brick",
+        "flex h-12 w-full rounded-md border border-line-strong bg-surface px-4 text-[15px] text-ink transition-colors placeholder:text-ink-3 focus:border-brand focus:outline-none disabled:bg-surface-alt disabled:text-ink-3 aria-[invalid=true]:border-brick",
         className,
       )}
       {...props}

@@ -33,7 +33,7 @@ export function QuantityStepper({
         disabled={disabled || value >= max}
         title={value >= max ? "همین‌قدر در انبار هست" : undefined}
         onClick={onIncrease}
-        className="grid size-12 place-items-center rounded-md border border-line-strong text-ink transition-colors hover:border-ink disabled:pointer-events-none disabled:text-ink-3 disabled:opacity-60"
+        className="grid size-12 place-items-center rounded-md border border-line-strong text-ink transition-colors hover:border-brand disabled:pointer-events-none disabled:text-ink-3 disabled:opacity-60"
       >
         <Plus className="size-4" />
       </button>
@@ -45,7 +45,7 @@ export function QuantityStepper({
         aria-label="کاهش"
         disabled={disabled || value <= min}
         onClick={onDecrease}
-        className="grid size-12 place-items-center rounded-md border border-line-strong text-ink transition-colors hover:border-ink disabled:pointer-events-none disabled:text-ink-3 disabled:opacity-60"
+        className="grid size-12 place-items-center rounded-md border border-line-strong text-ink transition-colors hover:border-brand disabled:pointer-events-none disabled:text-ink-3 disabled:opacity-60"
       >
         <Minus className="size-4" />
       </button>

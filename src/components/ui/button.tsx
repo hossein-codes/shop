@@ -15,14 +15,14 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-ink text-on-brand hover:bg-brand-hover active:bg-brand-active disabled:bg-line disabled:text-ink-3",
+          "bg-brand text-on-brand hover:bg-brand-hover active:bg-brand-active disabled:bg-line disabled:text-ink-3",
         secondary:
-          "border-[1.5px] border-ink bg-transparent text-ink hover:bg-surface-alt active:bg-line disabled:border-line disabled:text-ink-3",
+          "border-[1.5px] border-ink bg-surface text-ink hover:border-brand hover:bg-brand-soft hover:text-brand active:bg-line disabled:border-line disabled:bg-transparent disabled:text-ink-3",
         ghost:
           "text-ink-2 hover:bg-surface-alt hover:text-ink disabled:text-ink-3",
         danger:
           "bg-brick text-on-brand hover:brightness-90 disabled:bg-line disabled:text-ink-3",
-        link: "text-ink-2 underline-offset-4 hover:text-ink hover:underline hover:decoration-accent-deep disabled:text-ink-3",
+        link: "text-brand underline-offset-4 hover:text-brand-hover hover:underline hover:decoration-brand-2 disabled:text-ink-3",
       },
       size: {
         l: "h-14 px-6 text-[15px]",

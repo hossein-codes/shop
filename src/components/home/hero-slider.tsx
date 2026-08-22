@@ -172,7 +172,7 @@ export function HeroSlider({
               onClick={() => goTo(i)}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
-                i === index ? "w-7 bg-ink" : "w-1.5 bg-ink/25 hover:bg-ink/50",
+                i === index ? "w-7 bg-brand" : "w-1.5 bg-ink/25 hover:bg-brand/50",
               )}
             />
           ))}

@@ -36,7 +36,7 @@ export function SizeQuickAddPanel({
                     e.stopPropagation();
                     onAdd(s);
                   }}
-                  className="tnum h-8 shrink-0 rounded-full border border-line-strong bg-surface px-2.5 text-xs leading-none text-ink transition-colors hover:border-ink hover:bg-surface-alt"
+                  className="tnum h-8 shrink-0 rounded-full border border-line-strong bg-surface px-2.5 text-xs leading-none text-ink transition-colors hover:border-brand hover:bg-surface-alt"
                 >
                   {s}
                 </button>

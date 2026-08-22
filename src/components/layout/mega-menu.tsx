@@ -173,7 +173,7 @@ export function MegaMenu({
         <span
           aria-hidden="true"
           className={cn(
-            "absolute inset-x-0 -bottom-px h-0.5 origin-center bg-ink transition-transform duration-200 ease-[var(--ease-out-expo)]",
+            "absolute inset-x-0 -bottom-px h-0.5 origin-center bg-brand transition-transform duration-200 ease-[var(--ease-out-expo)]",
             open || active ? "scale-x-100" : "scale-x-0",
           )}
         />
@@ -215,7 +215,7 @@ export function MegaMenu({
                         <Link
                           href={l.href}
                           role="menuitem"
-                          className="block rounded-[4px] px-2 py-1.5 text-[13px] leading-6 text-ink-2 transition-all hover:bg-surface-alt hover:ps-3 hover:text-ink"
+                          className="block rounded-sm px-2 py-1.5 text-[13px] leading-6 text-ink-2 transition-all hover:bg-surface-alt hover:ps-3 hover:text-ink"
                         >
                           {l.title}
                         </Link>
@@ -237,7 +237,7 @@ export function MegaMenu({
                       <Link
                         href={s.href}
                         role="menuitem"
-                        className="flex items-center gap-2.5 rounded-[4px] px-2 py-1.5 text-[13px] leading-6 text-ink-2 transition-all hover:bg-surface-alt hover:ps-3 hover:text-ink"
+                        className="flex items-center gap-2.5 rounded-sm px-2 py-1.5 text-[13px] leading-6 text-ink-2 transition-all hover:bg-surface-alt hover:ps-3 hover:text-ink"
                       >
                         <s.icon className="size-4 text-ink-3" aria-hidden="true" />
                         {s.label}

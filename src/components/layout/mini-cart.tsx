@@ -54,7 +54,7 @@ export function MiniCartContent({
           <li key={item.id} className="group/item flex gap-3 py-3">
             <Link
               href={item.href}
-              className="relative block h-[76px] w-[58px] shrink-0 overflow-hidden rounded-[4px] bg-surface-alt"
+              className="relative block h-[76px] w-[58px] shrink-0 overflow-hidden rounded-sm bg-surface-alt"
             >
               <Image src={item.image} alt={item.name} fill sizes="58px" className="object-cover" />
             </Link>

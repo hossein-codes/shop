@@ -72,7 +72,7 @@ export function NewsletterForm({ className }: { className?: string }) {
           placeholder="۰۹۱۲ ۳۴۵ ۶۷۸۹"
           aria-label="شماره موبایل برای عضویت در کلاب پیامکی نَخ"
           aria-invalid={status === "error" || undefined}
-          className="flex h-12 w-full rounded-md border border-line-dark bg-white/5 px-4 text-left text-[15px] text-on-brand transition-colors placeholder:text-on-brand/40 focus:border-accent focus:outline-none aria-[invalid=true]:border-brick-bright"
+          className="flex h-12 w-full rounded-md border border-line-dark bg-white/5 px-4 text-left text-[15px] text-on-brand transition-colors placeholder:text-on-brand/40 focus:border-brand-2 focus:outline-none aria-[invalid=true]:border-brick-bright"
         />
         <Button
           type="submit"
