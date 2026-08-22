@@ -8,8 +8,8 @@ import { ProductCarousel } from "./product-carousel";
 
 /**
  * بخش محصول استاندارد صفحه اصلی (S3/S5):
- * سربرگ «عنوان + مشاهده همه» + کاروسل کارت محصول
- * افزودن سریع روی هاور کارت → Toast با «مشاهده سبد» (قانون ۲: بدون ترک صفحه)
+ * سربرگ «عنوان + مشاهده همه» + کاروسل کارت محصول v4 (کارت واحد سایت)
+ * افزودن به سبد → Toast با «مشاهده سبد» (قانون ۲: بدون ترک صفحه)
  */
 function toCardProps(p: DemoGridProduct, defaultBadge?: "bestseller") {
   return {
@@ -17,23 +17,21 @@ function toCardProps(p: DemoGridProduct, defaultBadge?: "bestseller") {
     brand: p.brand,
     name: p.name,
     price: { current: p.current, old: p.old },
-    image: { src: p.image, alt: p.name, hoverSrc: p.hoverImage },
+    images: [
+      { src: p.image, alt: p.name },
+      ...(p.hoverImage ? [{ src: p.hoverImage }] : []),
+    ],
     colors: p.colors,
     rating: p.rating,
     // spec کارت: فقط ۳ نوع برچسب — new / bestseller / sale
     badge:
       p.soldOut || p.badge === "lastItems" ? undefined : p.badge ?? defaultBadge,
     soldOut: p.soldOut,
-    quickAdd: p.soldOut
-      ? undefined
-      : {
-          sizes: p.sizes,
-          onAdd: (size?: string) =>
-            toast.success(p.name, {
-              description: size ? `سایز ${size} به سبد اضافه شد` : "به سبد اضافه شد",
-              action: { label: "مشاهده سبد", onClick: () => {} },
-            }),
-        },
+    onAdd: () =>
+      toast.success(p.name, {
+        description: "به سبد اضافه شد",
+        action: { label: "مشاهده سبد", onClick: () => {} },
+      }),
   };
 }
 

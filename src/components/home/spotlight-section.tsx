@@ -1,14 +1,13 @@
 "use client";
 
-import { ProductCardRich } from "@/components/ecommerce/product-card/rich";
+import { ProductCard } from "@/components/ecommerce/product-card";
 import { toast } from "@/components/ui/toast";
 import type { DemoSpotlightProduct } from "@/data/demo";
 import { SectionHeader } from "./section-header";
 
 /**
- * سکشن «پیشنهاد ویژه» (S4.5) — ویترین کارت‌های قهرمان (ProductCardRich):
- * مینی-PDP با انتخاب رنگ/سایز و CTA دوتایی — طرح تأییدشده کارفرما (پالت اقیانوس).
- * افزودن به سبد → Toast بدون ترک صفحه (قانون ۲).
+ * سکشن «پیشنهاد ویژه» (S4.5) — همان کارت واحد سایت (v4) در گرید ۳تایی:
+ * هیچ کامپوننت خارج از سیستم — فقط چیدمان متفاوت (قانون نهایی سند).
  */
 export function SpotlightSection({
   id,
@@ -24,26 +23,23 @@ export function SpotlightSection({
   return (
     <section aria-labelledby={id}>
       <SectionHeader id={id} title={title} href={href} />
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 sm:gap-5 xl:grid-cols-3">
         {products.map((p, i) => (
-          <ProductCardRich
+          <ProductCard
             key={p.href}
-            product={p}
-            className={i === 2 ? "md:max-xl:hidden" : undefined}
-            onAdd={({ color, size }) =>
+            href={p.href}
+            brand={p.brand}
+            name={p.name}
+            price={p.price}
+            images={p.images}
+            colors={p.colors}
+            rating={p.rating}
+            badge={p.price.old ? "sale" : p.isNew ? "new" : undefined}
+            className={i === 2 ? "max-xl:hidden" : undefined}
+            onAdd={() =>
               toast.success(p.name, {
-                description: [color && `رنگ ${color}`, size && `سایز ${size}`]
-                  .filter(Boolean)
-                  .concat("به سبد اضافه شد")
-                  .join(" · "),
+                description: "به سبد اضافه شد",
                 action: { label: "مشاهده سبد", onClick: () => {} },
-              })
-            }
-            onQuickBuy={({ color, size }) =>
-              toast.info("خرید سریع", {
-                description: `${p.name}${size ? ` · سایز ${size}` : ""}${
-                  color ? ` · رنگ ${color}` : ""
-                } — انتقال به پرداخت`,
               })
             }
           />

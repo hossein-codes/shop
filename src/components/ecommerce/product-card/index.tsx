@@ -1,159 +1,166 @@
+"use client";
+
 import * as React from "react";
 import Link from "next/link";
-import { RefreshCcw, ShieldCheck, Truck } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
+import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatDecimal1, formatNumber } from "@/lib/format";
+import { useWishlist } from "@/lib/wishlist";
+import { toast } from "@/components/ui/toast";
 import { ProductImage } from "./product-image";
 import { FavoriteButton } from "./favorite-button";
 import { ProductBadge } from "./product-badge";
-import { SizeQuickAddPanel, MobileAddButton } from "./size-quick-add";
 import { PriceTag } from "../price";
-import { Rating } from "../rating";
 import { ColorDots, type ColorOption } from "../color-swatch";
 import { Skeleton } from "@/components/ui/skeleton";
 
 /**
- * ProductCard v3 — معماری (spec §۶):
+ * ProductCard v4 — کارت واحد و استاندارد کل سایت (بازخورد کارفرما):
  *
- *  ProductCard (index.tsx — ترکیب‌گر)
- *  ├── ProductImage        ← product-image.tsx   (تصویر ۳:۴ + هاور + ناموجود)
- *  ├── FavoriteButton      ← favorite-button.tsx (قلب شیشه‌ای، بالا-راست)
- *  ├── ProductBadge        ← product-badge.tsx   (یک برچسب: جدید/پرفروش/تخفیف، بالا-چپ)
- *  ├── SizeQuickAdd        ← size-quick-add.tsx  (پنل هاور دسکتاپ + دکمه موبایل)
- *  ├── ProductInfo         ← همین فایل (برند، نام، امتیاز، قیمت، رنگ‌ها، اعتماد)
- *  ├── Rating              ← ../rating.tsx       (مشترک با PDP)
- *  ├── Price               ← ../price.tsx        (PriceTag مشترک)
- *  └── ColorSelector       ← ../color-swatch.tsx (ColorDots مشترک)
+ * ساده و مرتب: گالری با نقطه · یک بج (تخفیف آبی/جدید سفید/پرفروش طلایی)
+ * · قلب = افزودن به علاقه‌مندی (استور واقعی، بدون ناوبری)
+ * · برند، نام، امتیاز فشرده · قیمت (تخفیف‌خورده = آبی برند؛ درصد فقط روی بج تصویر)
+ * · رنگ‌ها: نقطه‌های ریز و کم‌رنگ (فقط اطلاع‌رسانی) · CTA واحد: «افزودن به سبد خرید»
  *
- * حس: بوتیک مدرن — بدون کادر سنگین، سایه بسیار نرم، هاور با بالا آمدن ظریف
+ * حذف‌شده‌ها طبق بازخورد: انتخاب سایز، خرید سریع، چیپ درصد دوم، ردیف اعتماد.
  */
 export function ProductCard({
   href,
   brand,
   name,
   price,
-  image,
+  images,
   colors,
   maxColors = 4,
   rating,
   badge,
-  wishlist,
-  quickAdd,
+  onAdd,
   priority,
   soldOut,
   className,
 }: {
   href: string;
-  /** نام برند — ظریف و کوچک (مثل NAVA) */
   brand?: string;
   name: string;
   price: { current: number; old?: number; from?: boolean };
-  image: { src: string; alt: string; hoverSrc?: string };
+  images: { src: string; alt?: string }[];
   colors?: ColorOption[];
   maxColors?: number;
   rating?: { value: number; count?: number };
-  /** فقط یکی: جدید / پرفروش / تخفیف (درصد خودکار از قیمت) */
+  /** فقط یکی: تخفیف (درصد خودکار از قیمت) / جدید / پرفروش */
   badge?: "new" | "bestseller" | "sale";
-  wishlist?: { active: boolean; onToggle: () => void };
-  /** افزودن سریع (هاور دسکتاپ + دکمه موبایل) */
-  quickAdd?: { sizes?: string[]; onAdd: (size?: string) => void };
-  /** برای تصویر بالای صفحه (LCP) */
+  onAdd?: () => void;
   priority?: boolean;
-  /** ناموجود کامل */
   soldOut?: boolean;
   className?: string;
 }) {
-  const hasQuickAdd = Boolean(quickAdd) && !soldOut;
+  const wishlist = useWishlist();
+  const inWishlist = wishlist.has(href);
 
   return (
     <article
+      dir="rtl"
       className={cn(
-        "group/card flex h-full flex-col transition-transform duration-300 ease-[var(--ease-out-expo)] lg:hover:-translate-y-1",
+        "group/card flex h-full flex-col overflow-hidden rounded-md bg-surface shadow-sm ring-1 ring-line/60 transition-all duration-300 ease-[var(--ease-out-expo)] hover:shadow-md lg:hover:-translate-y-1",
         className,
       )}
     >
-      {/* ── تصویر + عناصر روی آن ── */}
-      <ProductImage href={href} name={name} image={image} soldOut={soldOut} priority={priority}>
+      {/* ── گالری + عناصر روی آن ── */}
+      <ProductImage href={href} name={name} images={images} soldOut={soldOut} priority={priority}>
         {badge && !soldOut && (
-          <div className="absolute end-2 top-2 z-10">
+          <div className="absolute end-2.5 top-2.5 z-10">
             <ProductBadge type={badge} price={price} />
           </div>
         )}
-        {wishlist && (
-          <div className="absolute start-2 top-2 z-10">
-            <FavoriteButton active={wishlist.active} onToggle={wishlist.onToggle} />
-          </div>
-        )}
-        {hasQuickAdd && quickAdd && <SizeQuickAddPanel sizes={quickAdd.sizes} onAdd={quickAdd.onAdd} />}
+        <div className="absolute start-2.5 top-2.5 z-10">
+          <FavoriteButton
+            active={inWishlist}
+            onToggle={() => {
+              const added = wishlist.toggle(href);
+              if (added) {
+                toast.success("به علاقه‌مندی‌ها اضافه شد", { description: name });
+              } else {
+                toast("از علاقه‌مندی‌ها حذف شد", { description: name });
+              }
+            }}
+          />
+        </div>
       </ProductImage>
 
-      {/* ── اطلاعات (ProductInfo) ── */}
-      <div className="flex flex-1 flex-col">
+      {/* ── اطلاعات ── */}
+      <div className="flex flex-1 flex-col gap-1 p-3 sm:p-4">
         {brand && (
-          <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-ink-3" dir="auto">
+          <p className="text-[11px] font-medium leading-4 text-ink-3" dir="auto">
             {brand}
           </p>
         )}
 
-        <h3 className="mt-0.5 line-clamp-2 text-[15px] font-normal leading-6 text-ink">
-          <Link href={href} className="decoration-line-strong underline-offset-4 hover:underline">
+        <h3 className="line-clamp-2 text-[14px] font-semibold leading-6 text-ink sm:text-[15px]">
+          <Link href={href} className="transition-colors hover:text-brand">
             {name}
           </Link>
         </h3>
 
-        {rating && <Rating className="mt-1" value={rating.value} count={rating.count} size="sm" />}
-
-        {soldOut ? (
-          <p className="mt-auto pt-2 text-[13px] leading-6 text-ink-3">فعلاً ناموجود است</p>
-        ) : (
-          <PriceTag
-            className="mt-auto pt-2"
-            current={price.current}
-            old={price.old}
-            from={price.from}
-          />
+        {rating && (
+          <p className="flex items-center gap-1">
+            <Star className="size-3.5 fill-star text-star" aria-hidden="true" />
+            <span className="tnum text-[13px] font-semibold leading-5 text-ink">
+              {formatDecimal1(rating.value)}
+            </span>
+            {typeof rating.count === "number" && (
+              <span className="tnum text-[11px] leading-4 text-ink-3">
+                ({formatNumber(rating.count)})
+              </span>
+            )}
+          </p>
         )}
 
-        {colors && colors.length > 0 && (
-          <ColorDots colors={colors} max={maxColors} className="mt-2" />
-        )}
-
-        {/* موبایل: دکمه افزودن (ترتیب spec §۵) */}
-        {hasQuickAdd && quickAdd && <MobileAddButton onAdd={() => quickAdd.onAdd()} />}
-
-        {/* اعتماد — ظریف، فقط دسکتاپ (spec §۳) */}
-        <div className="mt-3 hidden items-center justify-between gap-2 border-t border-line/70 pt-2.5 text-[10px] leading-4 text-ink-3 lg:flex">
-          <span className="flex items-center gap-1">
-            <ShieldCheck className="size-3.5 shrink-0 text-pine" aria-hidden="true" />
-            ضمانت اصالت
-          </span>
-          <span className="flex items-center gap-1">
-            <RefreshCcw className="size-3 shrink-0 text-slate" aria-hidden="true" />
-            تعویض سایز
-          </span>
-          <span className="flex items-center gap-1">
-            <Truck className="size-3.5 shrink-0 text-ochre" aria-hidden="true" />
-            ارسال سریع
-          </span>
+        {/* قیمت + رنگ‌های ریز (کم‌تودید، فقط اطلاع‌رسانی) */}
+        <div className="mt-auto flex items-end justify-between gap-2 pt-1.5">
+          {soldOut ? (
+            <p className="text-[13px] leading-6 text-ink-3">فعلاً ناموجود است</p>
+          ) : (
+            <PriceTag current={price.current} old={price.old} from={price.from} />
+          )}
+          {colors && colors.length > 1 && (
+            <ColorDots colors={colors} max={maxColors} className="shrink-0 pb-0.5 opacity-70" />
+          )}
         </div>
+
+        {/* CTA واحد */}
+        {!soldOut && (
+          <button
+            type="button"
+            onClick={onAdd}
+            className="mt-2.5 flex h-11 w-full items-center justify-center gap-2 rounded-sm bg-brand text-[13px] font-bold text-on-brand transition-all duration-200 hover:bg-brand-hover active:scale-[0.98] active:bg-brand-active"
+          >
+            <ShoppingBag className="size-4" aria-hidden="true" />
+            افزودن به سبد خرید
+          </button>
+        )}
       </div>
     </article>
   );
 }
 
-/** اسکلتون کارت محصول — هم‌ساختار v3 */
+/** اسکلتون کارت محصول — هم‌ساختار v4 */
 export function ProductCardSkeleton({ className }: { className?: string }) {
   return (
-    <div className={cn("flex animate-pulse flex-col", className)} aria-hidden="true">
-      <div className="relative mb-3 aspect-[3/4] overflow-hidden rounded-xl bg-surface-alt" />
-      <Skeleton className="mb-1.5 h-3 w-12" />
-      <Skeleton className="mb-1.5 h-5 w-full" />
-      <Skeleton className="mb-2 h-5 w-2/3" />
-      <Skeleton className="mb-2 h-4 w-24" />
-      <Skeleton className="mt-auto h-6 w-32" />
-      <div className="mt-2 flex gap-2">
-        <Skeleton className="size-3.5 rounded-full" />
-        <Skeleton className="size-3.5 rounded-full" />
-        <Skeleton className="size-3.5 rounded-full" />
+    <div
+      className={cn(
+        "flex animate-pulse flex-col overflow-hidden rounded-md bg-surface ring-1 ring-line/60",
+        className,
+      )}
+      aria-hidden="true"
+    >
+      <div className="aspect-[3/4] bg-surface-alt" />
+      <div className="flex flex-col gap-2 p-3 sm:p-4">
+        <Skeleton className="h-3 w-12" />
+        <Skeleton className="h-5 w-full" />
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-6 w-32" />
+        <Skeleton className="h-11 w-full rounded-sm" />
       </div>
     </div>
   );

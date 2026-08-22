@@ -1,53 +1,72 @@
+"use client";
+
+import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { toFaDigits } from "@/lib/format";
 
 /**
- * ProductImage — مهم‌ترین بخش کارت (spec §۱):
- * تصویر ۳:۴ بزرگ، گوشه‌های کاملاً نرم (xl)، پس‌زمینه کرم/کتان برند،
- * تعویض نرم به تصویر دوم در هاور دسکتاپ، حالت ناموجود با قرص مرکزی.
- * عناصر روی تصویر (بج/علاقه‌مندی/افزودن سریع) به‌صورت children تزریق می‌شوند.
+ * ProductImage — گالری کارت محصول (spec §۶ — v4):
+ * تصویر ۳:۴ بزرگ، گوشه‌های نرم، نقطه‌های آبی قابل‌کلیک برای چند تصویر،
+ * حالت ناموجود با قرص مرکزی. عناصر روی تصویر (بج/قلب) children هستند.
  */
 export function ProductImage({
   href,
   name,
-  image,
+  images,
   soldOut,
   priority,
   children,
 }: {
   href: string;
   name: string;
-  image: { src: string; alt: string; hoverSrc?: string };
+  images: { src: string; alt?: string }[];
   soldOut?: boolean;
   priority?: boolean;
   children?: React.ReactNode;
 }) {
+  const [index, setIndex] = React.useState(0);
+  const img = images[Math.min(index, images.length - 1)];
+
   return (
-    <div className="relative mb-3 overflow-hidden rounded-xl bg-surface-alt transition-shadow duration-300 group-hover/card:shadow-lg">
+    <div className="relative overflow-hidden bg-surface-alt">
       <Link href={href} aria-label={name} className="relative block aspect-[3/4]">
         <Image
-          src={image.src}
-          alt={image.alt}
+          key={img.src}
+          src={img.src}
+          alt={img.alt ?? name}
           fill
-          sizes="(min-width: 1280px) 280px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+          sizes="(min-width: 1280px) 300px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
           priority={priority}
           className={cn(
-            "object-cover transition-opacity duration-300 ease-[var(--ease-out-expo)]",
-            image.hoverSrc && !soldOut && "group-hover/card:opacity-0",
+            "object-cover transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover/card:scale-[1.03]",
             soldOut && "opacity-60",
           )}
         />
-        {image.hoverSrc && !soldOut && (
-          <Image
-            src={image.hoverSrc}
-            alt=""
-            fill
-            sizes="(min-width: 1280px) 280px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-            className="object-cover opacity-0 transition-opacity duration-300 ease-[var(--ease-out-expo)] group-hover/card:opacity-100"
-          />
-        )}
       </Link>
+
+      {/* نقطه‌های گالری */}
+      {images.length > 1 && !soldOut && (
+        <div className="absolute inset-x-0 bottom-2.5 z-10 flex justify-center gap-1.5" dir="ltr">
+          {images.map((im, i) => (
+            <button
+              key={im.src}
+              type="button"
+              aria-label={`تصویر ${toFaDigits(i + 1)}`}
+              aria-current={i === index}
+              onClick={(e) => {
+                e.preventDefault();
+                setIndex(i);
+              }}
+              className={cn(
+                "size-2 rounded-full shadow-sm transition-all duration-200",
+                i === index ? "scale-125 bg-brand" : "bg-surface/85 hover:bg-brand-2",
+              )}
+            />
+          ))}
+        </div>
+      )}
 
       {soldOut && (
         <div className="absolute inset-0 grid place-items-center">

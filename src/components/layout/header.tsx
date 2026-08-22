@@ -23,6 +23,7 @@ import {
 import { cn } from "@/lib/utils";
 import { formatToman, toFaDigits } from "@/lib/format";
 import { filterSuggestionProducts, matchCategories, type SuggestionProduct } from "@/lib/search";
+import { useWishlist } from "@/lib/wishlist";
 import { SearchBox } from "@/components/ui/search-box";
 import { toast } from "@/components/ui/toast";
 import { MegaMenu } from "./mega-menu";
@@ -141,7 +142,6 @@ export function Header({
   recentSearches = demoRecentSearches,
   trendingSearches = demoTrendingSearches,
   searchProducts = demoSearchProducts,
-  wishlistCount = 0,
   clubPoints,
   onLogout,
   onSearchSubmit,
@@ -153,11 +153,12 @@ export function Header({
   recentSearches?: string[];
   trendingSearches?: string[];
   searchProducts?: SuggestionProduct[];
-  wishlistCount?: number;
   clubPoints?: number;
   onLogout?: () => void;
   onSearchSubmit?: (q: string) => void;
 }) {
+  /* شمار علاقه‌مندی — زنده از استور (کلیک قلب روی هر کارت، اینجا آپدیت می‌شود) */
+  const { count: wishlistCount } = useWishlist();
   const pathname = usePathname() ?? "/";
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(href + "/");

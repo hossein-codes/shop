@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="fa" dir="rtl">
       <body>
         {/* هدر سایت — در همه‌ی صفحات (داده‌ها فعلاً دمو؛ در فاز صفحات به API وصل می‌شود) */}
-        <Header user={demoUser} wishlistCount={2} clubPoints={240} />
+        <Header user={demoUser} clubPoints={240} />
         {children}
         <Footer />
         <Toaster />

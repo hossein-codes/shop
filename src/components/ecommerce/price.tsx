@@ -1,9 +1,10 @@
 import { cn } from "@/lib/utils";
-import { discountPercent, formatNumber, formatPercentOff } from "@/lib/format";
+import { formatNumber } from "@/lib/format";
 
 /**
- * نمایش قیمت — سیستم طراحی نَخ (بخش ۶.۲)
- * ترتیب: قیمت فعلی (Bold مرکب) → قدیم خط‌خورته → درصد آجری
+ * نمایش قیمت — سیستم طراحی نَخ (بخش ۶.۲ — v2)
+ * ترتیب: قیمت فعلی (Bold؛ تخفیف‌خورده = آبی برند) → قدیم خط‌خورده
+ * درصد تخفیف فقط یک‌جا نمایش داده می‌شود: بج روی تصویر کارت (نه اینجا)
  * همیشه tnum · واحد «تومان» · «از» برای واریانت‌های با قیمت متفاوت
  */
 export function PriceTag({
@@ -22,7 +23,6 @@ export function PriceTag({
   unitHidden?: boolean;
   className?: string;
 }) {
-  const percent = discountPercent(current, old);
   return (
     <div className={cn("flex flex-wrap items-baseline gap-x-2 gap-y-0.5", className)} dir="rtl">
       {from && <span className="text-[13px] text-ink-2">از</span>}
@@ -39,11 +39,6 @@ export function PriceTag({
       {old && (
         <span className="tnum text-[13px] leading-snug text-ink-3 line-through">
           {formatNumber(old)}
-        </span>
-      )}
-      {percent !== undefined && (
-        <span className="tnum rounded-full bg-brick-soft px-2 py-0.5 text-[11px] font-bold leading-4 text-brick">
-          {formatPercentOff(percent)}
         </span>
       )}
     </div>
