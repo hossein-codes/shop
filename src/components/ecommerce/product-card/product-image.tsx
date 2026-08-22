@@ -3,10 +3,10 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /**
- * ProductImage — مهم‌ترین بخش کارت (spec §۱):
- * تصویر ۳:۴ بزرگ، گوشه‌های کاملاً نرم (xl)، پس‌زمینه کرم/کتان برند،
- * تعویض نرم به تصویر دوم در هاور دسکتاپ، حالت ناموجود با قرص مرکزی.
- * عناصر روی تصویر (بج/علاقه‌مندی/افزودن سریع) به‌صورت children تزریق می‌شوند.
+ * ProductImage — بزرگ‌ترین بخش کارت (spec):
+ * نسبت 5:6 (ارتفاع ~۴۳۰px در عرض ۳۶۰) · پس‌زمینه روشن کتان · محصول در مرکز
+ * گوشه‌ها توسط کارتِ والد (rounded-24 + overflow-hidden) گرد می‌شوند.
+ * عناصر روی تصویر (بج/قلب/نقاط/رنگ‌ها/پنل) از طریق children تزریق می‌شوند.
  */
 export function ProductImage({
   href,
@@ -24,13 +24,13 @@ export function ProductImage({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="relative mb-3 overflow-hidden rounded-xl bg-surface-alt transition-shadow duration-300 group-hover/card:shadow-lg">
-      <Link href={href} aria-label={name} className="relative block aspect-[3/4]">
+    <div className="relative bg-surface-alt">
+      <Link href={href} aria-label={name} className="relative block aspect-[5/6]">
         <Image
           src={image.src}
           alt={image.alt}
           fill
-          sizes="(min-width: 1280px) 280px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+          sizes="(min-width: 1280px) 384px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           priority={priority}
           className={cn(
             "object-cover transition-opacity duration-300 ease-[var(--ease-out-expo)]",
@@ -43,7 +43,7 @@ export function ProductImage({
             src={image.hoverSrc}
             alt=""
             fill
-            sizes="(min-width: 1280px) 280px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+            sizes="(min-width: 1280px) 384px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover opacity-0 transition-opacity duration-300 ease-[var(--ease-out-expo)] group-hover/card:opacity-100"
           />
         )}

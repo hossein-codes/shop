@@ -1,7 +1,6 @@
 "use client";
 
 import { ShoppingBag } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 /**
  * SizeQuickAdd (SizeSelector + QuickAddButton — spec §۱/§۲/§۵):
@@ -59,32 +58,5 @@ export function SizeQuickAddPanel({
         )}
       </div>
     </div>
-  );
-}
-
-/** دکمه موبایل — ترتیب spec §۵: بعد از رنگ‌ها */
-export function MobileAddButton({
-  onAdd,
-  className,
-}: {
-  onAdd: () => void;
-  className?: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        onAdd();
-      }}
-      className={cn(
-        "mt-2.5 flex h-10 w-full items-center justify-center gap-1.5 rounded-md border-[1.5px] border-ink text-[13px] font-medium text-ink transition-colors hover:bg-surface-alt active:bg-line/60 lg:hidden",
-        className,
-      )}
-    >
-      <ShoppingBag className="size-4" aria-hidden="true" />
-      افزودن به سبد
-    </button>
   );
 }

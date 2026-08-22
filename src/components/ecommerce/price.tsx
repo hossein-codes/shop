@@ -16,7 +16,7 @@ export function PriceTag({
 }: {
   current: number;
   old?: number;
-  size?: "lg" | "md" | "sm";
+  size?: "xl" | "lg" | "md" | "sm";
   /** برای محصولات واریانت‌دار با قیمت متفاوت: «از ۶۹۰٬۰۰۰ تومان» */
   from?: boolean;
   unitHidden?: boolean;
@@ -29,14 +29,20 @@ export function PriceTag({
       <span
         className={cn(
           "tnum font-bold leading-snug text-ink",
-          size === "lg" ? "text-2xl" : size === "md" ? "text-[17px]" : "text-[15px]",
+          size === "xl"
+            ? "text-[20px] lg:text-[22px]"
+            : size === "lg"
+              ? "text-2xl"
+              : size === "md"
+                ? "text-[17px]"
+                : "text-[15px]",
         )}
       >
         {formatNumber(current)}
       </span>
       {!unitHidden && <span className="text-xs text-ink-3">تومان</span>}
       {old && (
-        <span className="tnum text-[13px] leading-snug text-ink-3 line-through">
+        <span className="tnum text-[13px] leading-snug text-ink-3 line-through opacity-80">
           {formatNumber(old)}
         </span>
       )}

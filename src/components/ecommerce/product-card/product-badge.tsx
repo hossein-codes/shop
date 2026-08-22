@@ -1,10 +1,10 @@
-import { Badge } from "@/components/ui/badge";
 import { discountPercent, formatPercentOff } from "@/lib/format";
+import { cn } from "@/lib/utils";
 
 /**
- * ProductBadge — فقط «یک» برچسب روی تصویر (spec §۱):
- * جدید | پرفروش | تخفیف (درصد از قیمت محاسبه می‌شود)
- * جایگاه: بالای تصویر، سمت چپ (RTL: انتهای خواندن)
+ * ProductBadge — فقط «یک» برچسب، بالا-چپ تصویر (spec کارفرما):
+ * تخفیف: پس‌زمینه توپر آجری + متن سفید (٪۲۰-) · جدید: شنی + مرکب · پرفروش: مرکب + صدفی
+ * (رنگ آبی #006B9F تصویر مرجع → معادل توکن برند: آجری — جدول mapping در CHANGELOG)
  */
 export function ProductBadge({
   type,
@@ -13,11 +13,15 @@ export function ProductBadge({
   type: "new" | "bestseller" | "sale";
   price?: { current: number; old?: number };
 }) {
+  const base = "tnum inline-flex items-center rounded-[4px] px-2 py-1 text-[11px] font-bold leading-none";
+
   if (type === "sale" && price) {
     const percent = discountPercent(price.current, price.old);
     if (percent === undefined) return null;
-    return <Badge variant="sale">{formatPercentOff(percent)}</Badge>;
+    return <span className={cn(base, "bg-brick text-on-brand")}>{formatPercentOff(percent)}</span>;
   }
-  if (type === "new") return <Badge variant="new">جدید</Badge>;
-  return <Badge variant="bestseller">پرفروش</Badge>;
+  if (type === "new") {
+    return <span className={cn(base, "bg-accent text-ink")}>جدید</span>;
+  }
+  return <span className={cn(base, "bg-ink text-on-brand")}>پرفروش</span>;
 }

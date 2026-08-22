@@ -135,6 +135,7 @@ export const demoUser = { firstName: "حسین" };
 export type DemoGridProduct = {
   href: string;
   brand: string;
+  code?: string;
   name: string;
   /** سایزهای موجود برای «افزودن سریع» روی هاور کارت */
   sizes?: string[];
@@ -156,6 +157,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/11",
     brand: "NAVA",
+    code: "101204",
     name: "کت پاییزی زنانه مدل کلاسیک",
     sizes: ["S", "M", "L", "XL"],
     current: 1_990_000,
@@ -173,6 +175,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/12",
     brand: "MONO",
+    code: "118330",
     name: "ژاکت مردانه یقه اسکی پشمی",
     sizes: ["M", "L", "XL", "XXL"],
     current: 1_850_000,
@@ -187,6 +190,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/13",
     brand: "پیلو",
+    code: "132045",
     name: "هودی بچگانه اورسایز با کلاه",
     sizes: ["۲ سال", "۴ سال", "۶ سال", "۸ سال"],
     current: 640_000,
@@ -204,6 +208,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/14",
     brand: "سپید",
+    code: "140112",
     name: "ست ورودی اسپرت زنانه — تاپ و شلوار",
     sizes: ["S", "M", "L"],
     current: 1_290_000,
@@ -219,6 +224,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/15",
     brand: "NAVA",
+    code: "151908",
     name: "شومیز اورسایز کتان",
     sizes: ["S", "M", "L"],
     current: 980_000,
@@ -234,6 +240,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/16",
     brand: "MONO",
+    code: "166774",
     name: "شلوار جین راسته آبی روشن",
     sizes: ["30", "32", "34", "36"],
     current: 1_390_000,
@@ -250,6 +257,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/17",
     brand: "ارس",
+    code: "173205",
     name: "مانتو کتان بلند شنی",
     sizes: ["S", "M", "L"],
     current: 1_890_000,
@@ -265,6 +273,7 @@ export const demoGridProducts: DemoGridProduct[] = [
   {
     href: "/p/18",
     brand: "مانا",
+    code: "188420",
     name: "تی‌شرت اسلش سفید یقه گرد",
     sizes: ["S", "M", "L", "XL", "XXL"],
     current: 490_000,
@@ -287,6 +296,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/21",
     brand: "مانا",
+    code: "210917",
     name: "تی‌شرت اسلش مشکی",
     sizes: ["S", "M", "L", "XL"],
     current: 540_000,
@@ -303,6 +313,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/22",
     brand: "NAVA",
+    code: "224463",
     name: "شومیز کتان صدفی",
     sizes: ["S", "M", "L"],
     current: 980_000,
@@ -317,6 +328,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/23",
     brand: "MONO",
+    code: "231875",
     name: "شلوار جین بوت‌کات",
     sizes: ["30", "32", "34"],
     current: 1_390_000,
@@ -333,6 +345,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/24",
     brand: "MONO",
+    code: "246220",
     name: "پیراهن مردانه آبی یقه‌ای",
     sizes: ["M", "L", "XL"],
     current: 1_120_000,
@@ -344,6 +357,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/25",
     brand: "ارس",
+    code: "257341",
     name: "مانتو کوتاه توتیه",
     sizes: ["S", "M"],
     current: 2_150_000,
@@ -356,6 +370,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/26",
     brand: "سپید",
+    code: "269154",
     name: "هودی خاکستری اسلش",
     sizes: ["M", "L", "XL"],
     current: 890_000,
@@ -372,6 +387,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/27",
     brand: "NAVA",
+    code: "272386",
     name: "دامن پلیسه شنی",
     sizes: ["S", "M"],
     current: 1_050_000,
@@ -383,6 +399,7 @@ export const demoBestsellers: DemoGridProduct[] = [
   {
     href: "/p/28",
     brand: "ارس",
+    code: "285509",
     name: "سویشرت گردوبافت زیتونی",
     current: 980_000,
     image: g2(8),

@@ -15,6 +15,7 @@ function toCardProps(p: DemoGridProduct, defaultBadge?: "bestseller") {
   return {
     href: p.href,
     brand: p.brand,
+    code: p.code,
     name: p.name,
     price: { current: p.current, old: p.old },
     image: { src: p.image, alt: p.name, hoverSrc: p.hoverImage },
@@ -57,7 +58,7 @@ export function ProductSection({
       <SectionHeader id={id} title={title} href={href} viewAllText={viewAllText} />
       <ProductCarousel ariaLabel={title}>
         {products.map((p) => (
-          <div key={p.href} className="w-1/2 shrink-0 snap-start md:w-1/3 lg:w-1/4">
+          <div key={p.href} className="w-full shrink-0 snap-start sm:w-[calc(50%-0.5rem)] lg:w-1/3">
             <ProductCard {...toCardProps(p, defaultBadge)} />
           </div>
         ))}
