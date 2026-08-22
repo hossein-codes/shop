@@ -1,16 +1,85 @@
-# shop
+# نَخ (NAKH) — فروشگاه اینترنتی پوشاک
 
-فروشگاه اینترنتی پوشاک — تجربه‌ای با قدرت دیجی‌کالا، زیبایی زارا و صمیمیت فروشگاه‌های اینستاگرامی.
+> تجربه‌ای با قدرت دیجی‌کالا، زیبایی زارا و صمیمیت فروشگاه‌های اینستاگرامی.
 
-## مستندات
+## ⚡ شروع سریع
 
-- ⚖️ [منشور ۱۲ قانونی محصول](docs/product-laws.md) — لایه‌ی بالادستی همه‌ی تصمیم‌ها: کاربر اول، سرعت، سادگی، موبایل‌فرست، برند Fashion، اعتماد، وضعیت‌های کامل، توسعه‌پذیری + چک‌لیست پیش از ساخت.
+```bash
+git clone https://github.com/hossein-codes/shop.git
+cd shop
+npm install
+npm run dev        # → http://localhost:3000
+```
 
-- 📘 [سند محصول و نقشه راه (Product Blueprint)](docs/product-blueprint.md) — تحلیل کامل: برند، پرسوناها، ساختار سایت، صفحات، مسیر کاربر، امکانات، جستجو و فیلتر، UX/UI، معماری و تکنولوژی، نقشه راه و KPIها.
-- 🎨 [سیستم طراحی (Design System) v1.2](docs/design-system.md) — هویت برند و سه مسیر بصری، سیستم رنگ/تایپ/لایه/موشن، کتابخانه کامپوننت‌ها، کامپوننت‌های فروشگاهی، قوانین ریسپانسیو و دسترس‌پذیری، توکن‌های پیاده‌سازی.
-  - موودبوردها: [مسیر A](docs/assets/ds-direction-a-gallery-minimal.png) · [مسیر B](docs/assets/ds-direction-b-warm-atelier.png) · [مسیر C](docs/assets/ds-direction-c-urban-pulse.png)
-  - پالت رنگ: [ds-color-palette.svg](docs/assets/ds-color-palette.svg)
+**پیش‌نیاز:** Node.js نسخه ۲۰ به بالا ([nodejs.org](https://nodejs.org))
 
-> - 🛠 [راهنمای توسعه](docs/development.md) — اجرای پروژه، ساختار، فونت‌ها و Storybook.
->
-> وضعیت: فاز ۰ ✅ · فاز ۱ ✅ (پایه‌گذاری + کامپوننت‌ها، بدون هیچ صفحه‌ای) · **هدر** ✅ (دسکتاپ/موبایل، مگامنو، مینی‌کارت، جستجو، ناوبری پایین) — بقیه صفحات هنوز ساخته نشده‌اند — سند محصول و Design System v1.1 (مسیر A+B، فونت ایران‌سنس، پالت چهارفصل) هر دو تأیید و قفل شدند. آماده شروع فاز ۱: پیاده‌سازی توکن‌ها در کد → کامپوننت‌های پایه → اولین صفحه.
+**فونت:** پیش‌فرض وزیرمتن (موجود در پروژه) است. فونت اصلی برند **ایران‌سنس** است:
+لایسنس وب را از [fontiran.com](https://fontiran.com) بخرید و فایل `IRANSansX.woff2` را در `public/fonts/` بگذارید — بدون هیچ تغییر کدی فعال می‌شود. (جزئیات: `public/fonts/README.md`)
+
+## 🗂 نقشه پروژه — هر چیز کجاست؟
+
+```
+shop/
+├── docs/                        📚 مستندات محصول و طراحی
+│   ├── product-laws.md          ⚖️ منشور ۱۲ قانونی — لایه بالادستی همه تصمیم‌ها
+│   ├── product-blueprint.md     📘 سند محصول: برند، پرسونا، صفحات، مسیر کاربر، استک
+│   ├── design-system.md         🎨 سیستم طراحی v1.3: رنگ/تایپ/لایه/کامپوننت/موشن
+│   ├── development.md           🛠 راهنمای توسعه و قواعد کد
+│   └── assets/                  موودبوردها + پالت رنگ (SVG)
+│
+├── src/
+│   ├── app/                     صفحات و چیدمان (Next.js App Router)
+│   │   ├── layout.tsx           ریشه: RTL/fa + هدر + Toaster
+│   │   ├── page.tsx             ⚠️ فعلاً «پیش‌نمایش هدر» — صفحه اصلی واقعی در فاز بعد
+│   │   ├── globals.css          🎨 توکن‌های طراحی (رنگ/فاصله/موشن/فونت)
+│   │   └── icon.svg             آیکون برند (تب مرورگر)
+│   │
+│   ├── components/
+│   │   ├── ui/                  آجرهای پایه — Button, Input, Otp, SearchBox,
+│   │   │                        Select, Badge, Chip, Skeleton, Empty/Error State,
+│   │   │                        Modal, Drawer, Tooltip, Toast, Tabs, Accordion
+│   │   ├── ecommerce/           کامپوننت‌های فروشگاهی — ProductCard, CategoryCard,
+│   │   │                        Price, Rating, ColorSwatch, SizeChip, Wishlist,
+│   │   │                        QuantityStepper, FreeShippingProgress
+│   │   └── layout/              اسکلت سایت — Header, MegaMenu, MiniCart,
+│   │                            AccountMenu, MobileSearch, MobileNav (Bottom Bar)
+│   │
+│   ├── lib/                     منطق و ابزار
+│   │   ├── format.ts            ارقام فارسی، تومان، درصد تخفیف، نرمال‌سازی
+│   │   ├── search.ts            فیلتر پیشنهادهای جستجو
+│   │   ├── utils.ts             cn() (ادغام کلاس‌ها)
+│   │   └── hooks/use-dismiss.ts بستن با کلیک بیرون/Esc
+│   │
+│   └── data/
+│       └── demo.ts              🧪 داده‌های ساختگی (هدر/جستجو/سبد/گرید) — با API واقعی جایگزین می‌شود
+│
+├── public/fonts/                فونت‌ها (وزیرمتن + جای ایران‌سنس)
+├── next.config.ts / tsconfig.json / eslint.config.mjs / postcss.config.mjs
+└── package.json
+```
+
+### «دنبال چی هستم؟»
+
+| می‌خواهم… | برو سراغ |
+|---|---|
+| رنگ/فاصله/موشن را عوض کنم | `src/app/globals.css` (توکن‌ها) |
+| دکمه/ورودی/مودال را تغییر دهم | `src/components/ui/` |
+| کارت محصول/قیمت/سایز را تغییر دهم | `src/components/ecommerce/` |
+| هدر/فوتر/منوی موبایل | `src/components/layout/` |
+| قواعد تصمیم‌گیری را بدانم | `docs/product-laws.md` (منشور ۱۲ قانونی) |
+| مشخصات دقیق یک کامپوننت | `docs/design-system.md` |
+| ساختار صفحات و فازها | `docs/product-blueprint.md` |
+
+## 📋 قواعد طلایی کد
+
+1. **منشور ۱۲ قانونی** (`docs/product-laws.md`) بر همه‌ی تصمیم‌ها حاکم است.
+2. هگز خام در کامپوننت ⛔ — فقط توکن‌ها · `left/right` ⛔ — فقط `start/end` (RTL).
+3. فاصله‌ها ضریب ۴ · اهداف لمسی ≥۴۴px · هر کامپوننت ۵ حالت کامل دارد.
+4. کامپوننت تک‌مصرف ⛔ — اول به سیستم اضافه شود، بعد استفاده.
+
+## 📌 وضعیت پروژه
+
+- ✅ فاز ۰ — سند محصول + Design System v1.3 (تأییدشده)
+- ✅ فاز ۱ — پایه‌گذاری + ۳۲ کامپوننت (بدون هیچ صفحه‌ای)
+- ✅ هدر — دسکتاپ/موبایل، مگامنو، مینی‌کارت، جستجو، ناوبری پایین
+- ⏳ بعدی — فوتر → صفحه اصلی → صفحات دسته/محصول/خرید

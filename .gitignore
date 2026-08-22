@@ -13,6 +13,8 @@
 # testing
 /coverage
 
+# storybook (حذف شد — پیش‌نمایش واقعی با npm run dev)
+
 # next.js
 /.next/
 /out/
@@ -44,6 +46,3 @@ next-env.d.ts
 public/fonts/IRANSans*.woff2
 public/fonts/IRANSans*.woff
 public/fonts/IRANSans*.ttf
-
-# خروجی استاتیک Storybook (با اسکریپت dev-preview سرو می‌شود)
-/storybook-static

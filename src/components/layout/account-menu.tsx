@@ -4,7 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { LogOut, User } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useDismiss } from "@/lib/use-dismiss";
+import { useDismiss } from "@/lib/hooks/use-dismiss";
 import { Button } from "@/components/ui/button";
 
 /**

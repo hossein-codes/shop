@@ -24,7 +24,7 @@ import {
   type CartPreview,
   type HeaderCategories,
   type NavItem,
-} from "@/lib/demo-data";
+} from "@/data/demo";
 
 /**
  * هدر فروشگاه نَخ — طبق سند هدر کارفرما + منشور ۱۲ قانونی

@@ -7,7 +7,7 @@ import { formatToman } from "@/lib/format";
 import { filterSuggestionProducts, type SuggestionProduct } from "@/lib/search";
 import { SearchGroupLabel, SearchItem } from "@/components/ui/search-box";
 import { Button } from "@/components/ui/button";
-import type { HeaderCategories } from "@/lib/demo-data";
+import type { HeaderCategories } from "@/data/demo";
 
 /**
  * جستجوی تمام‌صفحه موبایل — قانون ۴ (یک‌دستی) و قانون ۲ (بدون انتظار)

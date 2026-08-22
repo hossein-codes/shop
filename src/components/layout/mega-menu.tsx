@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useDismiss } from "@/lib/use-dismiss";
-import type { HeaderCategories } from "@/lib/demo-data";
+import { useDismiss } from "@/lib/hooks/use-dismiss";
+import type { HeaderCategories } from "@/data/demo";
 
 /**
  * مگامنوی دسته‌بندی — بازشدن با Hover (قانون ۹: بدون انتظار کاربر)

@@ -1,7 +1,7 @@
-import type { SuggestionProduct } from "./search";
+import type { SuggestionProduct } from "@/lib/search";
 
 /**
- * داده‌ها و انواع نمونه برای هدر — در فاز صفحات با داده‌ی واقعی (API/State) جایگزین می‌شود.
+ * داده‌ها و انواع نمونه (هدر، جستجو، سبد، گرید پیش‌نمایش) — در فاز صفحات با داده‌ی واقعی (API/State) جایگزین می‌شوند.
  * ساختارها عمداً همان ساختار پاسخ API آینده هستند.
  */
 
@@ -130,3 +130,121 @@ export const demoCart: CartPreview = {
 };
 
 export const demoUser = { firstName: "حسین" };
+
+/** محصولات گرید پیش‌نمایش (فاز هدر) — داده ساختگی؛ در فاز صفحات حذف می‌شود */
+export type DemoGridProduct = {
+  href: string;
+  name: string;
+  current: number;
+  old?: number;
+  image: string;
+  hoverImage?: string;
+  colors: { label: string; hex: string; disabled?: boolean }[];
+  rating?: { value: number; count: number };
+  badge?: "sale" | "new" | "bestseller" | "lastItems";
+  soldOut?: boolean;
+};
+
+const g = (i: number) => `https://picsum.photos/seed/nakh-grid-${i}/600/800`;
+
+export const demoGridProducts: DemoGridProduct[] = [
+  {
+    href: "/p/13",
+    name: "هودی مشکی اورسایز",
+    current: 940_000,
+    old: 1_180_000,
+    image: g(1),
+    hoverImage: g(9),
+    colors: [
+      { label: "مشکی", hex: "#1A1917" },
+      { label: "شنی", hex: "#C8B49A" },
+      { label: "خاکستری", hex: "#8A8781", disabled: true },
+    ],
+    rating: { value: 4.5, count: 18 },
+    badge: "sale",
+  },
+  {
+    href: "/p/11",
+    name: "پیراهن مردانه سفید یقه‌ای",
+    current: 890_000,
+    image: g(2),
+    hoverImage: g(10),
+    colors: [
+      { label: "سفید صدفی", hex: "#F2EDE4" },
+      { label: "سرمه‌ای", hex: "#2C3A4E" },
+    ],
+    rating: { value: 4.7, count: 24 },
+    badge: "bestseller",
+  },
+  {
+    href: "/p/15",
+    name: "مانتو کتان بلند شنی",
+    current: 1_890_000,
+    old: 2_400_000,
+    image: g(3),
+    colors: [
+      { label: "شنی", hex: "#C8B49A" },
+      { label: "کتانی", hex: "#B8A98C" },
+      { label: "زیتونی", hex: "#6B6B4A" },
+      { label: "سرمه‌ای", hex: "#2C3A4E" },
+      { label: "مشکی", hex: "#1A1917" },
+    ],
+    badge: "sale",
+  },
+  {
+    href: "/p/12",
+    name: "شومیز لینن کرم",
+    current: 1_200_000,
+    image: g(4),
+    hoverImage: g(12),
+    colors: [
+      { label: "کرم", hex: "#EFE9DE" },
+      { label: "سفید صدفی", hex: "#F2EDE4" },
+    ],
+    rating: { value: 4.3, count: 9 },
+    badge: "new",
+  },
+  {
+    href: "/p/14",
+    name: "شلوار جین راسته آبی",
+    current: 1_240_000,
+    image: g(5),
+    colors: [
+      { label: "آبی روشن", hex: "#5B7A9D" },
+      { label: "آبی تیره", hex: "#33475C" },
+      { label: "مشکی", hex: "#1A1917" },
+    ],
+  },
+  {
+    href: "/p/16",
+    name: "کت زنانه ساتن سرمه‌ای",
+    current: 2_450_000,
+    image: g(6),
+    hoverImage: g(16),
+    colors: [{ label: "سرمه‌ای", hex: "#2C3A4E" }],
+    rating: { value: 4.8, count: 31 },
+    badge: "lastItems",
+  },
+  {
+    href: "/p/17",
+    name: "تی‌شرت اسلش سفید",
+    current: 490_000,
+    old: 620_000,
+    image: g(7),
+    colors: [
+      { label: "سفید", hex: "#FAFAF8" },
+      { label: "مشکی", hex: "#1A1917" },
+      { label: "خاکستری", hex: "#8A8781" },
+      { label: "زیتونی", hex: "#6B6B4A" },
+    ],
+    badge: "sale",
+  },
+  {
+    href: "/p/18",
+    name: "سویشرت گردنبافت زیتونی",
+    current: 980_000,
+    image: g(8),
+    colors: [{ label: "زیتونی", hex: "#6B6B4A" }],
+    soldOut: true,
+  },
+];

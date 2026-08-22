@@ -5,13 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useDismiss } from "@/lib/use-dismiss";
+import { useDismiss } from "@/lib/hooks/use-dismiss";
 import { formatNumber } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/ui/empty-state";
 import { PriceTag } from "@/components/ecommerce/price";
 import { FreeShippingProgress } from "@/components/ecommerce/free-shipping-progress";
-import type { CartPreview } from "@/lib/demo-data";
+import type { CartPreview } from "@/data/demo";
 
 /**
  * محتوای مینی‌کارت — مشترک بین دراپ‌داون دسکتاپ و Bottom-Sheet موبایل (قانون ۸)

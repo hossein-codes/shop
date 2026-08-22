@@ -20,6 +20,8 @@ src/
 ├── app/                  # چیدمان ریشه (RTL/fa) + globals.css (توکن‌ها)
 │   ├── layout.tsx        # <html lang="fa" dir="rtl"> + Toaster
 │   └── page.tsx          # ⚠️ جای‌نگهدار — در فاز ۲ جایگزین می‌شود
+├── data/
+│   └── demo.ts           # 🧪 داده‌های ساختگی (هدر/جستجو/سبد/گرید) — با API جایگزین می‌شود
 ├── components/
 │   ├── ui/               # ۱۷ کامپوننت پایه (قانون ۸ منشور: قابل استفاده مجدد)
 │   │   ├── button · input · otp-input · search-box · select
@@ -74,6 +76,8 @@ src/
 3. هر کامپوننت جدید: RTL ✓ · توکن‌محور ✓ · ۵ حالت (Loading/Empty/Error/Success/Disabled) ✓ · لمس ≥۴۴px ✓ · موشن با توکن ✓ · دسترس‌پذیری AA ✓.
 4. کامپوننتِ تک‌مصرف ⛔ — اول به سیستم، بعد به صفحه.
 
+> **پیش‌نمایش:** از این فاز به بعد همه‌چیز واقعی و با `npm run dev` روی `localhost:3000` بازبینی می‌شود (Storybook در فاز هدر حذف شد).
+
 ## پشته
 
-Next.js 16 (App Router, Turbopack) · React 19 · TypeScript strict · Tailwind CSS v4 · Radix UI · sonner · lucide-react · CVA · Storybook 10 (`@storybook/nextjs`)
+Next.js 16 (App Router, Turbopack) · React 19 · TypeScript strict · Tailwind CSS v4 · Radix UI · sonner · lucide-react · CVA
