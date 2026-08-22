@@ -10,9 +10,11 @@ import { Button } from "@/components/ui/button";
 import type { HeroSlide } from "@/data/demo";
 
 /**
- * هیرو کمپین (S1) — سند صفحه اصلی:
- * ۲–۳ اسلاید، هر اسلاید لینک خرید · اتوپلی ۶ ثانیه (توقف در hover، غیرفعال برای
- * reduced-motion) · فلش دسکتاپ · swipe موبایل · نقاط شمارش · preload اسلاید اول (LCP)
+ * هیرو کمپین v2 — طبق طرح SVG کارفرما:
+ *  - کارت داخل کانتینر (نه تمام‌عرض)، گردگوشه، نسبت ۱۰۵۵×۴۵۰ (کوتاه‌تر)
+ *  - شیار پایینِ وسط (ماسک SVG) = جای نقطه‌های شمارش
+ *  - فلش‌های قبلی/بعدی دوتایی، پایینِ سمت راست کارت، کنار هم
+ *  - اتوپلی ۶ث (توقف hover، خاموش برای reduced-motion) · swipe موبایل · preload LCP
  */
 export function HeroSlider({
   slides,
@@ -54,107 +56,111 @@ export function HeroSlider({
     <section
       aria-roledescription="carousel"
       aria-label="کمپین‌های فروشگاه"
-      className={cn("relative overflow-hidden bg-canvas-dark", className)}
+      className={cn("relative", className)}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {/* تراک اسلایدها */}
-      <div
-        className="flex transition-transform duration-500 ease-[var(--ease-in-out-soft)]"
-        style={{ transform: `translateX(-${index * 100}%)` }}
-      >
-        {slides.map((s, i) => (
-          <div
-            key={s.id}
-            role="group"
-            aria-roledescription="slide"
-            aria-label={`اسلاید ${toFaDigits(i + 1)} از ${toFaDigits(count)}: ${s.title}`}
-            aria-hidden={i !== index}
-            className="relative aspect-[4/5] w-full shrink-0 sm:aspect-[21/9]"
-          >
-            <Image
-              src={s.image}
-              alt={s.title}
-              fill
-              priority={i === 0}
-              sizes="100vw"
-              className="hidden object-cover sm:block"
-            />
-            <Image
-              src={s.imageMobile}
-              alt={s.title}
-              fill
-              priority={i === 0}
-              sizes="100vw"
-              className="object-cover sm:hidden"
-            />
-
-            {/* محتوا روی گرادیان */}
+      {/* کارت اسلایدها — با ماسک طرح‌داده‌شده (شامل شیار پایین) */}
+      <div className="hero-notch-mask relative aspect-[4/3] bg-canvas-dark sm:aspect-[1055/450]">
+        <div
+          className="flex h-full transition-transform duration-500 ease-[var(--ease-in-out-soft)]"
+          style={{ transform: `translateX(-${index * 100}%)` }}
+        >
+          {slides.map((s, i) => (
             <div
-              aria-hidden="true"
-              className="absolute inset-0 bg-gradient-to-t from-[rgba(20,20,20,0.65)] via-[rgba(20,20,20,0.2)] to-transparent"
-            />
-            <div className="absolute inset-x-0 bottom-0">
-              <div className="container flex flex-col items-start gap-2 pb-16 pt-20 sm:pb-14 lg:items-start lg:pb-14 lg:pt-28">
-                {s.eyebrow && (
-                  <p className="text-xs font-medium leading-5 text-accent">{s.eyebrow}</p>
-                )}
-                <h2 className="max-w-lg text-2xl font-black leading-[1.3] text-on-brand sm:text-3xl lg:text-4xl">
-                  {s.title}
-                </h2>
-                {s.subtitle && (
-                  <p className="max-w-md text-[13px] leading-6 text-on-brand/80 sm:text-[15px] sm:leading-7">
-                    {s.subtitle}
-                  </p>
-                )}
-                <Button asChild size="l" className="mt-2">
-                  <Link href={s.href}>{s.ctaText}</Link>
-                </Button>
+              key={s.id}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`اسلاید ${toFaDigits(i + 1)} از ${toFaDigits(count)}: ${s.title}`}
+              aria-hidden={i !== index}
+              className="relative w-full shrink-0"
+            >
+              <Image
+                src={s.image}
+                alt={s.title}
+                fill
+                priority={i === 0}
+                sizes="(min-width: 1280px) 1216px, 100vw"
+                className="hidden object-cover sm:block"
+              />
+              <Image
+                src={s.imageMobile}
+                alt={s.title}
+                fill
+                priority={i === 0}
+                sizes="100vw"
+                className="object-cover sm:hidden"
+              />
+
+              {/* محتوا روی گرادیان — پایینِ ابتدای خواندن، خالی‌گذاشتن شیار وسط */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-t from-[rgba(20,20,20,0.65)] via-[rgba(20,20,20,0.18)] to-transparent"
+              />
+              <div className="absolute inset-0 flex items-end">
+                <div className="flex w-full flex-col items-start gap-1.5 p-5 pb-[18%] sm:p-8 sm:pb-[16%] lg:p-10 lg:pb-[15%]">
+                  {s.eyebrow && (
+                    <p className="text-[11px] font-medium leading-4 text-accent">{s.eyebrow}</p>
+                  )}
+                  <h2 className="max-w-lg text-2xl font-black leading-[1.25] text-on-brand sm:text-3xl">
+                    {s.title}
+                  </h2>
+                  {s.subtitle && (
+                    <p className="max-w-md text-[13px] leading-6 text-on-brand/85">
+                      {s.subtitle}
+                    </p>
+                  )}
+                  <Button asChild size="m" className="mt-2">
+                    <Link href={s.href}>{s.ctaText}</Link>
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      {/* فلش‌ها — فقط دسکتاپ */}
+      {/* نقطه‌های شمارش — داخل شیار پایینِ وسط (روی پس‌زمینه صفحه) */}
       {count > 1 && (
-        <>
+        <div className="absolute left-1/2 top-[94%] flex -translate-x-1/2 -translate-y-1/2 items-center gap-1.5">
+          {slides.map((s, i) => (
+            <button
+              key={s.id}
+              type="button"
+              aria-label={`رفتن به اسلاید ${toFaDigits(i + 1)}`}
+              aria-current={i === index}
+              onClick={() => goTo(i)}
+              className={cn(
+                "h-1.5 rounded-full transition-all duration-300",
+                i === index ? "w-7 bg-ink" : "w-1.5 bg-ink/25 hover:bg-ink/50",
+              )}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* فلش‌ها — دوتایی، پایینِ سمت راست کارت (در RTL: سمت ابتدای خواندن) */}
+      {count > 1 && (
+        <div className="absolute top-[94%] flex -translate-y-1/2 gap-2" style={{ insetInlineStart: "1rem" }}>
           <button
             type="button"
             onClick={prev}
             aria-label="اسلاید قبلی"
-            className="absolute start-4 top-1/2 z-10 hidden size-11 -translate-y-1/2 place-items-center rounded-full bg-surface/85 text-ink shadow-md backdrop-blur transition-colors hover:bg-surface lg:grid"
+            className="grid size-9 place-items-center rounded-full bg-surface/90 text-ink shadow-md backdrop-blur transition-colors hover:bg-surface sm:size-10"
           >
-            <ChevronRight className="size-5" aria-hidden="true" />
+            <ChevronRight className="size-4.5" aria-hidden="true" />
           </button>
           <button
             type="button"
             onClick={next}
             aria-label="اسلاید بعدی"
-            className="absolute end-4 top-1/2 z-10 hidden size-11 -translate-y-1/2 place-items-center rounded-full bg-surface/85 text-ink shadow-md backdrop-blur transition-colors hover:bg-surface lg:grid"
+            className="grid size-9 place-items-center rounded-full bg-surface/90 text-ink shadow-md backdrop-blur transition-colors hover:bg-surface sm:size-10"
           >
-            <ChevronLeft className="size-5" aria-hidden="true" />
+            <ChevronLeft className="size-4.5" aria-hidden="true" />
           </button>
-
-          {/* نقاط شمارش */}
-          <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-1.5">
-            {slides.map((s, i) => (
-              <button
-                key={s.id}
-                type="button"
-                aria-label={`رفتن به اسلاید ${toFaDigits(i + 1)}`}
-                aria-current={i === index}
-                onClick={() => goTo(i)}
-                className={cn(
-                  "h-1 rounded-full transition-all duration-300",
-                  i === index ? "w-7 bg-on-brand" : "w-3 bg-on-brand/50 hover:bg-on-brand/70",
-                )}
-              />
-            ))}
-          </div>
-        </>
+        </div>
       )}
     </section>
   );

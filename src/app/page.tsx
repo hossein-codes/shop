@@ -19,10 +19,10 @@ export default function HomePage() {
   return (
     <main className="pb-14 lg:pb-0">
       <h1 className="sr-only">فروشگاه اینترنتی پوشاک نَخ — خرید لباس زنانه، مردانه و بچگانه</h1>
-      {/* S1 — هیرو کمپین */}
-      <HeroSlider slides={demoHeroSlides} />
+      <div className="container space-y-10 pt-4 pb-10 lg:space-y-20 lg:pt-6 lg:pb-16">
+        {/* S1 — هیرو کمپین (کارت داخل کانتینر) */}
+        <HeroSlider slides={demoHeroSlides} />
 
-      <div className="container space-y-10 py-10 lg:space-y-20 lg:py-16">
         {/* S2 — شورتکات دسته‌ها */}
         <CategoryShortcuts categories={demoHomeCategories} />
 
